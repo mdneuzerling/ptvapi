@@ -4,7 +4,7 @@
 \alias{generate_request_url}
 \title{Generate a URL with devid and signature}
 \usage{
-generate_request_url(request, user_id, api_key)
+generate_request_url(request, user_id = user_id(), api_key = api_key())
 }
 \arguments{
 \item{request}{Character for request/path, eg. "routes"}

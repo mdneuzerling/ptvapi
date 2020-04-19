@@ -6,6 +6,8 @@
 #' Public Transport Victoria. These are obtained by email. Instructions are
 #' available at
 #' \url{https://www.ptv.vic.gov.au/footer/data-and-reporting/datasets/ptv-timetable-api/}.
+#' You may pass these two pieces of information directly to the function, or you
+#' can set the PTV_USER_ID and PTV_API_KEY environment variables.
 #'
 #' @param request A request or path for the API, eg. "routes".
 #' @param user_id Integer or character. A user ID or devid provided by Public
@@ -25,8 +27,8 @@
 #' )
 #' }
 PTVGET <- function(request,
-                   user_id,
-                   api_key,
+                   user_id = user_id(),
+                   api_key = api_key(),
                    ...) {
   request_url <- generate_request_url(
     request = request,
@@ -49,8 +51,8 @@ PTVGET <- function(request,
 #' @export
 #'
 PTVPOST <- function(request,
-                   user_id,
-                   api_key,
+                   user_id = user_id(),
+                   api_key = api_key(),
                    body = NULL,
                    ...) {
   request_url <- generate_request_url(

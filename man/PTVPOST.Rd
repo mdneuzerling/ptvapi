@@ -4,7 +4,7 @@
 \alias{PTVPOST}
 \title{Submit a POST request to the PTV API}
 \usage{
-PTVPOST(request, user_id, api_key, body = NULL, ...)
+PTVPOST(request, user_id = user_id(), api_key = api_key(), body = NULL, ...)
 }
 \arguments{
 \item{request}{A request or path for the API, eg. "routes".}
@@ -32,5 +32,7 @@ You will need to obtain a user ID (also called a devid) and an API key from
 Public Transport Victoria. These are obtained by email. Instructions are
 available at
 \url{https://www.ptv.vic.gov.au/footer/data-and-reporting/datasets/ptv-timetable-api/}.
+You may pass these two pieces of information directly to the function, or you
+can set the PTV_USER_ID and PTV_API_KEY environment variables.
 }
 

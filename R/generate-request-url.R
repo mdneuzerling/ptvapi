@@ -7,8 +7,8 @@
 #'
 #' @keywords internal
 generate_request_url <- function(request,
-                                 user_id,
-                                 api_key) {
+                                 user_id = user_id(),
+                                 api_key = api_key()) {
 
   base_url <- "http://timetableapi.ptv.vic.gov.au"
   version <- 3 # This funcion is untested on other versions
