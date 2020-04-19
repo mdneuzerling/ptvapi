@@ -11,7 +11,7 @@ generate_request_url <- function(request,
                                  api_key = determine_api_key()) {
 
   base_url <- "http://timetableapi.ptv.vic.gov.au"
-  version <- 3 # This funcion is untested on other versions
+  version <- 3 # This function is untested on other versions
 
   signature <- digest::hmac(
     key = api_key,
