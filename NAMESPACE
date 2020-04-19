@@ -2,4 +2,6 @@
 
 export(PTVGET)
 export(PTVPOST)
+export(route_types)
+export(routes)
 export(stops)
