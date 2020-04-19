@@ -10,17 +10,16 @@
 #' @section Swagger documentation:
 #'   \url{http://timetableapi.ptv.vic.gov.au/swagger/ui/index#/Stops}
 #'
-#' @param stop_id
-#' @param route_id
-#' @param route_type
-#' @param latitude
-#' @param longitude
+#' @param stop_id TODO
+#' @param route_id TODO
+#' @param route_type TODO
+#' @param latitude TODO
+#' @param longitude TODO
 #' @inheritParams PTVGET
 #'
 #' @return Stops
 #' @export
 #'
-#' @examples
 stops <- function(stop_id,
                   route_id,
                   route_type,

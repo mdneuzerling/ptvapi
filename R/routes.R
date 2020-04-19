@@ -28,7 +28,7 @@ routes <- function(user_id = determine_user_id(),
   content <- response$content
 
   route_to_df <- function(route) {
-    tibble(
+    tibble::tibble(
       route_id = route$route_id,
       route_gtfs_id = route$route_gtfs_id,
       route_name = route$route_name,

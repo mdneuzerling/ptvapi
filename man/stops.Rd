@@ -15,7 +15,21 @@ stops(
 )
 }
 \arguments{
-\item{api_key}{}
+\item{stop_id}{TODO}
+
+\item{route_id}{TODO}
+
+\item{route_type}{TODO}
+
+\item{latitude}{TODO}
+
+\item{longitude}{TODO}
+
+\item{user_id}{Integer or character. A user ID or devid provided by Public
+Transport Victoria. See section "Obtaining API authentication details".}
+
+\item{api_key}{Character. An API key, with dashes, provided by Public
+Transport Victoria. See section "Obtaining API authentication details".}
 }
 \value{
 Stops
