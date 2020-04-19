@@ -1,3 +1,5 @@
+# Currently, only the GET verb is used.
+
 #' Submit a GET request to the PTV API
 #'
 #' @section Obtaining API authentication details:
@@ -35,39 +37,8 @@ PTVGET <- function(request,
     user_id = user_id,
     api_key = api_key
   )
-
   request_url_without_auth <- generate_request_url_without_auth(request)
-
   response <- httr::GET(url = request_url, ...)
-
-  process_response(response, request_url_without_auth)
-}
-
-#' Submit a POST request to the PTV API
-#'
-#' @inheritSection PTVGET Obtaining API authentication details
-#'
-#' @inheritParams PTVGET
-#' @param body Body of the POST request. Defaults to NULL, which submits an empty body. Refer to `httr::POST` for more details.
-#' @param ... Additional arguments passed to `httr::POST`.
-#'
-#' @return A HTTP response. Content can be accessed with `httr::content`.
-#' @export
-#'
-PTVPOST <- function(request,
-                   user_id = determine_user_id(),
-                   api_key = determine_api_key(),
-                   body = NULL,
-                   ...) {
-  request_url <- generate_request_url(
-    request = request,
-    user_id = user_id,
-    api_key = api_key
-  )
-  request_url_without_auth <- generate_request_url_without_auth(request)
-
-  response <- httr::POST(url = request_url, body = body, ...)
-
   process_response(response, request_url_without_auth)
 }
 
@@ -94,24 +65,27 @@ process_response <- function(response, request_url_without_auth) {
 
   if (status_code == 404) {
     stop("URL not found: ", request_url_without_auth)
-  } else if (status_code == 400) {
+  }
+  if (status_code == 400) {
     stop("Invalid request: ", request_url_without_auth)
-  } else if (status_code == 403) {
+  }
+  if (status_code == 403) {
     stop("Access denied. Your credentials may be incorrect, or you may be ",
          "rate limited.")
-  } else if (status_code == 200) {
-    structure(
-      list(
-        status_code = status_code,
-        request = request_url_without_auth,
-        content = jsonlite::fromJSON(
-          httr::content(response, "text", encoding = "UTF-8"),
-          simplifyVector = FALSE
-        )
-      ),
-      class = "ptv_api"
-    )
-  } else {
+  }
+  if (status_code != 200) {
     stop("Status code ", status_code)
   }
+
+  structure(
+    list(
+      status_code = status_code,
+      request = request_url_without_auth,
+      content = jsonlite::fromJSON(
+        httr::content(response, "text", encoding = "UTF-8"),
+        simplifyVector = FALSE
+      )
+    ),
+    class = "ptv_api"
+  )
 }
