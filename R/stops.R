@@ -15,8 +15,7 @@
 #' @param route_type
 #' @param latitude
 #' @param longitude
-#' @param user_id
-#' @param api_key
+#' @inheritParams PTVGET
 #'
 #' @return Stops
 #' @export
@@ -42,7 +41,7 @@ stops <- function(stop_id,
     stop("If using latitude and longitude, both must be provided")
   }
 
-  if (sum(p[c("stop_id", "route_id", "latitude")]) != 1) {
+  if (sum(present[c("stop_id", "route_id", "latitude")]) != 1) {
     stop(
       "Provide either a stop_id, route_id, or both of latitude and longitude"
     )
