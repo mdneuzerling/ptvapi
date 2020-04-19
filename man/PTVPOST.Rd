@@ -4,7 +4,13 @@
 \alias{PTVPOST}
 \title{Submit a POST request to the PTV API}
 \usage{
-PTVPOST(request, user_id = user_id(), api_key = api_key(), body = NULL, ...)
+PTVPOST(
+  request,
+  user_id = determine_user_id(),
+  api_key = determine_api_key(),
+  body = NULL,
+  ...
+)
 }
 \arguments{
 \item{request}{A request or path for the API, eg. "routes".}

@@ -4,7 +4,12 @@
 \alias{PTVGET}
 \title{Submit a GET request to the PTV API}
 \usage{
-PTVGET(request, user_id = user_id(), api_key = api_key(), ...)
+PTVGET(
+  request,
+  user_id = determine_user_id(),
+  api_key = determine_api_key(),
+  ...
+)
 }
 \arguments{
 \item{request}{A request or path for the API, eg. "routes".}

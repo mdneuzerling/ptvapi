@@ -11,7 +11,7 @@ generate_request_url(
 )
 }
 \arguments{
-\item{request}{Character for request/path, eg. "routes"}
+\item{request}{A request or path for the API, eg. "routes".}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}
