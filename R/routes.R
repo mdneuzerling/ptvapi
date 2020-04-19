@@ -28,7 +28,7 @@ routes <- function(user_id = determine_user_id(),
   content <- response$content
 
   route_to_df <- function(route) {
-    data.frame(
+    tibble(
       route_id = route$route_id,
       route_gtfs_id = route$route_gtfs_id,
       route_name = route$route_name,
@@ -42,8 +42,7 @@ routes <- function(user_id = determine_user_id(),
         route$route_service_status$timestamp,
         tz = "Australia/Melbourne",
         quiet = TRUE
-      ),
-      stringsAsFactors = FALSE
+      )
     )
   }
 

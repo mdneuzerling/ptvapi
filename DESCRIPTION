@@ -20,4 +20,5 @@ Imports:
     digest,
     jsonlite,
     lubridate,
-    purrr
+    purrr,
+    tibble
