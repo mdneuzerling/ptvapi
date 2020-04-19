@@ -17,4 +17,5 @@ RoxygenNote: 7.1.0
 Imports: 
     httr,
     glue,
-    digest
+    digest,
+    jsonlite
