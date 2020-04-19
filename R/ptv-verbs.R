@@ -27,8 +27,8 @@
 #' )
 #' }
 PTVGET <- function(request,
-                   user_id = user_id(),
-                   api_key = api_key(),
+                   user_id = determine_user_id(),
+                   api_key = determine_api_key(),
                    ...) {
   request_url <- generate_request_url(
     request = request,
@@ -51,8 +51,8 @@ PTVGET <- function(request,
 #' @export
 #'
 PTVPOST <- function(request,
-                   user_id = user_id(),
-                   api_key = api_key(),
+                   user_id = determine_user_id(),
+                   api_key = determine_api_key(),
                    body = NULL,
                    ...) {
   request_url <- generate_request_url(
