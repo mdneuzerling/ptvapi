@@ -11,7 +11,7 @@
 #'
 #' @keywords internal
 #'
-user_id <- function() {
+determine_user_id <- function() {
   user_id <- Sys.getenv("PTV_USER_ID")
   if (identical(user_id, "")) {
     if (!getOption("ptv_api_message_displayed", FALSE)) {
@@ -35,7 +35,7 @@ user_id <- function() {
 #'
 #' @keywords internal
 #'
-api_key <- function() {
+determine_api_key <- function() {
   api_key <- Sys.getenv("PTV_API_KEY")
   if (identical(api_key, "")) {
     if (!getOption("ptv_api_message_displayed", FALSE)) {
