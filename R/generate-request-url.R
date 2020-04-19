@@ -8,6 +8,7 @@
 generate_request_url <- function(request,
                                  user_id = determine_user_id(),
                                  api_key = determine_api_key()) {
+  version <- 3
 
   signature <- digest::hmac(
     key = api_key,
@@ -16,7 +17,7 @@ generate_request_url <- function(request,
   )
 
   glue::glue(
-    generate_request_url_without_auth(),
+    generate_request_url_without_auth(request),
     "?devid={user_id}",
     "&signature={toupper(signature)}"
   )
@@ -33,9 +34,5 @@ generate_request_url_without_auth <- function(request) {
   base_url <- "http://timetableapi.ptv.vic.gov.au"
   version <- 3 # This function is untested on other versions
 
-  glue::glue(
-    base_url,
-    "/v{version}",
-    "/{request}"
-  )
+  glue::glue("{base_url}/v{version}/{request}")
 }

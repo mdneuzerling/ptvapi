@@ -94,21 +94,24 @@ process_response <- function(response, request_url_without_auth) {
 
   if (status_code == 404) {
     stop("URL not found: ", request_url_without_auth)
-  }
-  if (status_code == 400) {
+  } else if (status_code == 400) {
     stop("Invalid request: ", request_url_without_auth)
-  }
-  if (status_code == 403) {
+  } else if (status_code == 403) {
     stop("Access denied. Your credentials may be incorrect, or you may be ",
          "rate limited.")
+  } else if (status_code == 200) {
+    structure(
+      list(
+        status_code = status_code,
+        request = request_url_without_auth,
+        content = jsonlite::fromJSON(
+          httr::content(response, "text", encoding = "UTF-8"),
+          simplifyVector = FALSE
+        )
+      ),
+      class = "ptv_api"
+    )
+  } else {
+    stop("Status code ", status_code)
   }
-
-  structure(
-    list(
-      status_code = status_code,
-      request = request_url_without_auth,
-      content = httr::content()
-    ),
-    class = "ptv_api"
-  )
 }
