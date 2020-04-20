@@ -121,12 +121,32 @@ route_types_cached <- function(user_id = determine_user_id(),
 #' @keywords internal
 #'
 translate_route_types <- function(route_type) {
-  route_type <- toupper(route_type)
-  route_type_vector <- toupper(route_types_cached())
-  if (is.integer(route_type) & route_type %in% names(route_type_vector)) {
-    route_type
-  } else if (is.character(route_type) & route_type %in% route_type_vector) {
-    names(route_type_vector[which(route_type_vector == route_type)])
+
+  route_type_vector <- route_types_cached()
+
+  if (is.integer(route_type)) {
+    if (route_type %in% names(route_type_vector)) {
+      translation <- route_type
+    } else {
+      stop(
+        route_type,
+        " is not a valid route type code. Valid codes are ",
+        names(route_type_vector)
+      )
+    }
+  } else if (is.character(route_type)) {
+    if (toupper(route_type) %in% toupper(route_type_vector)) {
+      translation <- names(
+        route_type_vector[
+          which(toupper(route_type_vector) == toupper(route_type))]
+      )
+    } else {
+      stop(
+        route_type,
+        " is not a valid route type description. Valid descriptions are ",
+        route_type_vector
+      )
+    }
   } else {
     stop(
       "Couldn't determine oute type code. Route types can be provided either ",
