@@ -76,7 +76,7 @@ route_types <- function(user_id = determine_user_id(),
     content_route_types,
     function(x) x$route_type_name
   )
-  route_type_numbers <- purrr::map_chr(
+  route_type_numbers <- purrr::map_int(
     content_route_types,
     function(x) x$route_type
   )
