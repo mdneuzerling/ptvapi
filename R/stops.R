@@ -8,8 +8,6 @@
 #'   \url{http://timetableapi.ptv.vic.gov.au/swagger/ui/index#/Stops}
 #'
 #' @param stop_id Integer. These can be searched for with either `stops_on_route` or `stops_nearby`.
-#' @param route_id Integer. These can be listed and described with the `routes`
-#' function.
 #' @inheritParams translate_route_types
 #' @inheritParams PTVGET
 #'
@@ -28,7 +26,7 @@ stop_information <- function(stop_id,
 #'
 #' @inheritSection stop_information Swagger documentation
 #'
-#' @inheritParams stop_information
+#' @inheritParams directions
 #' @inheritParams translate_route_types
 #' @inheritParams PTVGET
 #'
@@ -47,7 +45,7 @@ stops_on_route <- function(route_id,
   if (!is.null(direction)) {
     request <- glue::glue(request, "?direction_id={direction}")
   }
-  response <- PTVGET(request)
+  response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
 
   stop_to_tibble <- function(stop) {
@@ -82,7 +80,7 @@ stops_on_route <- function(route_id,
 #'   route types.
 #' @inheritParams PTVGET
 #'
-#' @return
+#' @return stops
 #' @export
 #'
 #' @examples \dontrun{
