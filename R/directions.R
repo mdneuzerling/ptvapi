@@ -13,5 +13,5 @@ directions <- function(route_id,
   request <- glue::glue("directions/route/{route_id}")
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
-  purrr::map_dfr(content$directions, as_tibble)
+  purrr::map_dfr(content$directions, tibble::as_tibble)
 }
