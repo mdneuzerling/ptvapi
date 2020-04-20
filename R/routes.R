@@ -149,7 +149,7 @@ translate_route_types <- function(route_type) {
     }
   } else {
     stop(
-      "Couldn't determine oute type code. Route types can be provided either ",
+      "Couldn't determine route type code. Route types can be provided either ",
       "as a non-negative integer code, or as a character: \"Tram\", ",
       "\"Train\" \"Bus\", \"Vline\" or \"Night Bus\". Character inputs are ",
       "not case-sensitive."
