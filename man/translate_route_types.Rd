@@ -8,8 +8,9 @@ translate_route_types(route_type)
 }
 \arguments{
 \item{route_type}{A route type which can be provided either as a non-negative
-integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night Bus".
-Character inputs are not case-sensitive.}
+integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
+Bus". Character inputs are not case-sensitive. Use the \code{route_types}
+function to extract a vector of all route types.}
 }
 \value{
 An integer route type code

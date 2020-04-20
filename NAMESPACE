@@ -3,4 +3,5 @@
 export(PTVGET)
 export(route_types)
 export(routes)
-export(stops)
+export(stop_information)
+export(stops_nearby)

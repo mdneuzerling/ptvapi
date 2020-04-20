@@ -27,44 +27,26 @@ routes <- function(user_id = determine_user_id(),
   )
   content <- response$content
 
-  purrr::map_dfr(content$routes, route_to_tibble)
-}
-
-#' Convert a single route from a list to a tibble
-#'
-#' @param route A single route returned by a step in the interior of the
-#'   `routes` function.
-#'
-#' @return A one-row tibble with the following columns:
-#' \itemize{
-#'   \item route_id
-#'   \item route_gtfs_id
-#'   \item route_name
-#'   \item route_type
-#'   \item route_number
-#'   \item service_status
-#'   \item service_status_timestamp
-#' }
-#'
-#' @keywords interior
-#'
-route_to_tibble <- function(route) {
-  tibble::tibble(
-    route_id = route$route_id,
-    route_gtfs_id = route$route_gtfs_id,
-    route_name = route$route_name,
-    route_type = route$route_type,
-    route_number = ifelse(
-      # Not a number, eg. "745a"
-      route$route_number == "", NA_character_, route$route_number
-    ),
-    service_status = route$route_service_status$description,
-    service_status_timestamp = lubridate::ymd_hms(
-      route$route_service_status$timestamp,
-      tz = "Australia/Melbourne",
-      quiet = TRUE
+  route_to_tibble <- function(route) {
+    tibble::tibble(
+      route_id = route$route_id,
+      route_gtfs_id = route$route_gtfs_id,
+      route_name = route$route_name,
+      route_type = route$route_type,
+      route_number = ifelse(
+        # Not a number, eg. "745a"
+        route$route_number == "", NA_character_, route$route_number
+      ),
+      service_status = route$route_service_status$description,
+      service_status_timestamp = lubridate::ymd_hms(
+        route$route_service_status$timestamp,
+        tz = "Australia/Melbourne",
+        quiet = TRUE
+      )
     )
-  )
+  }
+
+  purrr::map_dfr(content$routes, route_to_tibble)
 }
 
 #' Retrieve a translation from route type number to name
@@ -131,8 +113,9 @@ route_types_cached <- function(user_id = determine_user_id(),
 #' provided as integers, which are translated to route type descriptions with
 #'
 #' @param route_type A route type which can be provided either as a non-negative
-#'   integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night Bus".
-#'   Character inputs are not case-sensitive.
+#'   integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
+#'   Bus". Character inputs are not case-sensitive. Use the `route_types`
+#'   function to extract a vector of all route types.
 #'
 #' @return An integer route type code
 #'

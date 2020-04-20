@@ -14,7 +14,7 @@ Transport Victoria. See section "Obtaining API authentication details".}
 Transport Victoria. See section "Obtaining API authentication details".}
 }
 \value{
-A data frame of routes and information, with the following columns:
+A tibble of routes, with the following columns:
 \itemize{
 \item route_id
 \item route_gtfs_id
