@@ -124,14 +124,14 @@ translate_route_types <- function(route_type) {
 
   route_type_vector <- route_types_cached()
 
-  if (is.integer(route_type)) {
-    if (route_type %in% names(route_type_vector)) {
+  if (is.numeric(route_type)) {
+    if (as.character(route_type) %in% names(route_type_vector)) {
       translation <- route_type
     } else {
       stop(
         route_type,
         " is not a valid route type code. Valid codes are ",
-        names(route_type_vector)
+        paste(names(route_type_vector), collapse = ", ")
       )
     }
   } else if (is.character(route_type)) {
@@ -144,7 +144,7 @@ translate_route_types <- function(route_type) {
       stop(
         route_type,
         " is not a valid route type description. Valid descriptions are ",
-        route_type_vector
+        paste(route_type_vector, collapse = ", ")
       )
     }
   } else {
@@ -155,4 +155,6 @@ translate_route_types <- function(route_type) {
       "not case-sensitive."
     )
   }
+
+  as.integer(translation)
 }
