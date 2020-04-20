@@ -24,9 +24,6 @@ Transport Victoria. See section "Obtaining API authentication details".}
 
 \item{api_key}{Character. An API key, with dashes, provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}
-
-\item{route_id}{Integer. These can be listed and described with the \code{routes}
-function.}
 }
 \value{
 Stops

@@ -32,7 +32,7 @@ Transport Victoria. See section "Obtaining API authentication details".}
 Transport Victoria. See section "Obtaining API authentication details".}
 }
 \value{
-
+stops
 }
 \description{
 Search for stops near a location

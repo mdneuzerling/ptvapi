@@ -2,6 +2,7 @@
 #'
 #' @param route_id Integer. These can be listed and described with the `routes`
 #' function.
+#' @inheritParams PTVGET
 #'
 #' @return directions
 #' @export
@@ -12,5 +13,5 @@ directions <- function(route_id,
   request <- glue::glue("directions/route/{route_id}")
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
-  content #//TODO
+  purrr::map_dfr(content$directions, as_tibble)
 }
