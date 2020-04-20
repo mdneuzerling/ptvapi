@@ -106,3 +106,33 @@ route_types_cached <- function(user_id = determine_user_id(),
   }
   getOption("route_types")
 }
+
+#' Translate a route type input into a numerical route type
+#'
+#' Many API calls require a route type (eg. "Tram" or "Train"). These must be
+#' provided as integers, which are translated to route type descriptions with
+#'
+#' @param route_type A route type which can be provided either as a non-negative
+#'   integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night Bus".
+#'   Character inputs are not case-sensitive.
+#'
+#' @return An integer route type code
+#'
+#' @keywords internal
+#'
+translate_route_types <- function(route_type) {
+  route_type <- toupper(route_type)
+  route_type_vector <- toupper(route_types_cached())
+  if (is.integer(route_type) & route_type %in% names(route_type_vector)) {
+    route_type
+  } else if (is.character(route_type) & route_type %in% route_type_vector) {
+    names(route_type_vector[which(route_type_vector == route_type)])
+  } else {
+    stop(
+      "Couldn't determine oute type code. Route types can be provided either ",
+      "as a non-negative integer code, or as a character: \"Tram\", ",
+      "\"Train\" \"Bus\", \"Vline\" or \"Night Bus\". Character inputs are ",
+      "not case-sensitive."
+    )
+  }
+}
