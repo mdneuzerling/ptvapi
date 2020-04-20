@@ -5,7 +5,7 @@
 #'
 #' @inheritParams PTVGET
 #'
-#' @return A data frame of routes and information, with the following columns:
+#' @return A tibble of routes, with the following columns:
 #' \itemize{
 #'   \item route_id
 #'   \item route_gtfs_id
@@ -27,26 +27,44 @@ routes <- function(user_id = determine_user_id(),
   )
   content <- response$content
 
-  route_to_df <- function(route) {
-    tibble::tibble(
-      route_id = route$route_id,
-      route_gtfs_id = route$route_gtfs_id,
-      route_name = route$route_name,
-      route_type = route$route_type,
-      route_number = ifelse(
-        # Not a number, eg. "745a"
-        route$route_number == "", NA_character_, route$route_number
-      ),
-      service_status = route$route_service_status$description,
-      service_status_timestamp = lubridate::ymd_hms(
-        route$route_service_status$timestamp,
-        tz = "Australia/Melbourne",
-        quiet = TRUE
-      )
-    )
-  }
+  purrr::map_dfr(content$routes, route_to_tibble)
+}
 
-  purrr::map_dfr(content$routes, route_to_df)
+#' Convert a single route from a list to a tibble
+#'
+#' @param route A single route returned by a step in the interior of the
+#'   `routes` function.
+#'
+#' @return A one-row tibble with the following columns:
+#' \itemize{
+#'   \item route_id
+#'   \item route_gtfs_id
+#'   \item route_name
+#'   \item route_type
+#'   \item route_number
+#'   \item service_status
+#'   \item service_status_timestamp
+#' }
+#'
+#' @keywords interior
+#'
+route_to_tibble <- function(route) {
+  tibble::tibble(
+    route_id = route$route_id,
+    route_gtfs_id = route$route_gtfs_id,
+    route_name = route$route_name,
+    route_type = route$route_type,
+    route_number = ifelse(
+      # Not a number, eg. "745a"
+      route$route_number == "", NA_character_, route$route_number
+    ),
+    service_status = route$route_service_status$description,
+    service_status_timestamp = lubridate::ymd_hms(
+      route$route_service_status$timestamp,
+      tz = "Australia/Melbourne",
+      quiet = TRUE
+    )
+  )
 }
 
 #' Retrieve a translation from route type number to name
