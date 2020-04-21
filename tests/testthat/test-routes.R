@@ -18,3 +18,14 @@ test_that("86 tram route can be found", {
     )
   expect_equal(nrow(eighty_six_tram_routes), 1)
 })
+
+test_that("Can identify individual route", {
+  craigieburn_train_route_id <- all_routes %>%
+    filter(
+      grepl("Craigieburn", route_name),
+      route_type == translate_route_type("Train")
+    ) %>%
+    pull(route_id)
+  craigieburn_route <- routes(route_id = craigieburn_train_route_id)
+  expect_equal(nrow(craigieburn_route), 1)
+})
