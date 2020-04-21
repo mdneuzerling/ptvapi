@@ -1,9 +1,63 @@
-#' Retrieve a data frame of all routes
+#' Retrieve route information
 #'
 #' @details
 #' All timestamps returned by this function are in Melbourne time.
 #'
+#' @param route_id Integer. Optionally filter results to a particular route ID.
 #' @inheritParams PTVGET
+#'
+#' @inherit route_to_tibble return
+#'
+#' @export
+#'
+#' @examples \dontrun{routes()}
+routes <- function(route_id = NULL,
+                   user_id = determine_user_id(),
+                   api_key = determine_api_key()) {
+  request <- "routes"
+  if (!is.null(route_id)) {
+    route_id <- suppressWarnings(as.integer(route_id))
+    assertthat::assert_that(is.integer(route_id))
+    request <- glue::glue(request, "/{route_id}")
+  }
+  response <- PTVGET(request, user_id = user_id, api_key = api_key)
+  content <- response$content
+
+  # Slightly different output for single route, which we coerce to the same
+  # column names as if multiple routes were returned
+  if (!is.null(route_id)) {
+    assert_correct_attributes(names(content), c("route", "status"))
+    assert_correct_attributes(
+      names(content$route),
+      c("route_service_status", "route_type", "route_id", "route_name",
+        "route_number", "route_gtfs_id")
+    )
+    parsed <- route_to_tibble(content$route)
+  } else {
+    # We'll naively parse a single route to make sure all of the attributes are
+    # as expected. Simply passing a single route to `as_tibble` will create two
+    # rows, as `route_service_status` is nested, but this is fine for checking
+    # attributes.
+    assert_correct_attributes(names(content), c("routes", "status"))
+    routes_tibble_example <- tibble::as_tibble(content$routes[[1]])
+    assert_correct_attributes(
+      colnames(routes_tibble_example),
+      c("route_service_status", "route_type", "route_id", "route_name",
+        "route_number", "route_gtfs_id")
+    )
+    parsed <- purrr::map_dfr(content$routes, route_to_tibble)
+  }
+
+  parsed
+
+}
+
+#' Convert a single route to a tibble
+#'
+#' This function is designed to parse the content returned by the interior
+#' steps of the routes function.
+#'
+#' @param route A route, as a list, returned by the routes API call.
 #'
 #' @return A tibble of routes, with the following columns:
 #' \itemize{
@@ -15,51 +69,26 @@
 #'   \item service_status
 #'   \item service_status_timestamp
 #' }
-#' @export
 #'
-#' @examples \dontrun{routes()}
-routes <- function(user_id = determine_user_id(),
-                   api_key = determine_api_key()) {
-  response <- PTVGET(
-    request = "routes",
-    user_id = user_id,
-    api_key = api_key
-  )
-  content <- response$content
-
-  # We'll naively parse a single route to make sure all of the attributes are
-  # as expected. Simply passing a single route to `as_tibble` will create two
-  # rows, as `route_service_status` is nested, but this is fine for checking
-  # attributes.
-  assert_correct_attributes(names(content), c("routes", "status"))
-  routes_tibble_example <- tibble::as_tibble(content$routes[[1]])
-  assert_correct_attributes(
-    colnames(routes_tibble_example),
-    c("route_service_status", "route_type", "route_id", "route_name",
-      "route_number", "route_gtfs_id")
-  )
-
-  route_to_tibble <- function(route) {
-    tibble::tibble(
-      route_id = route$route_id,
-      route_gtfs_id = route$route_gtfs_id,
-      route_name = route$route_name,
-      route_type = route$route_type,
-      route_number = ifelse(
-        # Not a number, eg. "745a"
-        route$route_number == "", NA_character_, route$route_number
-      ),
-      service_status = route$route_service_status$description,
-      service_status_timestamp = lubridate::ymd_hms(
-        route$route_service_status$timestamp,
-        tz = "Australia/Melbourne",
-        quiet = TRUE
-      )
+#' @keywords internal
+#'
+route_to_tibble <- function(route) {
+  tibble::tibble(
+    route_id = route$route_id,
+    route_gtfs_id = route$route_gtfs_id,
+    route_name = route$route_name,
+    route_type = route$route_type,
+    route_number = ifelse(
+      # Not a number, eg. "745a"
+      route$route_number == "", NA_character_, route$route_number
+    ),
+    service_status = route$route_service_status$description,
+    service_status_timestamp = lubridate::ymd_hms(
+      route$route_service_status$timestamp,
+      tz = "Australia/Melbourne",
+      quiet = TRUE
     )
-  }
-
-  purrr::map_dfr(content$routes, route_to_tibble)
-
+  )
 }
 
 #' Retrieve a translation from route type number to name

@@ -2,11 +2,17 @@
 % Please edit documentation in R/routes.R
 \name{routes}
 \alias{routes}
-\title{Retrieve a data frame of all routes}
+\title{Retrieve route information}
 \usage{
-routes(user_id = determine_user_id(), api_key = determine_api_key())
+routes(
+  route_id = NULL,
+  user_id = determine_user_id(),
+  api_key = determine_api_key()
+)
 }
 \arguments{
+\item{route_id}{Integer. Optionally filter results to a particular route ID.}
+
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}
 
@@ -26,7 +32,7 @@ A tibble of routes, with the following columns:
 }
 }
 \description{
-Retrieve a data frame of all routes
+Retrieve route information
 }
 \details{
 All timestamps returned by this function are in Melbourne time.
