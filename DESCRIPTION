@@ -23,6 +23,7 @@ Imports:
     tibble,
     assertthat
 Suggests: 
-    testthat (>= 2.1.0)
+    testthat (>= 2.1.0),
+    dplyr
 URL: https://github.com/mdneuzerling/ptvapi
 BugReports: https://github.com/mdneuzerling/ptvapi/issues
