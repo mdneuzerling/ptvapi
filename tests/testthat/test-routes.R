@@ -5,7 +5,7 @@ test_that("Frankston train route can be found", {
   frankston_train_routes <- all_routes %>%
     dplyr::filter(
       route_name == "Frankston",
-      route_type == translate_route_types("Train")
+      route_type == train_route_type
     )
   expect_equal(nrow(frankston_train_routes), 1)
 })
