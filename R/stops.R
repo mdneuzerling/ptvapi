@@ -26,7 +26,7 @@ stop_information <- function(stop_id,
 #'
 #' @inheritSection stop_information Swagger documentation
 #'
-#' @inheritParams directions
+#' @inheritParams route_directions
 #' @inheritParams translate_route_types
 #' @inheritParams PTVGET
 #'
