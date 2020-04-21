@@ -27,6 +27,18 @@ routes <- function(user_id = determine_user_id(),
   )
   content <- response$content
 
+  # We'll naively parse a single route to make sure all of the attributes are
+  # as expected. Simply passing a single route to `as_tibble` will create two
+  # rows, as `route_service_status` is nested, but this is fine for checking
+  # attributes.
+  assert_correct_attributes(names(content), c("routes", "status"))
+  routes_tibble_example <- tibble::as_tibble(content$routes[[1]])
+  assert_correct_attributes(
+    colnames(routes_tibble_example),
+    c("route_service_status", "route_type", "route_id", "route_name",
+      "route_number", "route_gtfs_id")
+  )
+
   route_to_tibble <- function(route) {
     tibble::tibble(
       route_id = route$route_id,
@@ -47,6 +59,7 @@ routes <- function(user_id = determine_user_id(),
   }
 
   purrr::map_dfr(content$routes, route_to_tibble)
+
 }
 
 #' Retrieve a translation from route type number to name
