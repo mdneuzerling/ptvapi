@@ -70,7 +70,7 @@ route_types_cached <- function(user_id = determine_user_id(),
 #'
 #' @keywords internal
 #'
-translate_route_types <- function(route_type) {
+translate_route_type <- function(route_type) {
 
   route_type_vector <- route_types_cached()
 
