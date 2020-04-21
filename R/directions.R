@@ -15,7 +15,7 @@ directions <- function(route_id,
   content <- response$content
   parsed <- purrr::map_dfr(content$directions, tibble::as_tibble)
 
-  assert_correct_colnames(
+  assert_correct_attributes(
     parsed,
     c("route_direction_description", "direction_id", "direction_name",
       "route_id", "route_type")
