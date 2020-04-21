@@ -34,5 +34,16 @@ test_that("Frankston route can be recovered with directions call", {
 
 
 # Testing directions with route type
-city_train_directions <- city_directions$direction_id %>%
-  directions(direction_id = ., route_type = train_route_type)
+test_that("Frankstain train directions are all train routes", {
+  city_train_directions <- city_directions$direction_id %>%
+    directions(direction_id = ., route_type = train_route_type)
+  expect_true(
+    all(
+      grepl(
+        "train",
+        city_train_directions$route_direction_description,
+        ignore.case = TRUE
+      )
+    )
+  )
+})
