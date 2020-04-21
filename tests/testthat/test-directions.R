@@ -31,3 +31,8 @@ test_that("Frankston route can be recovered with directions call", {
   expect_equal(nrow(recovering_frankston_direction), 1)
   expect_equal(recovering_frankston_direction$route_id, frankston_route)
 })
+
+
+# Testing directions with route type
+city_train_directions <- city_directions$direction_id %>%
+  directions(direction_id = ., route_type = train_route_type)
