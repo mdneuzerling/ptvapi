@@ -1,7 +1,7 @@
 
 # Testing route_directions
 # Simply running this functions asserts that column names, etc. are as expected
-frankston_route_directions <- route_directions(route_id = frankston_route)
+frankston_route_directions <- route_directions(route_id = frankston_route_id)
 
 city_directions <- frankston_route_directions %>%
   filter(grepl("City", direction_name, ignore.case = TRUE))
@@ -24,12 +24,12 @@ recovering_frankston_direction <- city_directions$direction_id %>%
   directions(direction_id = .) %>%
   filter(
     grepl("Frankston", route_direction_description, ignore.case = TRUE),
-    route_id == frankston_route
+    route_id == frankston_route_id
   )
 
 test_that("Frankston route can be recovered with directions call", {
   expect_equal(nrow(recovering_frankston_direction), 1)
-  expect_equal(recovering_frankston_direction$route_id, frankston_route)
+  expect_equal(recovering_frankston_direction$route_id, frankston_route_id)
 })
 
 
