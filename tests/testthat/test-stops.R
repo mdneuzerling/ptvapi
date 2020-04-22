@@ -12,20 +12,37 @@ test_that("Expected stops on Frankston train line", {
   expect_true("Cheltenham Station" %in% stops_on_frankston_line$stop_name)
 })
 
-test_that("Frankston train stops can be given a direction", {
-  frankston_route_directions <- route_directions(frankston_route_id)
+# Stops with a direction_id parameters
+frankston_route_directions <- route_directions(frankston_route_id)
+
+test_that("Stop sequence when travelling City to Frankston", {
   frankston_direction_id <- frankston_route_directions %>%
     filter(direction_name == "Frankston") %>%
     pull(direction_id)
-  frankston_stops_with_directions <- stops_on_route(
+  city_to_frankston <- stops_on_route(
     route_id = frankston_route_id,
     route_type = train_route_type,
     direction = frankston_direction_id
   )
-  frankston_train_ends <- frankston_stops_with_directions %>%
+  city_to_frankston_ends <- city_to_frankston %>%
     filter(stop_sequence == max(stop_sequence))
-  expect_equal(nrow(frankston_train_ends), 1)
-  expect_equal(frankston_train_ends$stop_suburb, "Frankston")
+  expect_equal(nrow(city_to_frankston_ends), 1)
+  expect_equal(city_to_frankston_ends$stop_suburb, "Frankston")
+})
+
+test_that("Stop sequence when travelling Frankston to City", {
+  city_direction_id <- frankston_route_directions %>%
+    filter(grepl("City", direction_name)) %>%
+    pull(direction_id)
+  frankston_to_city <- stops_on_route(
+    route_id = frankston_route_id,
+    route_type = train_route_type,
+    direction = city_direction_id
+  )
+  frankston_to_city_ends <- frankston_to_city %>%
+    filter(stop_sequence == max(stop_sequence))
+  expect_equal(nrow(frankston_to_city_ends), 1)
+  expect_equal(frankston_to_city_ends$stop_suburb, "Melbourne City")
 })
 
 cheltenham_stop_id <- stops_on_frankston_line %>%
