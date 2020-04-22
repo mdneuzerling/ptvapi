@@ -62,22 +62,7 @@ PTVGET <- function(request,
 process_response <- function(response, request_url_without_auth) {
 
   status_code <- httr::status_code(response)
-
-  if (status_code == 404) {
-    stop("URL not found: ", request_url_without_auth)
-  }
-  if (status_code == 400) {
-    stop("Invalid request: ", request_url_without_auth)
-  }
-  if (status_code == 403) {
-    stop("Access denied. Your credentials may be incorrect, or you may be ",
-         "rate limited.")
-  }
-  if (status_code != 200) {
-    stop("Status code ", status_code)
-  }
-
-  structure(
+  structured_response <- structure(
     list(
       status_code = status_code,
       request = request_url_without_auth,
@@ -88,4 +73,21 @@ process_response <- function(response, request_url_without_auth) {
     ),
     class = "ptv_api"
   )
+
+  if (status_code == 404) {
+    stop("URL not found: ", request_url_without_auth)
+  }
+  if (status_code == 400) {
+    stop("Invalid request: ", request_url_without_auth, " - ",
+         structured_response$content$message)
+  }
+  if (status_code == 403) {
+    stop("Access denied. " , structured_response$content$message)
+  }
+  if (status_code != 200) {
+    stop("Status code ", status_code)
+  }
+
+  structured_response
+
 }
