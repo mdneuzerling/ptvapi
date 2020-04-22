@@ -32,7 +32,16 @@ Transport Victoria. See section "Obtaining API authentication details".}
 Transport Victoria. See section "Obtaining API authentication details".}
 }
 \value{
-stops
+A tibble with the following columns: \itemize{
+\item{\code{stop_id}}
+\item{\code{stop_name}}
+\item{\code{stop_suburb}}
+\item{\code{route_type}}
+\item{\code{stop_sequence}}
+\item{\code{stop_latitude}}
+\item{\code{stop_longitude}}
+\item{\code{disruption_ids}}
+}
 }
 \description{
 Search for stops near a location

@@ -21,6 +21,9 @@ integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
 Bus". Character inputs are not case-sensitive. Use the \code{route_types}
 function to extract a vector of all route types.}
 
+\item{direction}{Optionally filter by a direction ID. These can be obtained
+with the \code{route_directions} function.}
+
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}
 
@@ -28,7 +31,16 @@ Transport Victoria. See section "Obtaining API authentication details".}
 Transport Victoria. See section "Obtaining API authentication details".}
 }
 \value{
-Tibble
+A tibble with the following columns: \itemize{
+\item{\code{stop_id}}
+\item{\code{stop_name}}
+\item{\code{stop_suburb}}
+\item{\code{route_type}}
+\item{\code{stop_sequence}}
+\item{\code{stop_latitude}}
+\item{\code{stop_longitude}}
+\item{\code{disruption_ids}}
+}
 }
 \description{
 Stop information with route_id and route_type
@@ -38,4 +50,3 @@ Stop information with route_id and route_type
 \url{http://timetableapi.ptv.vic.gov.au/swagger/ui/index#/Stops}
 }
 
-\keyword{internal}

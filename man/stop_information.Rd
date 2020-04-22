@@ -12,7 +12,8 @@ stop_information(
 )
 }
 \arguments{
-\item{stop_id}{Integer. These can be searched for with either \code{stops_on_route} or \code{stops_nearby}.}
+\item{stop_id}{Integer. These can be searched for with either
+\code{stops_on_route} or \code{stops_nearby}.}
 
 \item{route_type}{A route type which can be provided either as a non-negative
 integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
@@ -26,7 +27,25 @@ Transport Victoria. See section "Obtaining API authentication details".}
 Transport Victoria. See section "Obtaining API authentication details".}
 }
 \value{
-Stops
+A single-row tibble with the following columns: \itemize{
+\item{\code{stop_id}}
+\item{\code{stop_name}}
+\item{\code{route_type}}
+\item{\code{station_details_id}}
+\item{\code{station_type}}
+\item{\code{station_description}}
+\item{\code{point_id}}
+\item{\code{mode_id}}
+\item{\code{operating_hours}}
+\item{\code{flexible_stop_opening_hours}}
+\item{\code{stop_contact}}
+\item{\code{stop_ticket}}
+\item{\code{stop_location}}
+\item{\code{stop_amenities}}
+\item{\code{stop_accessibility}}
+\item{\code{stop_staffing}}
+\item{\code{disruption_ids}}
+}
 }
 \description{
 Stops can be searched for by exactly one of the following methods: \itemize{
