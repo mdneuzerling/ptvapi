@@ -134,9 +134,9 @@ stops_on_route <- function(route_id,
 #'   Street Station is at approximately -37.8183 latitude.
 #' @param longitude Numeric. Longitude in decimal degrees. For example, Flinders
 #'   Street Station is at approximately 144.9671 longitude.
-#' @param route_types Optionally filter by a route type. A route type can be
-#'   provided either as a non-negative integer code, or as a character: "Tram",
-#'   "Train", "Bus", "Vline" or "Night Bus". Character inputs are not
+#' @param route_types Optionally filter by a vector of route types. A route type
+#'   can be provided either as a non-negative integer code, or as a character:
+#'   "Tram", "Train", "Bus", "Vline" or "Night Bus". Character inputs are not
 #'   case-sensitive. Use the `route_types` function to extract a vector of all
 #'   route types.
 #' @inheritParams PTVGET
@@ -150,9 +150,19 @@ stops_on_route <- function(route_id,
 #' }
 stops_nearby <- function(latitude,
                          longitude,
-                         route_types,
+                         route_types = NULL,
                          user_id = determine_user_id(),
                          api_key = determine_api_key()) {
+
+  assertthat::assert_that(is.numeric(latitude))
+  assertthat::assert_that(is.numeric(longitude))
+
+  request_url <- "stops/location/{latitude},{longitude}"
+  if (!is.null(route_types)) {
+    route_types <- purrr::map_int(route_types, translate_route_type)
+    route_types_html_list <- paste(route_types, collapse = "%2C")
+    request_url <- glue::glue("{request_url}", "?", route_types_html_list)
+  }
 
 
 }

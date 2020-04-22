@@ -7,7 +7,7 @@
 stops_nearby(
   latitude,
   longitude,
-  route_types,
+  route_types = NULL,
   user_id = determine_user_id(),
   api_key = determine_api_key()
 )
@@ -19,9 +19,9 @@ Street Station is at approximately -37.8183 latitude.}
 \item{longitude}{Numeric. Longitude in decimal degrees. For example, Flinders
 Street Station is at approximately 144.9671 longitude.}
 
-\item{route_types}{Optionally filter by a route type. A route type can be
-provided either as a non-negative integer code, or as a character: "Tram",
-"Train", "Bus", "Vline" or "Night Bus". Character inputs are not
+\item{route_types}{Optionally filter by a vector of route types. A route type
+can be provided either as a non-negative integer code, or as a character:
+"Tram", "Train", "Bus", "Vline" or "Night Bus". Character inputs are not
 case-sensitive. Use the \code{route_types} function to extract a vector of all
 route types.}
 

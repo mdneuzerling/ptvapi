@@ -37,7 +37,7 @@ PTVGET <- function(request,
     user_id = user_id,
     api_key = api_key
   )
-  request_url_without_auth <- generate_request_url_without_auth(request)
+  request_url_without_auth <- prefix_base_url_and_version(request)
   response <- httr::GET(url = request_url, ...)
   process_response(response, request_url_without_auth)
 }
@@ -62,6 +62,11 @@ PTVGET <- function(request,
 process_response <- function(response, request_url_without_auth) {
 
   status_code <- httr::status_code(response)
+
+  if (status_code == 404) {
+    stop("URL not found: ", request_url_without_auth)
+  }
+
   structured_response <- structure(
     list(
       status_code = status_code,
@@ -74,15 +79,12 @@ process_response <- function(response, request_url_without_auth) {
     class = "ptv_api"
   )
 
-  if (status_code == 404) {
-    stop("URL not found: ", request_url_without_auth)
-  }
   if (status_code == 400) {
     stop("Invalid request: ", request_url_without_auth, " - ",
          structured_response$content$message)
   }
   if (status_code == 403) {
-    stop("Access denied. " , structured_response$content$message)
+    stop("Access denied.")
   }
   if (status_code != 200) {
     stop("Status code ", status_code)
