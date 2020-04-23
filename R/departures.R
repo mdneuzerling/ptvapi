@@ -22,7 +22,7 @@ departures <- function(stop_id,
   request <- glue::glue("departures/route_type/{route_type}/stop/{stop_id}")
 
   if (!is.null(route_id)) {
-    assertthat::assert_that(is.integer(route))
+    assertthat::assert_that(is.integer(route_id))
     request <- glue::glue("{request}/route/{route_id}")
   }
 
@@ -57,7 +57,7 @@ departures <- function(stop_id,
 #' @keywords internal
 #'
 departure_to_tibble <- function(departure) {
-  tibble(
+  tibble::tibble(
     direction_id = departure$direction_id,
     stop_id = departure$stop_id,
     route_id = departure$route_id,
