@@ -55,9 +55,9 @@ routes <- function(route_id = NULL,
 #' Convert a single route to a tibble
 #'
 #' This function is designed to parse the content returned by the interior
-#' steps of the routes function.
+#' steps of the `routes` function.
 #'
-#' @param route A route, as a list, returned by the routes API call.
+#' @param route A route, as a list, returned by the `routes` API call.
 #'
 #' @return A tibble of routes, with the following columns:
 #' \itemize{

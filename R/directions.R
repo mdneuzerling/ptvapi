@@ -46,10 +46,11 @@ route_directions <- function(route_id,
 
 #' Parse content of directions API call
 #'
-#' This function is designed to parse the content
+#' This function is designed to parse the content returned by the interior
+#' steps of the `directions` function.
 #'
-#' @param directions_content API response returned in the interior of a
-#' directions function.
+#' @param directions_content A direction, as a list, returned by the
+#'   `directions` API call.
 #'
 #' @return A tibble consisting of the following columns: \itemize{
 #' \item `direction_id`

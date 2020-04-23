@@ -7,8 +7,8 @@
 parse_directions_content(directions_content)
 }
 \arguments{
-\item{directions_content}{API response returned in the interior of a
-directions function.}
+\item{directions_content}{A direction, as a list, returned by the
+\code{directions} API call.}
 }
 \value{
 A tibble consisting of the following columns: \itemize{
@@ -20,5 +20,6 @@ A tibble consisting of the following columns: \itemize{
 }
 }
 \description{
-This function is designed to parse the content
+This function is designed to parse the content returned by the interior
+steps of the \code{directions} function.
 }
