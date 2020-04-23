@@ -58,3 +58,13 @@ test_that("Cheltenham Station can be identified with stop_information", {
   expect_true(grepl("Cheltenham", cheltenham_station_information$stop_name))
 })
 
+# We get whitespace after stop names
+test_that("Can find Flinders Street with latitude and longitude", {
+  stops_near_flinders_street <- stops_nearby(
+    latitude = -37.8183,
+    longitude = 144.9671
+  ) %>%
+    pull(stop_name) %>%
+    trimws()
+  expect_true("Flinders Street Railway Station" %in% stops_near_flinders_street)
+})

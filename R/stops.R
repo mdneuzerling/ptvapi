@@ -81,16 +81,7 @@ stop_information <- function(stop_id,
 #' @inheritParams translate_route_type
 #' @inheritParams PTVGET
 #'
-#' @return A tibble with the following columns: \itemize{
-#' \item{`stop_id`}
-#' \item{`stop_name`}
-#' \item{`stop_suburb`}
-#' \item{`route_type`}
-#' \item{`stop_sequence`}
-#' \item{`stop_latitude`}
-#' \item{`stop_longitude`}
-#' \item{`disruption_ids`}
-#' }
+#' @inherit stop_to_tibble return
 #'
 #' @export
 #'
@@ -141,7 +132,7 @@ stops_on_route <- function(route_id,
 #'   route types.
 #' @inheritParams PTVGET
 #'
-#' @inherit stops_on_route return
+#' @inherit stop_to_tibble return
 #'
 #' @export
 #'
@@ -157,12 +148,50 @@ stops_nearby <- function(latitude,
   assertthat::assert_that(is.numeric(latitude))
   assertthat::assert_that(is.numeric(longitude))
 
-  request_url <- "stops/location/{latitude},{longitude}"
+  request <- glue::glue("stops/location/{latitude},{longitude}")
   if (!is.null(route_types)) {
     route_types <- purrr::map_int(route_types, translate_route_type)
     route_types_html_list <- paste(route_types, collapse = "%2C")
-    request_url <- glue::glue("{request_url}", "?", route_types_html_list)
+    request <- add_parameter(request, route_types_html_list)
   }
 
+  response <- PTVGET(request, user_id = user_id, api_key = api_key)
+  content <- response$content
 
+  purrr::map_dfr(content$stops, stop_to_tibble)
+}
+
+#' Convert a single stop to a tibble
+#'
+#' This function is designed to parse the content returned by the interior
+#' steps of the stops_on_route and stop_nearby functions.
+#'
+#' @param route A stop, as a list, returned by the stops API call.
+#'
+#' @return A tibble with the following columns: \itemize{
+#' \item{`stop_id`}
+#' \item{`stop_name`}
+#' \item{`stop_suburb`}
+#' \item{`route_type`}
+#' \item{`stop_sequence`}
+#' \item{`stop_latitude`}
+#' \item{`stop_longitude`}
+#' \item{`disruption_ids`}
+#' }
+#'
+#' @keywords internal
+#'
+stop_to_tibble <- function(stop) {
+  tibble::tibble(
+    stop_id = stop$stop_id,
+    stop_name = stop$stop_name,
+    stop_suburb = stop$stop_suburb,
+    route_type = stop$route_type,
+    stop_sequence = ifelse(
+      stop$stop_sequence == 0, NA_integer_, stop$stop_sequence
+    ),
+    stop_latitude = stop$stop_latitude,
+    stop_longitude = stop$stop_longitude,
+    disruption_ids = list(stop$disruption_ids)
+  )
 }
