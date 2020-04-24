@@ -62,7 +62,11 @@ departure_to_tibble <- function(departure) {
     stop_id = departure$stop_id,
     route_id = departure$route_id,
     run_id = departure$run_id,
-    platform_number = departure$platform_number,
+    platform_number = ifelse(
+      is.null(departure$platform_number),
+      NA_character_,
+      departure$platform_number
+    ),
     at_platform = departure$at_platform,
     departure_sequence = departure$departure_sequence,
     scheduled_departure = lubridate::ymd_hms(
