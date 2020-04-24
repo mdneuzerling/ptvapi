@@ -152,7 +152,7 @@ stops_nearby <- function(latitude,
   if (!is.null(route_types)) {
     route_types <- purrr::map_int(route_types, translate_route_type)
     route_types_html_list <- paste(route_types, collapse = "%2C")
-    request <- add_parameter(request, route_types_html_list)
+    request <- add_parameter(request, "route_types", route_types_html_list)
   }
 
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
