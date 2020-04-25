@@ -99,21 +99,6 @@ stops_on_route <- function(route_id,
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
 
-  stop_to_tibble <- function(stop) {
-    tibble::tibble(
-      stop_id = stop$stop_id,
-      stop_name = trimws(stop$stop_name),
-      stop_suburb = stop$stop_suburb,
-      route_type = stop$route_type,
-      stop_sequence = ifelse(
-        stop$stop_sequence == 0, NA_integer_, stop$stop_sequence
-      ),
-      stop_latitude = stop$stop_latitude,
-      stop_longitude = stop$stop_longitude,
-      disruption_ids = list(stop$disruption_ids)
-    )
-  }
-
   purrr::map_dfr(content$stops, stop_to_tibble)
 }
 
