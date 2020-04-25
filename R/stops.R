@@ -48,7 +48,7 @@ stop_information <- function(stop_id,
   null_to_char_na <- function(x) ifelse(is.null(x), NA_character_, x)
   tibble::tibble(
     stop_id = stop$stop_id,
-    stop_name = stop$stop_name,
+    stop_name = trimws(stop$stop_name),
     route_type = stop$route_type,
     station_details_id = stop$station_details_id,
     station_type = stop$station_type,
@@ -102,7 +102,7 @@ stops_on_route <- function(route_id,
   stop_to_tibble <- function(stop) {
     tibble::tibble(
       stop_id = stop$stop_id,
-      stop_name = stop$stop_name,
+      stop_name = trimws(stop$stop_name),
       stop_suburb = stop$stop_suburb,
       route_type = stop$route_type,
       stop_sequence = ifelse(
@@ -184,7 +184,7 @@ stops_nearby <- function(latitude,
 stop_to_tibble <- function(stop) {
   tibble::tibble(
     stop_id = stop$stop_id,
-    stop_name = stop$stop_name,
+    stop_name = trimws(stop$stop_name),
     stop_suburb = stop$stop_suburb,
     route_type = stop$route_type,
     stop_sequence = ifelse(

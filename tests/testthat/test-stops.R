@@ -64,8 +64,7 @@ test_that("Can find Flinders Street with latitude and longitude", {
     latitude = -37.8183,
     longitude = 144.9671
   ) %>%
-    pull(stop_name) %>%
-    trimws()
+    pull(stop_name)
   expect_true("Flinders Street" %in% stops_near_flinders_street)
 })
 
@@ -76,8 +75,7 @@ test_that("Only one train station near Flinders Street", {
     longitude = 144.9671,
     route_types = train_route_type
   ) %>%
-    pull(stop_name) %>%
-    trimws()
+    pull(stop_name)
   expect_true("Flinders Street" %in% train_stops_near_flinders_street)
   expect_equal(length(train_stops_near_flinders_street), 1)
 })
