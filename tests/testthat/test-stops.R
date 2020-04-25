@@ -66,5 +66,19 @@ test_that("Can find Flinders Street with latitude and longitude", {
   ) %>%
     pull(stop_name) %>%
     trimws()
-  expect_true("Flinders Street Railway Station" %in% stops_near_flinders_street)
+  expect_true("Flinders Street" %in% stops_near_flinders_street)
 })
+
+# We get whitespace after stop names
+test_that("Only one train station near Flinders Street", {
+  train_stops_near_flinders_street <- stops_nearby(
+    latitude = -37.8183,
+    longitude = 144.9671,
+    route_types = train_route_type
+  ) %>%
+    pull(stop_name) %>%
+    trimws()
+  expect_true("Flinders Street" %in% train_stops_near_flinders_street)
+  expect_equal(length(train_stops_near_flinders_street), 1)
+})
+
