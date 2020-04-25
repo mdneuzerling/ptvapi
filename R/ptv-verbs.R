@@ -1,3 +1,4 @@
+# nolint start
 # Currently, only the GET verb is used.
 
 #' Submit a GET request to the PTV API
@@ -6,8 +7,7 @@
 #'
 #' You will need to obtain a user ID (also called a devid) and an API key from
 #' Public Transport Victoria. These are obtained by email. Instructions are
-#' available at
-#' \url{https://www.ptv.vic.gov.au/footer/data-and-reporting/datasets/ptv-timetable-api/}.
+#' available at \url{https://www.ptv.vic.gov.au/footer/data-and-reporting/datasets/ptv-timetable-api/}.
 #' You may pass these two pieces of information directly to the function, or you
 #' can set the PTV_USER_ID and PTV_API_KEY environment variables.
 #'
@@ -37,10 +37,11 @@ PTVGET <- function(request,
     user_id = user_id,
     api_key = api_key
   )
-  request_url_without_auth <- prefix_base_url_and_version(request)
+  request_url_without_auth <- prefix_base_url(request, and_version = TRUE)
   response <- httr::GET(url = request_url, ...)
   process_response(response, request_url_without_auth)
 }
+# nolint end
 
 #' Process a raw httr response and return an object of class ptv_api
 #'

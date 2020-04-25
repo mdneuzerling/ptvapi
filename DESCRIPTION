@@ -24,6 +24,8 @@ Imports:
     assertthat
 Suggests: 
     testthat (>= 2.1.0),
-    dplyr
+    dplyr,
+    lintr,
+    rprojroot
 URL: https://github.com/mdneuzerling/ptvapi
 BugReports: https://github.com/mdneuzerling/ptvapi/issues

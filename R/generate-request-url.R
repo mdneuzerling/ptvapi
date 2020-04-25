@@ -24,12 +24,11 @@ generate_request_url <- function(request,
   request_without_url <- add_parameter(
     request_without_signature, "signature", signature
   )
-  glue::glue("http://timetableapi.ptv.vic.gov.au", {request_without_url})
+  prefix_base_url(request_without_url)
 }
 
 add_parameter <- function(request, parameter_name, parameter_value) {
-  # Parameters go on the end of the URL like so:
-  # url?param1=value&param2=value&param3=value
+  # Parameters go on the end of the URL, first with ? then with &
   # If a URL already has a ? parameter, we join another one with &
   # Otherwise, we start appending parameters to a URL with ?
   if (is.null(parameter_value)) {
@@ -46,10 +45,13 @@ add_parameter <- function(request, parameter_name, parameter_value) {
 #' @return A complete URL character
 #'
 #' @keywords internal
-prefix_base_url_and_version <- function(request) {
+prefix_base_url <- function(request, and_version = FALSE) {
   base_url <- "http://timetableapi.ptv.vic.gov.au"
   version <- 3 # This function is untested on other versions
 
-  glue::glue("{base_url}/v{version}/{request}")
+  if (and_version) {
+    glue::glue("{base_url}/v{version}/{request}")
+  } else {
+    glue::glue("{base_url}/{request}")
+  }
 }
-

@@ -15,7 +15,7 @@ determine_user_id <- function() {
   user_id <- Sys.getenv("PTV_USER_ID")
   if (identical(user_id, "")) {
     if (!getOption("ptv_api_message_displayed", FALSE)) {
-      message(need_api_authentication_details())
+      message(need_api_details())
     }
     stop("Could not find PTV_USER_ID environment variable.")
   }
@@ -39,7 +39,7 @@ determine_api_key <- function() {
   api_key <- Sys.getenv("PTV_API_KEY")
   if (identical(api_key, "")) {
     if (!getOption("ptv_api_message_displayed", FALSE)) {
-      message(need_api_authentication_details())
+      message(need_api_details())
     }
     stop("Could not find PTV_API_KEY environment variable.")
   }
@@ -57,9 +57,12 @@ determine_api_key <- function() {
 #' details for the PTV API.
 #'
 #' @keywords internal
-need_api_authentication_details <- function() {
+need_api_details <- function() {
   options("ptv_api_message_displayed" = TRUE)
-  ptv_url <- "https://www.ptv.vic.gov.au/footer/data-and-reporting/datasets/ptv-timetable-api/"
+  ptv_url <- paste0(
+    "https://www.ptv.vic.gov.au/footer/data-and-reporting/datasets/",
+    "ptv-timetable-api/"
+  )
   paste(
     "You need to provide authentication details in order to access the PTV",
     "API. You can pass your user ID and API key directly to the functions in",
