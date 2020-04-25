@@ -68,7 +68,7 @@ add_parameter <- function(request, parameter_name, parameter_value) {
 #'
 #' @keywords internal
 #'
-prefix_base_url <- function(string, and_version = FALSE) {
+prefix_base_url <- function(string) {
   base_url <- "http://timetableapi.ptv.vic.gov.au"
   if (substr(string, 1, 1) != "/") base_url <- paste0(base_url, "/")
   glue::glue("{base_url}{string}")
@@ -85,7 +85,7 @@ prefix_base_url <- function(string, and_version = FALSE) {
 #'
 #' @keywords internal
 #'
-prefix_version <- function(string, and_version = FALSE) {
+prefix_version <- function(string) {
   version <- 3 # This function is untested on other versions
   if (substr(string, 1, 1) != "/") version <- paste0(version, "/")
   glue::glue("/v{version}{string}")
