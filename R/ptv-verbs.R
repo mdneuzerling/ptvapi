@@ -37,7 +37,7 @@ PTVGET <- function(request,
     user_id = user_id,
     api_key = api_key
   )
-  request_url_without_auth <- prefix_base_url(request, and_version = TRUE)
+  request_url_without_auth <- prefix_base_url_and_version(request)
   response <- httr::GET(url = request_url, ...)
   process_response(response, request_url_without_auth)
 }
