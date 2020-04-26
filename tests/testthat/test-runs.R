@@ -21,3 +21,10 @@ test_that("Runs on the Frankston route end at stops on the Frankston route", {
     expect_true(any(grepl(!!suburb, frankston_route_train_stops)))
   }
 })
+
+test_that("Run 1 exists, and is unique up to route type", {
+  run_one <- run_information(run_id = 1)
+  expect_gte(nrow(run_one), 1)
+  expect_equal(anyDuplicated(run_one$route_type), 0)
+})
+
