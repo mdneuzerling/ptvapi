@@ -16,14 +16,7 @@ test_that("Runs on the Frankston route end at stops on the Frankston route", {
     route_id = frankston_route_id,
     route_type = train_route_type
   ) %>%
-    # destination is a mixture of suburb and train station name.
-    # We try to make this consistent here.
-    mutate(stop_suburb = ifelse(
-      stop_suburb == "Melbourne City",
-      "Flinders Street",
-      stop_suburb)
-  )
-    pull(stop_suburb)
+    pull(stop_name)
   for (suburb in frankston_runs_destinations) {
     expect_true(any(grepl(!!suburb, frankston_route_train_stops)))
   }
