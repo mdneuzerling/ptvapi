@@ -47,7 +47,7 @@ runs_on_route <- function(route_id,
 #' @keywords internal
 #'
 run_to_tibble <- function(run) {
-  tibble(
+  tibble::tibble(
     run_id = run$run_id,
     route_id = run$route_id,
     route_type = run$route_type,
