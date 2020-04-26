@@ -66,12 +66,17 @@ The API recognises five route types: "Train", "Tram", "Bus", "Vline", and "Night
 
 ## Implementation progress
 
-The below information can be obtained with the API. Some are split into multiple functions, eg. `stops` is represented by functions `stops_on_route()`, `stops_nearby()`, and `stop_information()`
+The PTV Timetable API calls are split into multiple functions when the inputs or outputs differ significantly, eg. retrieving stop information is performed with with the `stops_on_route()`, `stops_nearby()`, and `stop_information()` functions. Their inputs are all very different, and `stop_information()` has an output that is different to the other two functions.
+
+When two API calls differ only by an optional parameter, they are consolidated into a single function. For example, there are two API calls for retrieving runs on a route based on whether or not a route type has been provided. These have both been condensed into the single `runs_on_route()` function, with an optional `route_type()` argument.
+
+The below information can be obtained with the API:
 
 1. `departures`
 1. `directions`
 1. `route_type`
 1. `routes`
+1. `runs`
 1. `stops`
 
 Yet to be implemented:
@@ -79,7 +84,6 @@ Yet to be implemented:
 1. `disruptions`
 1. `outlets`
 1. `patterns`
-1. `runs` (`runs_on_route()` is implemented, but not `run_information()`)
 1. `search`
 
 In addition, many of the implemented functions make API calls that have optional parameters, and these optional parameters have not all been implemented.
