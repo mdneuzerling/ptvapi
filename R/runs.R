@@ -1,5 +1,35 @@
 #' Retrieve a tibble of all runs on a particular route
 #'
+#' Run IDs are not unique across the network. If you are interested in a
+#' specific run, consider supplying a value to the optional `route_type`
+#' argument.
+#'
+#' @param run_id An integer run ID. This may retrieved from the `departures()`
+#'   or `runs_on_route()` functions.
+#' @inheritParams directions
+#' @inheritParams PTVGET
+#'
+#' @inherit run_to_tibble return
+#'
+#' @export
+#'
+run_information <- function(run_id,
+                            route_type = NULL,
+                            user_id = determine_user_id(),
+                            api_key = determine_api_key()) {
+  request <- glue::glue("runs/{run_id}")
+  if (!is.null(route_type)) {
+    route_type <- translate_route_type(route_type)
+    request <- glue::glue("{request}/route_type/{route_type}")
+  }
+  response <- PTVGET(request, user_id = user_id, api_key = api_key)
+  content <- response$content
+
+  purrr::map_dfr(content$runs, run_to_tibble)
+}
+
+#' Retrieve a tibble of all runs on a particular route
+#'
 #' @inheritParams route_directions
 #' @inheritParams directions
 #' @inheritParams PTVGET
