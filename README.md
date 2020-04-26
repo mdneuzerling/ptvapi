@@ -1,4 +1,3 @@
-
 # ptvapi
 
 <!-- badges: start -->
@@ -8,6 +7,9 @@
 This package provides a friendly interface to the Public Transport Victoria (PTV) timetable API. Results are returned as tibbles where possible, and authentication is handled under the hood.
 
 **This package is an unofficial wrapper of the Public Transport Victoria timetable API. The author of this package is not associated with Public Transport Victoria.**
+
+Implementation progress:
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬜⬜⬜⬜⬜⬜ 70%
 
 ## Installing
 
