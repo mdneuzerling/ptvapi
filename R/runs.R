@@ -15,7 +15,7 @@ runs_on_route <- function(route_id,
   request <- glue::glue("runs/route/{route_id}")
   if (!is.null(route_type)) {
     route_type <- translate_route_type(route_type)
-    request <- glue::glue("{request}/route_type/route_type")
+    request <- glue::glue("{request}/route_type/{route_type}")
   }
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
