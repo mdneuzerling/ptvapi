@@ -1,3 +1,4 @@
+
 # ptvapi
 
 <!-- badges: start -->
@@ -9,7 +10,7 @@ This package provides a friendly interface to the Public Transport Victoria (PTV
 **This package is an unofficial wrapper of the Public Transport Victoria timetable API. The author of this package is not associated with Public Transport Victoria.**
 
 Implementation progress:
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬜⬜⬜⬜⬜⬜ 70%
+⬛⬛⬛⬛⬛⬛⬛⬜⬜⬜ 70%
 
 ## Installing
 
@@ -78,7 +79,7 @@ Yet to be implemented:
 1. `disruptions`
 1. `outlets`
 1. `patterns`
-1. `runs`
+1. `runs` (`runs_on_route()` is implemented, but not `run_information()`)
 1. `search`
 
 In addition, many of the implemented functions make API calls that have optional parameters, and these optional parameters have not all been implemented.
