@@ -4,7 +4,7 @@
 \alias{prefix_version}
 \title{Prefix a string with the API version}
 \usage{
-prefix_version(string, and_version = FALSE)
+prefix_version(string)
 }
 \value{
 character of form \verb{/\{version\}/\{string\}}

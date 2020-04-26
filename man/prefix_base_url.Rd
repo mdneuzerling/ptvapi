@@ -4,7 +4,7 @@
 \alias{prefix_base_url}
 \title{Prefix a string with the API base URL}
 \usage{
-prefix_base_url(string, and_version = FALSE)
+prefix_base_url(string)
 }
 \value{
 character of form \code{{base_url}/{string}}
