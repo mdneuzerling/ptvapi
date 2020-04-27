@@ -42,6 +42,6 @@ patterns <- function(run_id,
     routes = purrr::map_dfr(content$routes, route_to_tibble),
     runs = purrr::map_dfr(content$runs, run_to_tibble),
     directions = purrr::map_dfr(content$directions, tibble::as_tibble),
-    disruptions = list(departures)
+    disruptions = list(content$disruptions)
   )
 }
