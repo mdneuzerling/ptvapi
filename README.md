@@ -74,6 +74,7 @@ The below information can be obtained with the API:
 
 1. `departures`
 1. `directions`
+1. `patterns`
 1. `route_type`
 1. `routes`
 1. `runs`
@@ -83,7 +84,9 @@ Yet to be implemented:
 
 1. `disruptions`
 1. `outlets`
-1. `patterns`
 1. `search`
 
-In addition, many of the implemented functions make API calls that have optional parameters, and these optional parameters have not all been implemented.
+Other tasks:
+* Many of the implemented functions make API calls that have optional parameters, and these optional parameters have not all been implemented.
+* Disruptions are currently returned as lists, but should probably use a `disruption_to_tibble` function
+* I'm uncomfortable with the output of the `patterns` function. It's a list of tibbles, and each tibble contains one row. It seems like a strange format for so many single-element objects.
