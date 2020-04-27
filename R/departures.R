@@ -28,6 +28,11 @@ departures <- function(stop_id,
 
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
+  assert_correct_attributes(
+    names(content),
+    c("departures", "stops", "routes", "runs", "directions", "disruptions",
+      "status")
+  )
 
   purrr::map_dfr(content$departures, departure_to_tibble)
 }
