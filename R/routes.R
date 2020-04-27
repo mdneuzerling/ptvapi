@@ -55,7 +55,8 @@ routes <- function(route_id = NULL,
 #' Convert a single route to a tibble
 #'
 #' This function is designed to parse the content returned by the interior
-#' steps of the `routes` function.
+#' steps of the `routes` function. Service status information is only included
+#' if it is available.
 #'
 #' @param route A route, as a list, returned by the `routes` API call.
 #'
@@ -73,7 +74,7 @@ routes <- function(route_id = NULL,
 #' @keywords internal
 #'
 route_to_tibble <- function(route) {
-  tibble::tibble(
+  route_tibble <- tibble::tibble(
     route_id = route$route_id,
     route_gtfs_id = route$route_gtfs_id,
     route_name = route$route_name,
@@ -81,12 +82,21 @@ route_to_tibble <- function(route) {
     route_number = ifelse(
       # Not a number, eg. "745a"
       route$route_number == "", NA_character_, route$route_number
-    ),
-    service_status = route$route_service_status$description,
-    service_status_timestamp = lubridate::ymd_hms(
-      route$route_service_status$timestamp,
-      tz = "Australia/Melbourne",
-      quiet = TRUE
     )
   )
+
+  if ("route_service_status" %in% names(route)) {
+    service_tibble <- tibble::tibble(
+      service_status = route$route_service_status$description,
+      service_status_timestamp = lubridate::ymd_hms(
+        route$route_service_status$timestamp,
+        tz = "Australia/Melbourne",
+        quiet = TRUE
+      )
+    )
+    route_tibble <- cbind(route_tibble, service_tibble)
+  }
+
+  route_tibble
+
 }
