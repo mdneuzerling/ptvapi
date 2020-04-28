@@ -26,7 +26,10 @@ disruptions_on_route <- function(route_id,
     c("disruptions", "status")
   )
 
-  purrr::map_dfr(content$disruptions$metro_train, disruption_to_tibble)
+  purrr::reduce(
+    purrr::map(content$disruptions$metro_train, disruption_to_tibble),
+    rbind
+  )
 }
 
 #' Convert a single disruptions to a tibble
@@ -69,7 +72,7 @@ disruption_to_tibble <- function(disruption) {
     from_date = disruption$from_date,
     to_date = disruption$to_date,
     routes = purrr::map_dfr(disruption$routes, route_to_tibble),
-    stops = disruption$stops,
+    stops = list(disruption$stops),
     colour = disruption$colour,
     display_on_board = disruption$display_on_board,
     display_status = disruption$display_status
