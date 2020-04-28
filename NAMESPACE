@@ -3,6 +3,8 @@
 export(PTVGET)
 export(departures)
 export(directions)
+export(disruption_to_tibble)
+export(disruptions_on_route)
 export(parse_directions_content)
 export(patterns)
 export(route_directions)
