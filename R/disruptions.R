@@ -56,7 +56,6 @@ disruptions_on_route <- function(route_id,
 #' }
 #' @export
 #'
-#' @examples
 disruption_to_tibble <- function(disruption) {
   tibble::tibble(
     disruption_id = disruption$disruption_id,
