@@ -1,6 +1,6 @@
 #' Disruptions on a given route
 #'
-#' @inheritParams translate_route_type
+#' @inheritParams route_directions
 #' @param stop_id Integer. Optionally filter results to a specific stop ID.
 #'   These can be searched for with the `stops_on_route()` and `stops_nearby()`
 #'   functions.

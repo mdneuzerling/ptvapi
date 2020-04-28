@@ -12,6 +12,9 @@ disruptions_on_route(
 )
 }
 \arguments{
+\item{route_id}{Integer. These can be listed and described with the \code{routes}
+function.}
+
 \item{stop_id}{Integer. Optionally filter results to a specific stop ID.
 These can be searched for with the \code{stops_on_route()} and \code{stops_nearby()}
 functions.}
