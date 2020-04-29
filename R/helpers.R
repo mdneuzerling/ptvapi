@@ -2,10 +2,10 @@
 #'
 #' @param datetime A datetime returned by the PTV API
 #'
-#' @return
-#' @export
+#' @return A datetime in the Melbourne timezone.
 #'
-#' @examples
+#' @keywords internal
+#'
 convert_to_melbourne_time <- function(datetime) {
 
   if (is.null(datetime)) {
