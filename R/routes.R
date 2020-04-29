@@ -86,15 +86,12 @@ route_to_tibble <- function(route) {
   )
 
   if ("route_service_status" %in% names(route)) {
-    service_tibble <- tibble::tibble(
-      service_status = route$route_service_status$description,
-      service_status_timestamp = lubridate::ymd_hms(
-        route$route_service_status$timestamp,
-        tz = "Australia/Melbourne",
-        quiet = TRUE
-      )
+    route_tibble$service_status = route$route_service_status$description
+    route_tibble$service_status_timestamp = lubridate::ymd_hms(
+      route$route_service_status$timestamp,
+      tz = "Australia/Melbourne",
+      quiet = TRUE
     )
-    route_tibble <- cbind(route_tibble, service_tibble)
   }
 
   route_tibble
