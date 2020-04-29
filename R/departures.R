@@ -74,19 +74,11 @@ departure_to_tibble <- function(departure) {
     ),
     at_platform = departure$at_platform,
     departure_sequence = departure$departure_sequence,
-    scheduled_departure = lubridate::ymd_hms(
-      departure$scheduled_departure_utc,
-      tz = "Australia/Melbourne",
-      quiet = TRUE
+    scheduled_departure = convert_to_melbourne_time(
+      departure$scheduled_departure_utc
     ),
-    estimated_departure = ifelse(
-      is.null(departure$estimated_departure_utc),
-      lubridate::as_datetime(NA),
-      lubridate::ymd_hms(
-        departure$estimated_departure_utc,
-        tz = "Australia/Melbourne",
-        quiet = TRUE
-      )
+    estimated_departure = convert_to_melbourne_time(
+        departure$estimated_departure_utc
     ),
     flags = departure$flags,
     disruption_ids = list(departure$disruption_ids)

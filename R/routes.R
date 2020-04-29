@@ -87,10 +87,8 @@ route_to_tibble <- function(route) {
 
   if ("route_service_status" %in% names(route)) {
     route_tibble$service_status = route$route_service_status$description
-    route_tibble$service_status_timestamp = lubridate::ymd_hms(
-      route$route_service_status$timestamp,
-      tz = "Australia/Melbourne",
-      quiet = TRUE
+    route_tibble$service_status_timestamp = convert_to_melbourne_time(
+      route$route_service_status$timestamp
     )
   }
 
