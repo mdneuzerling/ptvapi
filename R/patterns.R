@@ -37,11 +37,11 @@ patterns <- function(run_id,
   )
 
   list(
-    departures = purrr::map_dfr(content$departures, departure_to_tibble),
-    stops = purrr::map_dfr(content$stops, stop_to_tibble),
-    routes = purrr::map_dfr(content$routes, route_to_tibble),
-    runs = purrr::map_dfr(content$runs, run_to_tibble),
-    directions = purrr::map_dfr(content$directions, tibble::as_tibble),
+    departures = map_and_rbind(content$departures, departure_to_tibble),
+    stops = map_and_rbind(content$stops, stop_to_tibble),
+    routes = map_and_rbind(content$routes, route_to_tibble),
+    runs = map_and_rbind(content$runs, run_to_tibble),
+    directions = map_and_rbind(content$directions, tibble::as_tibble),
     disruptions = list(content$disruptions)
   )
 }

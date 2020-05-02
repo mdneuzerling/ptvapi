@@ -26,7 +26,7 @@ run_information <- function(run_id,
   content <- response$content
   assert_correct_attributes(names(content), c("runs", "status"))
 
-  purrr::map_dfr(content$runs, run_to_tibble)
+  map_and_rbind(content$runs, run_to_tibble)
 }
 
 #' Retrieve a tibble of all runs on a particular route
@@ -51,7 +51,7 @@ runs_on_route <- function(route_id,
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
 
-  purrr::map_dfr(content$runs, run_to_tibble)
+  map_and_rbind(content$runs, run_to_tibble)
 }
 
 #' Convert a single run to a tibble

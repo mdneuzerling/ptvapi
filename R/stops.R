@@ -99,7 +99,7 @@ stops_on_route <- function(route_id,
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
 
-  purrr::map_dfr(content$stops, stop_to_tibble)
+  map_and_rbind(content$stops, stop_to_tibble)
 }
 
 #' Search for stops near a location
@@ -143,7 +143,7 @@ stops_nearby <- function(latitude,
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
 
-  purrr::map_dfr(content$stops, stop_to_tibble)
+  map_and_rbind(content$stops, stop_to_tibble)
 }
 
 #' Convert a single stop to a tibble

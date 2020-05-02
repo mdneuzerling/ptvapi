@@ -34,7 +34,7 @@ departures <- function(stop_id,
       "status")
   )
 
-  purrr::map_dfr(content$departures, departure_to_tibble)
+  map_and_rbind(content$departures, departure_to_tibble)
 }
 
 #' Convert a single departure to a tibble

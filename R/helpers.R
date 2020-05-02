@@ -18,3 +18,21 @@ convert_to_melbourne_time <- function(datetime) {
     quiet = TRUE
   )
 }
+
+#' Map and rbind a list of data frames
+#'
+#' This function is a simple combination of `purrr::map()` and `purrr::reduce()`
+#' using `rbind`. This differs from `purrr::map_dfr()`, which uses
+#' `dplyr::map_dfr()` and therefore introduces `dplyr` as a dependency.
+#'
+#' @param .x A list of data frames or tibbles.
+#' @param .f A function.
+#' @param ... Additional arguments passed to the function.
+#'
+#' @return A data frame or tibble.
+#'
+#' @keywords internal
+#'
+map_and_rbind <- function(.x, .f, ...) {
+  purrr::reduce(purrr::map(.x, .f, ...), rbind)
+}

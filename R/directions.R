@@ -67,7 +67,7 @@ parse_directions_content <- function(directions_content) {
     names(directions_content),
     c("directions", "status")
   )
-  parsed <- purrr::map_dfr(directions_content$directions, tibble::as_tibble)
+  parsed <- map_and_rbind(directions_content$directions, tibble::as_tibble)
 
   assert_correct_attributes(
     colnames(parsed),

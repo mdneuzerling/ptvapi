@@ -45,7 +45,7 @@ routes <- function(route_id = NULL,
       c("route_service_status", "route_type", "route_id", "route_name",
         "route_number", "route_gtfs_id")
     )
-    parsed <- purrr::map_dfr(content$routes, route_to_tibble)
+    parsed <- map_and_rbind(content$routes, route_to_tibble)
   }
 
   parsed
