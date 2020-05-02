@@ -1,14 +1,12 @@
-#' Stop information (metropolitan and V/Line stations only)
+#' Stop information (metropolitan and V/Line stations only).
 #'
-#' Stops can be searched for by exactly one of the following methods: \itemize{
-#' \item Both a `stop_id` and `route_type` \item Both a `route_id` and
-#' `route_type` \item Both a `latitude` and `longitude` }
+#' This function can be used when integer stop ID is already known. This can be
+#' searched for with either the `stops_on_route` or `stops_nearby` functions.
 #'
 #' @section Swagger documentation:
 #'   \url{http://timetableapi.ptv.vic.gov.au/swagger/ui/index#/Stops}
 #'
-#' @param stop_id Integer. These can be searched for with either
-#' `stops_on_route` or `stops_nearby`.
+#' @param stop_id Integer stop ID.
 #' @inheritParams translate_route_type
 #' @inheritParams PTVGET
 #'
