@@ -43,6 +43,38 @@ disruptions_at_stop <- function(stop_id,
   all_disruptions_to_tibble(content$disruptions)
 }
 
+#' Retrieve
+#'
+#' @param user_id
+#' @param api_key
+#'
+#' @return
+#' @export
+#'
+#' @examples
+disruption_modes <- function(user_id = determine_user_id(),
+                             api_key = determine_api_key()) {
+  request <- "disruptions/modes"
+  response <- PTVGET(request, user_id = user_id, api_key = api_key)
+  content <- response$content
+  assert_correct_attributes(
+    names(content),
+    c("disruption_modes", "status")
+  )
+
+  purrr::reduce(
+    purrr::map(
+      content$disruption_modes,
+      function(x) {
+        dismode = x$disruption_mode_name
+        names(dismode) = x$disruption_mode
+        dismode
+      }
+    ),
+    c
+  )
+}
+
 #' Convert the contents of a disruptions API call to a single tibble.
 #'
 #' Disruptions API responses contain an element for every service type, eg.
