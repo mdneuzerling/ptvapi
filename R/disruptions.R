@@ -1,3 +1,31 @@
+#' Stop information (metropolitan and V/Line stations only).
+#'
+#' This function can be used when integer disruption ID is already known. This
+#' can be searched for with either the `disruptions_on_route` or
+#' `disruptions_at_stop` functions.
+#'
+#' @section Swagger documentation:
+#'   \url{http://timetableapi.ptv.vic.gov.au/swagger/ui/index#/Stops}
+#'
+#' @param stop_id Integer disruption ID.
+#' @inheritParams translate_route_type
+#' @inheritParams PTVGET
+#'
+disruption_information <- function(disruption_id,
+                                   user_id = determine_user_id(),
+                                   api_key = determine_api_key()) {
+  disruption_id <- to_integer(disruption_id)
+  request <- glue::glue("disruptions/{disruption_id}")
+  response <- PTVGET(request, user_id = user_id, api_key = api_key)
+  content <- response$content
+  assert_correct_attributes(
+    names(content),
+    c("disruption", "status")
+  )
+
+  disruption_to_tibble(content$disruption)
+}
+
 #' Disruptions on a given route
 #'
 #' @inheritParams route_directions
