@@ -26,14 +26,63 @@ disruptions_on_route <- function(route_id,
     c("disruptions", "status")
   )
 
-  # Disruptions contains an element for every service type, eg. metro train,
-  # taxis, Skybus. We map-reduce these to a single tibble. Note that we return
-  # an empty tibble if there are no disruptions, so that this situation is
-  # omitted.
+  all_disruptions_to_tibble(content$disruptions)
+}
+
+disruptions_at_stop <- function(stop_id,
+                                user_id = determine_user_id(),
+                                api_key = determine_api_key()) {
+  request <- glue::glue("disruptions/stop/{stop_id}")
+  response <- PTVGET(request = request, user_id = user_id, api_key = api_key)
+  content <- response$content
+  assert_correct_attributes(
+    names(content),
+    c("disruptions", "status")
+  )
+
+  all_disruptions_to_tibble(content$disruptions)
+}
+
+#' Convert the contents of a disruptions API call to a single tibble.
+#'
+#' Disruptions API responses contain an element for every service type, eg.
+#' metro train, taxis, Skybus. Normally we would map-reduce the content of an
+#' API call with a function analogous to `disruption_to_tibble`. But because of
+#' the extra layer of nesting in the response, we have to map-reduce the service
+#' types first.
+#'
+#' Note that we return an empty tibble if there are no disruptions, so that
+#' this situation is omitted.
+#'
+#' @param disruptions_content The raw disruptions content returned by the
+#'   `disruptions` API call.
+#'
+#' @return A tibble with the following columns: \itemize{
+#' \item `service`
+#' \item `disruption_id`
+#' \item `title`
+#' \item `url`
+#' \item `description`
+#' \item `disruption_status`
+#' \item `disruption_type`
+#' \item `published_on`
+#' \item `last_updated`
+#' \item `from_date`
+#' \item `to_date`
+#' \item `routes`
+#' \item `stops`
+#' \item `colour`
+#' \item `display_on_board`
+#' \item `display_status`
+#' }
+#'
+#' @keywords internal
+#'
+all_disruptions_to_tibble <- function(disruptions_content) {
   dis <- purrr::reduce(
-    purrr::map(seq_along(content$disruptions), function(x) {
-      service <- names(content$disruptions)[x]
-      dis <- content$disruptions[[x]]
+    purrr::map(seq_along(disruptions_content), function(x) {
+      service <- names(disruptions_content)[x]
+      dis <- disruptions_content[[x]]
       if (length(dis) == 0) {
         tibble()
       } else {
@@ -47,7 +96,6 @@ disruptions_on_route <- function(route_id,
 
   # Base R method of moving service column to the front
   dis[,c("service", colnames(dis)[colnames(dis) != "service"])]
-
 }
 
 #' Convert a single disruptions to a tibble
