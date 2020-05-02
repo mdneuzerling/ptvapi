@@ -30,7 +30,7 @@ disruptions_on_route <- function(route_id,
   # taxis, Skybus. We map-reduce these to a single tibble. Note that we return
   # an empty tibble if there are no disruptions, so that this situation is
   # omitted.
-  dis_tibble <- purrr::reduce(
+  dis <- purrr::reduce(
     purrr::map(seq_along(content$disruptions), function(x) {
       service <- names(content$disruptions)[x]
       dis <- content$disruptions[[x]]
@@ -45,8 +45,8 @@ disruptions_on_route <- function(route_id,
     rbind
   )
 
-  # Base R method of moving last column (service) to the front
-  dis_tibble[,c(ncol(dis_tibble), seq(1, ncol(dis_tibble) - 1))]
+  # Base R method of moving service column to the front
+  dis[,c("service", colnames(dis)[colnames(dis) != "service"])]
 
 }
 
