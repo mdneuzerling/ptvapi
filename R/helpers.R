@@ -69,3 +69,32 @@ assert_correct_attributes <- function(received_attributes,
     )
   )
 }
+
+
+#' Strictly convert an object to an integer.
+#'
+#' This function will attempt to convert the input to an integer, but will
+#' error on any input that cannot be confidently expressed as an integer. It
+#' serves as a stricter version of `as.integer`. For example, the function will
+#' convert `3` or `"3"` to integers, but will error on `3.5` or `"three"`.
+#'
+#' @param x An input of any type.
+#'
+#' @return An integer interpretation of `x`, if possible.
+#'
+#' @keywords internal
+#'
+to_integer <- function(x) {
+  error_message <- paste(
+    "Cannot convert",
+    deparse(substitute(x)),
+    "to an integer, as its value is",
+    x
+  )
+  # Try numeric first, then cast to integer
+  x_numeric <- suppressWarnings(as.numeric(x))
+  if (is.na(x_numeric)) stop(error_message)
+  x_integer <- as.integer(x_numeric)
+  if (x_integer != x_numeric) stop(error_message)
+  x_integer
+}
