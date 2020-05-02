@@ -2,7 +2,7 @@
 % Please edit documentation in R/stops.R
 \name{stop_information}
 \alias{stop_information}
-\title{Stop information (metropolitan and V/Line stations only)}
+\title{Stop information (metropolitan and V/Line stations only).}
 \usage{
 stop_information(
   stop_id,
@@ -12,8 +12,7 @@ stop_information(
 )
 }
 \arguments{
-\item{stop_id}{Integer. These can be searched for with either
-\code{stops_on_route} or \code{stops_nearby}.}
+\item{stop_id}{Integer stop ID.}
 
 \item{route_type}{A route type which can be provided either as a non-negative
 integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
@@ -48,9 +47,8 @@ A single-row tibble with the following columns: \itemize{
 }
 }
 \description{
-Stops can be searched for by exactly one of the following methods: \itemize{
-\item Both a \code{stop_id} and \code{route_type} \item Both a \code{route_id} and
-\code{route_type} \item Both a \code{latitude} and \code{longitude} }
+This function can be used when integer stop ID is already known. This can be
+searched for with either the \code{stops_on_route} or \code{stops_nearby} functions.
 }
 \section{Swagger documentation}{
 
