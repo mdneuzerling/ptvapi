@@ -58,7 +58,7 @@ disruptions_at_stop <- function(stop_id,
 #'   `disruptions` API call.
 #'
 #' @return A tibble with the following columns: \itemize{
-#' \item `service`
+#' \item `service_type`
 #' \item `disruption_id`
 #' \item `title`
 #' \item `url`
@@ -81,13 +81,13 @@ disruptions_at_stop <- function(stop_id,
 all_disruptions_to_tibble <- function(disruptions_content) {
   dis <- purrr::reduce(
     purrr::map(seq_along(disruptions_content), function(x) {
-      service <- names(disruptions_content)[x]
+      service_type <- names(disruptions_content)[x]
       dis <- disruptions_content[[x]]
       if (length(dis) == 0) {
         tibble()
       } else {
         dis_tibble <- map_and_rbind(dis, disruption_to_tibble)
-        dis_tibble$service <- service
+        dis_tibble$service_type <- service_type
         dis_tibble
       }
     }),
@@ -95,7 +95,7 @@ all_disruptions_to_tibble <- function(disruptions_content) {
   )
 
   # Base R method of moving service column to the front
-  dis[,c("service", colnames(dis)[colnames(dis) != "service"])]
+  dis[,c("service_type", colnames(dis)[colnames(dis) != "service_type"])]
 }
 
 #' Convert a single disruptions to a tibble
