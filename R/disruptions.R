@@ -42,9 +42,10 @@ disruptions_on_route <- function(route_id,
                                  stop_id = NULL,
                                  user_id = determine_user_id(),
                                  api_key = determine_api_key()) {
+  route_id <- to_integer(route_id)
   request <- glue::glue("disruptions/route/{route_id}")
   if (!is.null(stop_id)) {
-    assertthat::assert_that(is.integer(stop_id))
+    stop_id <- to_integer(stop_id)
     request <- glue::glue("{request}/stop/{stop_id}")
   }
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
@@ -69,6 +70,7 @@ disruptions_on_route <- function(route_id,
 disruptions_at_stop <- function(stop_id,
                                 user_id = determine_user_id(),
                                 api_key = determine_api_key()) {
+  stop_id <- to_integer(stop_id)
   request <- glue::glue("disruptions/stop/{stop_id}")
   response <- PTVGET(request = request, user_id = user_id, api_key = api_key)
   content <- response$content
