@@ -85,12 +85,16 @@ assert_correct_attributes <- function(received_attributes,
 #' @keywords internal
 #'
 to_integer <- function(x) {
-  error_message <- paste(
-    "Cannot convert",
-    deparse(substitute(x)),
-    "to an integer, as its value is",
-    x
-  )
+  if (missing(x)) {
+    stop("Error in to_integer() : argument \"x\" is missing, with no default")
+  }
+
+  if (!(typeof(x) %in% c("integer", "double", "character"))) {
+    stop(paste("Cannot convert", typeof(x), "to an integer"))
+  }
+
+  error_message <- paste("Cannot convert", x, "to an integer")
+
   # Try numeric first, then cast to integer
   x_numeric <- suppressWarnings(as.numeric(x))
   if (is.na(x_numeric)) stop(error_message)
