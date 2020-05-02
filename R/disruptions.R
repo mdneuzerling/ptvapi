@@ -6,7 +6,7 @@
 #'   functions.
 #' @inheritParams PTVGET
 #'
-#' @inherit disruption_to_tibble return
+#' @inherit all_disruptions_to_tibble return
 #'
 #' @export
 #'
@@ -29,6 +29,15 @@ disruptions_on_route <- function(route_id,
   all_disruptions_to_tibble(content$disruptions)
 }
 
+#' Disruptions at a given stop
+#'
+#' @inheritParams stop_information
+#' @inheritParams PTVGET
+#'
+#' @inherit all_disruptions_to_tibble return
+#'
+#' @export
+#'
 disruptions_at_stop <- function(stop_id,
                                 user_id = determine_user_id(),
                                 api_key = determine_api_key()) {
@@ -43,15 +52,21 @@ disruptions_at_stop <- function(stop_id,
   all_disruptions_to_tibble(content$disruptions)
 }
 
-#' Retrieve
+#' Retrieve a translation from description mode number to description mode name.
 #'
-#' @param user_id
-#' @param api_key
+#' Disruption mode types (eg. "metro_train", "metro_tram", "school_bus", "taxi")
+#' have corresponding integer IDs. This function retrieves a named vector in
+#' which the values are the disruption mode descriptions, and the names of the
+#' vector are the description mode numbers. Note that disruption mode names are
+#' in snake case, that is, all lower case with underscores between words.
 #'
-#' @return
+#' @inheritParams PTVGET
+#'
+#' @return A named vector in which the values are the disruption mode
+#'   descriptions, and the names of the vector are the description mode numbers.
 #' @export
 #'
-#' @examples
+#' @examples \dontrun{disruption_modes()}
 disruption_modes <- function(user_id = determine_user_id(),
                              api_key = determine_api_key()) {
   request <- "disruptions/modes"
