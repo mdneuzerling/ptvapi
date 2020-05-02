@@ -26,7 +26,24 @@ disruptions_on_route <- function(route_id,
     c("disruptions", "status")
   )
 
-  map_and_rbind(content$disruptions$metro_train, disruption_to_tibble)
+  # Disruptions contains an element for every service type, eg. metro train,
+  # taxis, Skybus. We map-reduce these to a single tibble. Note that we return
+  # an empty tibble if there are no disruptions, so that this situation is
+  # omitted.
+  purrr::reduce(
+    purrr::map(seq_along(content$disruptions), function(x) {
+      service <- names(content$disruptions)[x]
+      dis <- content$disruptions[[x]]
+      if (length(dis) == 0) {
+        tibble()
+      } else {
+        dis_tibble <- map_and_rbind(dis, disruption_to_tibble)
+        dis_tibble$service <- service
+        dis_tibble
+      }
+    }),
+    rbind
+  )
 }
 
 #' Convert a single disruptions to a tibble
