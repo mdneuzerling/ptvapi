@@ -7,7 +7,7 @@
 stop_to_tibble(stop)
 }
 \arguments{
-\item{route}{A stop, as a list, returned by the \code{stops} API call.}
+\item{stop}{A stop, as a list, returned by the \code{stops} API call.}
 }
 \value{
 A tibble with the following columns: \itemize{
