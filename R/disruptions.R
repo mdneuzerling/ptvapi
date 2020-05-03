@@ -114,8 +114,8 @@ disruption_modes <- function(user_id = determine_user_id(),
     purrr::map(
       content$disruption_modes,
       function(x) {
-        dismode = x$disruption_mode_name
-        names(dismode) = x$disruption_mode
+        dismode <- x$disruption_mode_name
+        names(dismode) <- x$disruption_mode
         dismode
       }
     ),
@@ -175,7 +175,7 @@ all_disruptions_to_tibble <- function(disruptions_content) {
   )
 
   # Base R method of moving service column to the front
-  dis[,c("service_type", colnames(dis)[colnames(dis) != "service_type"])]
+  dis[, c("service_type", colnames(dis)[colnames(dis) != "service_type"])]
 }
 
 #' Convert a single disruptions to a tibble

@@ -106,5 +106,3 @@ outlet_to_tibble <- function(outlet) {
     outlet_notes = null_to_na_char(outlet$outlet_notes)
   )
 }
-
-

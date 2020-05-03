@@ -1,3 +1,4 @@
+# nolint start
 # This only works if I run `rcmdcheck::rcmdcheck()` from the console.
 # If I run this in the Build panel in RStudio, or through Github Actions, I get:
 #
@@ -10,7 +11,8 @@
 #
 # This seems to be related to the exclusions: If I remove the # nolint tags in
 # ptv-verbs.R, everything is okay.
-
+#
 # test_that("Package linting", {
 #   lintr::expect_lint_free()
 # })
+# nolint end

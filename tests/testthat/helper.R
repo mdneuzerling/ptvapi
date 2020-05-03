@@ -17,7 +17,7 @@ expect_true(length(frankston_route_id) == 1)
 
 train_route_type <- translate_route_type("Train")
 
-stops_near_flinders_street <-stops_nearby(
+stops_near_flinders_street <- stops_nearby(
   latitude = -37.8183,
   longitude = 144.9671
 )

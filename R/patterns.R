@@ -4,8 +4,9 @@
 #' disruptions associated with a particular run ID. This is returned as a list
 #' of tibbles, with output corresponding to their respective API calls.
 #'
-#' The `stops` tibble has an output similar to that returned by `stops_on_route`.
-#' The `routes` tibble does not contain service status information.
+#' The `stops` tibble has an output similar to that returned by
+#' `stops_on_route`. The `routes` tibble does not contain service status
+#' information.
 #'
 #' @inheritParams run_information
 #' @inheritParams translate_route_type
