@@ -99,6 +99,7 @@ stops_on_route <- function(route_id,
   content <- response$content
 
   parsed <- map_and_rbind(content$stops, stop_to_tibble)
+  new_ptvapi_tibble(response, parsed)
 }
 
 #' Search for stops near a location
