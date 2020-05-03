@@ -74,6 +74,7 @@ The below information can be obtained with the API:
 
 1. `departures`
 1. `directions`
+1. `disruptions`
 1. `patterns`
 1. `route_type`
 1. `routes`
@@ -82,7 +83,6 @@ The below information can be obtained with the API:
 
 Yet to be implemented:
 
-1. `disruptions`
 1. `outlets`
 1. `search`
 
