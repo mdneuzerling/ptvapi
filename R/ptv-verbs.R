@@ -77,7 +77,7 @@ process_response <- function(response, request_url_without_auth) {
         simplifyVector = FALSE
       )
     ),
-    class = "ptv_api"
+    class = "ptvapi_response"
   )
 
   if (status_code == 400) {
