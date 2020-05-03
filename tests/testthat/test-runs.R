@@ -4,11 +4,16 @@
 # assertions within the `runs_on_route()` function will still be run, and these
 # act as tests of sorts.
 
+runs_on_frankston_route <- runs_on_route(
+  route_id = frankston_route_id,
+  route_type = train_route_type
+)
+
+test_that("runs_on_route result has class \"ptvapi\"", {
+  expect_true("ptvapi" %in% class(runs_on_frankston_route))
+})
+
 test_that("Runs on the Frankston route end at stops on the Frankston route", {
-  runs_on_frankston_route <- runs_on_route(
-    route_id = frankston_route_id,
-    route_type = train_route_type
-  )
   frankston_runs_destinations <- runs_on_frankston_route %>%
     pull(destination_name) %>%
     unique
@@ -22,9 +27,5 @@ test_that("Runs on the Frankston route end at stops on the Frankston route", {
   }
 })
 
-test_that("Run 1 exists, and is unique up to route type", {
-  run_one <- run_information(run_id = 1)
-  expect_gte(nrow(run_one), 1)
-  expect_equal(anyDuplicated(run_one$route_type), 0)
-})
 
+# run_one is defined and tested in the helper.R test file

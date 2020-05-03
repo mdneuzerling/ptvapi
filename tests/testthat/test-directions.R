@@ -2,6 +2,9 @@
 # Testing route_directions
 # Simply running this functions asserts that column names, etc. are as expected
 frankston_route_directions <- route_directions(route_id = frankston_route_id)
+test_that("route_directions result has class \"ptvapi\"", {
+  expect_true("ptvapi" %in% class(frankston_route_directions))
+})
 
 city_directions <- frankston_route_directions %>%
   filter(grepl("City", direction_name, ignore.case = TRUE))

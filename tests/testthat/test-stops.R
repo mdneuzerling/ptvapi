@@ -3,6 +3,10 @@ stops_on_frankston_line <- stops_on_route(
   route_type = train_route_type
 )
 
+test_that("stops_on_route result has class \"ptvapi\"", {
+  expect_true("ptvapi" %in% class(stops_on_frankston_line))
+})
+
 test_that("Stop names along a route are unique", {
   expect_equal(anyDuplicated(stops_on_frankston_line$stop_name), 0)
 })
@@ -58,24 +62,4 @@ test_that("Cheltenham Station can be identified with stop_information", {
   expect_true(grepl("Cheltenham", cheltenham_station_information$stop_name))
 })
 
-# We get whitespace after stop names
-test_that("Can find Flinders Street with latitude and longitude", {
-  stops_near_flinders <- stops_nearby(
-    latitude = -37.8183,
-    longitude = 144.9671
-  ) %>%
-    pull(stop_name)
-  expect_true("Flinders Street" %in% stops_near_flinders)
-})
-
-# We get whitespace after stop names
-test_that("Only one train station near Flinders Street", {
-  train_stops_near_flinders <- stops_nearby(
-    latitude = -37.8183,
-    longitude = 144.9671,
-    route_types = train_route_type
-  ) %>%
-    pull(stop_name)
-  expect_true("Flinders Street" %in% train_stops_near_flinders)
-  expect_equal(length(train_stops_near_flinders), 1)
-})
+# stops_nearby() is defined and tested in the helper.R test file.

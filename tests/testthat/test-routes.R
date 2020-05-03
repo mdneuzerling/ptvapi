@@ -1,4 +1,4 @@
-all_routes <- routes()
+# all_routes defined and tested in the helper.R test file
 
 test_that("Frankston train route can be found", {
   # I can't think of any non-train routes, but just in case
