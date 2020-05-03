@@ -44,6 +44,7 @@ disruptions associated with a particular run ID. This is returned as a list
 of tibbles, with output corresponding to their respective API calls.
 }
 \details{
-The \code{stops} tibble has an output similar to that returned by \code{stops_on_route}.
-The \code{routes} tibble does not contain service status information.
+The \code{stops} tibble has an output similar to that returned by
+\code{stops_on_route}. The \code{routes} tibble does not contain service status
+information.
 }
