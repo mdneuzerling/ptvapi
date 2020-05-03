@@ -44,7 +44,7 @@ stop_information <- function(stop_id,
   stop <- content$stop
 
   null_to_char_na <- function(x) ifelse(is.null(x), NA_character_, x)
-  tibble::tibble(
+  parsed <- tibble::tibble(
     stop_id = stop$stop_id,
     stop_name = trimws(stop$stop_name),
     route_type = stop$route_type,
@@ -67,6 +67,7 @@ stop_information <- function(stop_id,
     stop_staffing = null_to_char_na(stop$stop_staffing),
     disruption_ids = list(stop$disruption_ids)
   )
+  new_ptvapi_tibble(response, parsed)
 }
 
 #' Stop information with route_id and route_type
@@ -97,7 +98,7 @@ stops_on_route <- function(route_id,
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
 
-  map_and_rbind(content$stops, stop_to_tibble)
+  parsed <- map_and_rbind(content$stops, stop_to_tibble)
 }
 
 #' Search for stops near a location
@@ -141,7 +142,8 @@ stops_nearby <- function(latitude,
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
 
-  map_and_rbind(content$stops, stop_to_tibble)
+  parsed <- map_and_rbind(content$stops, stop_to_tibble)
+  new_ptvapi_tibble(response, parsed)
 }
 
 #' Convert a single stop to a tibble

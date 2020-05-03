@@ -34,7 +34,8 @@ departures <- function(stop_id,
       "status")
   )
 
-  map_and_rbind(content$departures, departure_to_tibble)
+  parsed <- map_and_rbind(content$departures, departure_to_tibble)
+  new_ptvapi_tibble(response, parsed)
 }
 
 #' Convert a single departure to a tibble

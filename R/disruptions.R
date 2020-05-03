@@ -23,7 +23,8 @@ disruption_information <- function(disruption_id,
     c("disruption", "status")
   )
 
-  disruption_to_tibble(content$disruption)
+  parsed <- disruption_to_tibble(content$disruption)
+  new_ptvapi_tibble(response, parsed)
 }
 
 #' Disruptions on a given route
@@ -55,7 +56,8 @@ disruptions_on_route <- function(route_id,
     c("disruptions", "status")
   )
 
-  all_disruptions_to_tibble(content$disruptions)
+  parsed <- all_disruptions_to_tibble(content$disruptions)
+  new_ptvapi_tibble(response, parsed)
 }
 
 #' Disruptions at a given stop
@@ -79,7 +81,8 @@ disruptions_at_stop <- function(stop_id,
     c("disruptions", "status")
   )
 
-  all_disruptions_to_tibble(content$disruptions)
+  parsed <- all_disruptions_to_tibble(content$disruptions)
+  new_ptvapi_tibble(response, parsed)
 }
 
 #' Retrieve a translation from description mode number to description mode name.
