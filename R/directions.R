@@ -23,7 +23,8 @@ directions <- function(direction_id,
   }
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
-  parse_directions_content(content)
+  parsed <- parse_directions_content(content)
+  new_ptvapi_tibble(response, parsed)
 }
 
 #' Directions for a given route_id
@@ -41,7 +42,8 @@ route_directions <- function(route_id,
   request <- glue::glue("directions/route/{route_id}")
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
-  parse_directions_content(content)
+  parsed <- parse_directions_content(content)
+  new_ptvapi_tibble(response, parsed)
 }
 
 #' Parse content of directions API call
