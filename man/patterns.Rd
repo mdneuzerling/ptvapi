@@ -28,7 +28,8 @@ Transport Victoria. See section "Obtaining API authentication details".}
 Transport Victoria. See section "Obtaining API authentication details".}
 }
 \value{
-A tibble with the following columns: \itemize{
+An object of class "ptvapi", which is effectively a list with the
+following names: \itemize{
 \item \code{departures}
 \item \code{stops}
 \item \code{routes}

@@ -11,7 +11,8 @@
 #' @inheritParams translate_route_type
 #' @inheritParams PTVGET
 #'
-#' @return A tibble with the following columns: \itemize{
+#' @return An object of class "ptvapi", which is effectively a list with the
+#'   following names: \itemize{
 #' \item `departures`
 #' \item `stops`
 #' \item `routes`
@@ -36,12 +37,18 @@ patterns <- function(run_id,
       "status")
   )
 
-  list(
-    departures = map_and_rbind(content$departures, departure_to_tibble),
-    stops = map_and_rbind(content$stops, stop_to_tibble),
-    routes = map_and_rbind(content$routes, route_to_tibble),
-    runs = map_and_rbind(content$runs, run_to_tibble),
-    directions = map_and_rbind(content$directions, tibble::as_tibble),
-    disruptions = list(content$disruptions)
+  structure(
+    list(
+      departures = map_and_rbind(content$departures, departure_to_tibble),
+      stops = map_and_rbind(content$stops, stop_to_tibble),
+      routes = map_and_rbind(content$routes, route_to_tibble),
+      runs = map_and_rbind(content$runs, run_to_tibble),
+      directions = map_and_rbind(content$directions, tibble::as_tibble),
+      disruptions = list(content$disruptions)
+    ),
+    class = "ptvapi",
+    request = response$request,
+    status_code = response$status_code,
+    content = response$content
   )
 }
