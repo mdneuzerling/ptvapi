@@ -25,7 +25,8 @@ outlets <- function(user_id = determine_user_id(),
     c("outlets", "status")
   )
 
-  map_and_rbind(content$outlets, outlet_to_tibble)
+  parsed <- map_and_rbind(content$outlets, outlet_to_tibble)
+  new_ptvapi_tibble(response, parsed)
 }
 
 #' Retrieve outlet information near a given location
