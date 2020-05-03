@@ -30,7 +30,7 @@ outlets <- function(user_id = determine_user_id(),
 
 #' Retrieve outlet information near a given location
 #'
-#' @inheritSection outlets Details
+#' @inherit outlets details
 #'
 #' @inheritParams stops_nearby
 #' @inheritParams PTVGET
