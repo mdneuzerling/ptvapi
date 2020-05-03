@@ -7,7 +7,7 @@
 #' @section Swagger documentation:
 #'   \url{http://timetableapi.ptv.vic.gov.au/swagger/ui/index#/Stops}
 #'
-#' @param stop_id Integer disruption ID.
+#' @param disruption_id Integer disruption ID.
 #' @inheritParams translate_route_type
 #' @inheritParams PTVGET
 #'
