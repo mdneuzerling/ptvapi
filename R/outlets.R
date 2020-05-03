@@ -1,3 +1,20 @@
+#' Retrieve outlet information
+#'
+#' @details The business hours are reported as characters. Usually they take on
+#' a format of "8.00AM - 10.00PM", but there variants such as "7.30AM - 11.00AM
+#' and 1.30PM - 6.00PM". For days on which an outlet is closed, the opening
+#' hours are usually reported as "CLOSED", but can also be an empty character.
+#' Some opening hours are "24 Hours". These fields are also filled with missing
+#' values and empty characters.
+#'
+#' @inheritParams PTVGET
+#'
+#' @inherit outlet_to_tibble return
+#'
+#' @export
+#'
+#' @examples \dontrun{outlets()}
+#'
 outlets <- function(user_id = determine_user_id(),
                     api_key = determine_api_key()) {
   request <- "outlets"
