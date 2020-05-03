@@ -149,7 +149,7 @@ stops_nearby <- function(latitude,
 #' This function is designed to parse the content returned by the interior
 #' steps of the `stops_on_route` and `stop_nearby` functions.
 #'
-#' @param route A stop, as a list, returned by the `stops` API call.
+#' @param stop A stop, as a list, returned by the `stops` API call.
 #'
 #' @return A tibble with the following columns: \itemize{
 #' \item{`stop_id`}
