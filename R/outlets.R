@@ -28,6 +28,36 @@ outlets <- function(user_id = determine_user_id(),
   map_and_rbind(content$outlets, outlet_to_tibble)
 }
 
+#' Retrieve outlet information near a given location
+#'
+#' @inheritSection outlets Details
+#'
+#' @inheritParams stops_nearby
+#' @inheritParams PTVGET
+#'
+#' @inherit outlet_to_tibble return
+#'
+#' @export
+#'
+#' @examples \dontrun{
+#' outlets_nearby(latitude = -37.8183, longitude = 144.9671)
+#' }
+#'
+outlets_nearby <- function(latitude,
+                           longitude,
+                           user_id = determine_user_id(),
+                           api_key = determine_api_key()) {
+  request <- glue::glue("outlets/location/{latitude},{longitude}")
+  response <- PTVGET(request, user_id = user_id, api_key = api_key)
+  content <- response$content
+  assert_correct_attributes(
+    names(content),
+    c("outlets", "status")
+  )
+
+  map_and_rbind(content$outlets, outlet_to_tibble)
+}
+
 #' Convert a single outlet to a tibble
 #'
 #' This function is designed to parse the content returned by the interior
