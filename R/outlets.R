@@ -39,6 +39,7 @@ outlets <- function(user_id = determine_user_id(),
 #' @keywords internal
 #'
 outlet_to_tibble <- function(outlet) {
+  null_to_na_char <- function(x) ifelse(is.null(x), NA_character_, x)
   tibble::tibble(
     outlet_slid_spid = outlet$outlet_slid_spid,
     outlet_name = outlet$outlet_name,
@@ -47,16 +48,14 @@ outlet_to_tibble <- function(outlet) {
     outlet_longitude = outlet$outlet_longitude,
     outlet_suburb = outlet$outlet_suburb,
     outlet_postcode = outlet$outlet_postcode,
-    outlet_business_hour_mon = outlet$outlet_business_hour_mon,
-    outlet_business_hour_tue = outlet$outlet_business_hour_tue,
-    outlet_business_hour_wed = outlet$outlet_business_hour_wed,
-    outlet_business_hour_thu = outlet$outlet_business_hour_thu,
-    outlet_business_hour_fri = outlet$outlet_business_hour_fri,
-    outlet_business_hour_sat = outlet$outlet_business_hour_sat,
-    outlet_business_hour_sun = outlet$outlet_business_hour_sun,
-    outlet_notes = ifelse(
-      is.null(outlet$outlet_notes), NA_character_, outlet$outlet_notes
-    )
+    outlet_business_hour_mon = null_to_na_char(outlet$outlet_business_hour_mon),
+    outlet_business_hour_tue = null_to_na_char(outlet$outlet_business_hour_tue),
+    outlet_business_hour_wed = null_to_na_char(outlet$outlet_business_hour_wed),
+    outlet_business_hour_thu = null_to_na_char(outlet$outlet_business_hour_thu),
+    outlet_business_hour_fri = null_to_na_char(outlet$outlet_business_hour_fri),
+    outlet_business_hour_sat = null_to_na_char(outlet$outlet_business_hour_sat),
+    outlet_business_hour_sun = null_to_na_char(outlet$outlet_business_hour_sun),
+    outlet_notes = null_to_na_char(outlet$outlet_notes)
   )
 }
 
