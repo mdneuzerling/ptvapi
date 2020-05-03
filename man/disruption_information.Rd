@@ -11,13 +11,13 @@ disruption_information(
 )
 }
 \arguments{
+\item{disruption_id}{Integer disruption ID.}
+
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}
 
 \item{api_key}{Character. An API key, with dashes, provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}
-
-\item{stop_id}{Integer disruption ID.}
 }
 \description{
 This function can be used when integer disruption ID is already known. This
