@@ -36,7 +36,7 @@ convert_to_melbourne_time <- function(datetime) {
 #'
 map_and_rbind <- function(.x, .f, ...) {
   if (length(.x) == 0) {
-    return(tibble())
+    return(tibble::tibble())
   }
   purrr::reduce(purrr::map(.x, .f, ...), rbind)
 }
