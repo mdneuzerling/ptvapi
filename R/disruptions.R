@@ -161,7 +161,7 @@ all_disruptions_to_tibble <- function(disruptions_content) {
       service_type <- names(disruptions_content)[x]
       dis <- disruptions_content[[x]]
       if (length(dis) == 0) {
-        tibble()
+        tibble::tibble()
       } else {
         dis_tibble <- map_and_rbind(dis, disruption_to_tibble)
         dis_tibble$service_type <- service_type
