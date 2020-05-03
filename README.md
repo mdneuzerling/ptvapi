@@ -10,7 +10,7 @@ This package provides a friendly interface to the Public Transport Victoria (PTV
 **This package is an unofficial wrapper of the Public Transport Victoria timetable API. The author of this package is not associated with Public Transport Victoria.**
 
 Implementation progress:
-⬛⬛⬛⬛⬛⬛⬛⬜⬜⬜ 70%
+⬛⬛⬛⬛⬛⬛⬛⬛⬜⬜ 80%
 
 ## Installing
 
