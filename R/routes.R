@@ -48,7 +48,7 @@ routes <- function(route_id = NULL,
     parsed <- map_and_rbind(content$routes, route_to_tibble)
   }
 
-  parsed
+  new_ptvapi_tibble(response, parsed)
 
 }
 
