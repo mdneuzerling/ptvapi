@@ -46,17 +46,6 @@ sign_request <- function(request,
   toupper(signature)
 }
 
-add_parameter <- function(request, parameter_name, parameter_value) {
-  # Parameters go on the end of the URL, first with ? then with &
-  # If a URL already has a ? parameter, we join another one with &
-  # Otherwise, we start appending parameters to a URL with ?
-  if (is.null(parameter_value)) {
-    return(request)
-  }
-  conjunction <- ifelse(grepl("\\?", request), "&", "?")
-  glue::glue("{request}{conjunction}{parameter_name}={parameter_value}")
-}
-
 #' Prefix a string with the API base URL
 #'
 #' A trailing `/` will be added to the base URL if the input string does not
@@ -104,4 +93,30 @@ prefix_version <- function(string) {
 #'
 prefix_base_url_and_version <- function(string) {
   prefix_base_url(prefix_version(string))
+}
+
+add_parameter <- function(request, parameter_name, parameter_value) {
+  # Parameters go on the end of the URL, first with ? then with &
+  # If a URL already has a ? parameter, we join another one with &
+  # Otherwise, we start appending parameters to a URL with ?
+  if (is.null(parameter_value)) {
+    return(request)
+  }
+  conjunction <- ifelse(grepl("\\?", request), "&", "?")
+  glue::glue("{request}{conjunction}{parameter_name}={parameter_value}")
+}
+
+add_parameters <- function(request, ...) {
+  dots <- list(...)
+  dots_names <- names(dots)
+  for (i in seq_along(dots)) {
+    dot_name <- dots_names[i]
+    dot_value <- dots[[i]]
+    if (dot_name == "") stop("Parameters must be named")
+    if (length(dot_value) != 1) stop("Parameters must be singletons")
+    if (!is.null(dot_value)) {
+      request <- add_parameter(request, dot_name, dot_value)
+    }
+  }
+  request
 }
