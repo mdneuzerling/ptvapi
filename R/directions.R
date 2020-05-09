@@ -16,6 +16,7 @@ directions <- function(direction_id,
                        route_type = NULL,
                        user_id = determine_user_id(),
                        api_key = determine_api_key()) {
+  direction_id <- to_integer(direction_id)
   request <- glue::glue("directions/{direction_id}")
   if (!is.null(route_type)) {
     route_type <- translate_route_type(route_type)
@@ -39,6 +40,7 @@ directions <- function(direction_id,
 route_directions <- function(route_id,
                              user_id = determine_user_id(),
                              api_key = determine_api_key()) {
+  route_id <- to_integer(route_id)
   request <- glue::glue("directions/route/{route_id}")
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content

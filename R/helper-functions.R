@@ -92,10 +92,13 @@ assert_correct_attributes <- function(received_attributes,
 
 #' Strictly convert an object to an integer.
 #'
-#' This function will attempt to convert the input to an integer, but will
-#' error on any input that cannot be confidently expressed as an integer. It
-#' serves as a stricter version of `as.integer`. For example, the function will
-#' convert `3` or `"3"` to integers, but will error on `3.5` or `"three"`.
+#' R does not have a built-in function to determine if a value is an integer
+#' (`is.integer()` will check if the class of an object is "integer", but
+#' `is.integer(3)` will return FALSE). This helper function fills that gap. It
+#' will attempt to convert the input to an integer, but will error on any input
+#' that cannot be confidently expressed as an integer. It serves as a stricter
+#' version of `as.integer`. For example, the function will convert `3` or `"3"`
+#' to integers, but will error on `3.5` or `"three"`.
 #'
 #' @param x An input of any type.
 #'

@@ -18,6 +18,7 @@ departures <- function(stop_id,
                        user_id = determine_user_id(),
                        api_key = determine_api_key()) {
 
+  stop_id <- to_integer(stop_id)
   route_type <- translate_route_type(route_type)
   request <- glue::glue("departures/route_type/{route_type}/stop/{stop_id}")
 

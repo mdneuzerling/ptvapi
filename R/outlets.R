@@ -48,6 +48,10 @@ outlets_nearby <- function(latitude,
                            longitude,
                            user_id = determine_user_id(),
                            api_key = determine_api_key()) {
+
+  assertthat::assert_that(is.numeric(latitude))
+  assertthat::assert_that(is.numeric(longitude))
+
   request <- glue::glue("outlets/location/{latitude},{longitude}")
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content

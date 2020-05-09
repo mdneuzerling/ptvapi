@@ -35,7 +35,7 @@ stop_information <- function(stop_id,
                              route_type,
                              user_id = determine_user_id(),
                              api_key = determine_api_key()) {
-
+  stop_id <- to_integer(stop_id)
   route_type <- translate_route_type(route_type)
   request <- glue::glue("stops/{stop_id}/route_type/{route_type}")
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
@@ -89,7 +89,7 @@ stops_on_route <- function(route_id,
                            direction = NULL,
                            user_id = determine_user_id(),
                            api_key = determine_api_key()) {
-
+  route_id <- to_integer(route_id)
   route_type <- translate_route_type(route_type)
   request <- glue::glue("stops/route/{route_id}/route_type/{route_type}")
   if (!is.null(direction)) {

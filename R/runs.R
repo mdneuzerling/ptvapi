@@ -17,6 +17,7 @@ run_information <- function(run_id,
                             route_type = NULL,
                             user_id = determine_user_id(),
                             api_key = determine_api_key()) {
+  run_id <- to_integer(run_id)
   request <- glue::glue("runs/{run_id}")
   if (!is.null(route_type)) {
     route_type <- translate_route_type(route_type)
@@ -44,6 +45,7 @@ runs_on_route <- function(route_id,
                           route_type = NULL,
                           user_id = determine_user_id(),
                           api_key = determine_api_key()) {
+  route_id <- to_integer(route_id)
   request <- glue::glue("runs/route/{route_id}")
   if (!is.null(route_type)) {
     route_type <- translate_route_type(route_type)
