@@ -25,8 +25,9 @@ new_ptvapi_tibble <- function(response, parsed) {
 #'
 #' @keywords internal
 #'
-#' @examples
+#' @examples \dontrun{
 #' convert_to_melbourne_time("2020-05-09T06:38:47.3194196+00:00")
+#' }
 convert_to_melbourne_time <- function(datetime) {
 
   if (is.null(datetime)) {
