@@ -15,4 +15,7 @@ A datetime in the Melbourne timezone.
 \description{
 Convert a datetime returned by the PTV API into Melbourne time
 }
+\examples{
+convert_to_melbourne_time("2020-05-09T06:38:47.3194196+00:00")
+}
 \keyword{internal}

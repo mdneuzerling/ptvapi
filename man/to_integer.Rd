@@ -13,9 +13,12 @@ to_integer(x)
 An integer interpretation of \code{x}, if possible.
 }
 \description{
-This function will attempt to convert the input to an integer, but will
-error on any input that cannot be confidently expressed as an integer. It
-serves as a stricter version of \code{as.integer}. For example, the function will
-convert \code{3} or \code{"3"} to integers, but will error on \code{3.5} or \code{"three"}.
+R does not have a built-in function to determine if a value is an integer
+(\code{is.integer()} will check if the class of an object is "integer", but
+\code{is.integer(3)} will return FALSE). This helper function fills that gap. It
+will attempt to convert the input to an integer, but will error on any input
+that cannot be confidently expressed as an integer. It serves as a stricter
+version of \code{as.integer}. For example, the function will convert \code{3} or \code{"3"}
+to integers, but will error on \code{3.5} or \code{"three"}.
 }
 \keyword{internal}
