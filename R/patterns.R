@@ -28,7 +28,7 @@ patterns <- function(run_id,
                      route_type,
                      user_id = determine_user_id(),
                      api_key = determine_api_key()) {
-  run_id <- as_integer(run_id)
+  run_id <- to_integer(run_id)
   route_type <- translate_route_type(route_type)
   request <- glue::glue("pattern/run/{run_id}/route_type/{route_type}")
   request <- add_parameter(request, "expand", "all")
