@@ -111,23 +111,63 @@ test_that("Adding a NULL parameter will return request unaltered", {
     "www.example.com"
   )
   expect_equal(
-    add_parameters("www.example.com", parameter = NULL, animal = "crocodile"),
-    "www.example.com?animal=crocodile"
+    add_parameters("www.example.com", parameter = NULL, animal = "emu"),
+    "www.example.com?animal=emu"
   )
   expect_equal(
-    add_parameters("www.example.com", animal = "crocodile", parameter = NULL),
-    "www.example.com?animal=crocodile"
+    add_parameters("www.example.com", animal = "emu", parameter = NULL),
+    "www.example.com?animal=emu"
+  )
+  expect_equal(
+    add_parameters("www.example.com", parameter = character(0)),
+    "www.example.com"
+  )
+  expect_equal(
+    add_parameters("www.example.com", parameter = character(0), animal = "emu"),
+    "www.example.com?animal=emu"
+  )
+  expect_equal(
+    add_parameters("www.example.com", animal = "emu", parameter = character(0)),
+    "www.example.com?animal=emu"
   )
 })
 
-test_that("Adding a non-singleton parameter will error", {
-  expect_error(
-    add_parameters("www.example.com", parameter = c("fish", "giraffe")),
-    "Parameters must be singletons"
+test_that("Multi-valued parameters are combined according to the strategy", {
+  expect_equal(
+    add_parameters(
+      "www.example.com",
+      animal = "crocodile",
+      eats = c("fish", "humans"),
+      .combine = "repeat_name"
+    ),
+    "www.example.com?animal=crocodile&eats=fish&eats=humans"
   )
-  expect_error(
-    add_parameters("www.example.com", parameter = list(42, "giraffe")),
-    "Parameters must be singletons"
+  expect_equal(
+    add_parameters(
+      "www.example.com",
+      animal = "crocodile",
+      eats = c("fish", "humans"),
+      .combine = "with_commas"
+    ),
+    "www.example.com?animal=crocodile&eats=fish,humans"
+  )
+  expect_equal(
+    add_parameters(
+      "www.example.com",
+      animal = "crocodile",
+      eats = c("fish", "humans"),
+      .combine = "with_hex_commas"
+    ),
+    "www.example.com?animal=crocodile&eats=fish%2Chumans"
+  )
+  expect_equal(
+    add_parameters(
+      "www.example.com",
+      animal = "crocodile",
+      eats = c("fish", "humans"),
+      .combine = "|"
+    ),
+    "www.example.com?animal=crocodile&eats=fish|humans"
   )
 })
 
