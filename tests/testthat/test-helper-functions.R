@@ -17,7 +17,7 @@ test_that("Can convert API-provided timestamp to Melbourne time", {
   raw_time <- "2020-05-09T06:38:47.3194196+00:00" # this is what the API gives
   expect_equal(
     convert_to_melbourne_time(raw_time),
-    as.POSIXct("2020-05-09 16:38:47.3194196 AEST")
+    as.POSIXct("2020-05-09 16:38:47.3194196 AEST", tz = "Australia/Melbourne")
   )
 })
 
