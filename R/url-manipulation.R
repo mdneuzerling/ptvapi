@@ -28,7 +28,8 @@ sign_request <- function(request,
   # not the base URL. So if the request is
   # http://timetableapi.ptv.vic.gov.au/v3/path?param=value&devid=123456
   # then the signature is calculated on /v3/path?param=value&devid=123456
-  assertthat::assert_that(!grepl("devid", request))
+  assertthat::assert_that(
+    !grepl("devid", request),)
   assertthat::assert_that(!grepl("http", request))
   assertthat::assert_that(!grepl("signature", request))
   request_without_signature <- prefix_version(request)
@@ -102,6 +103,9 @@ add_parameter <- function(request, parameter_name, parameter_value) {
   if (is.null(parameter_value)) {
     return(request)
   }
+  if (length(parameter_value) != 1) {
+    stop("Parameters must be singletons")
+  }
   conjunction <- ifelse(grepl("\\?", request), "&", "?")
   glue::glue("{request}{conjunction}{parameter_name}={parameter_value}")
 }
@@ -113,10 +117,9 @@ add_parameters <- function(request, ...) {
     dot_name <- dots_names[i]
     dot_value <- dots[[i]]
     if (dot_name == "") stop("Parameters must be named")
-    if (length(dot_value) != 1) stop("Parameters must be singletons")
-    if (!is.null(dot_value)) {
-      request <- add_parameter(request, dot_name, dot_value)
-    }
+    # add_parameter will error if dot_value if not a singletons, and will
+    # return the request unaltered if dot_value is NULL
+    request <- add_parameter(request, dot_name, dot_value)
   }
   request
 }
