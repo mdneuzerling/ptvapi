@@ -1,4 +1,24 @@
-# all_routes defined and tested in the helper.R test file
+# ---------------------------------------------------------------------------- #
+# ---- Define values if they haven't already been defined by another test ---- #
+# ---------------------------------------------------------------------------- #
+if (!exists("all_routes")) {
+  all_routes <- routes()
+}
+
+if (!exists("frankston_route_id")) {
+  frankston_route_id <- all_routes %>%
+    dplyr::filter(route_name == "Frankston") %>%
+    pull(route_id)
+}
+# ---------------------------------------------------------------------------- #
+
+test_that("routes() result has class \"ptvapi\"", {
+  expect_true("ptvapi" %in% class(all_routes))
+})
+
+test_that("We can find the Frankston route", {
+  expect_true(length(frankston_route_id) == 1)
+})
 
 test_that("Frankston train route can be found", {
   # I can't think of any non-train routes, but just in case

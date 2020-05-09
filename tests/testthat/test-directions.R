@@ -1,3 +1,16 @@
+# ---------------------------------------------------------------------------- #
+# ---- Define values if they haven't already been defined by another test ---- #
+# ---------------------------------------------------------------------------- #
+if (!exists("all_routes")) {
+  all_routes <- routes()
+}
+
+if (!exists("frankston_route_id")) {
+  frankston_route_id <- all_routes %>%
+    dplyr::filter(route_name == "Frankston") %>%
+    pull(route_id)
+}
+# ---------------------------------------------------------------------------- #
 
 # Testing route_directions
 # Simply running this functions asserts that column names, etc. are as expected
@@ -23,6 +36,12 @@ test_that("Frankston train goes to the city", {
 # Testing directions
 # We'll run the Frankston -> City direction from above through the directions
 # function, and see if we can recover the Frankston route ID.
+if (!exists("frankston_route_id")) {
+  frankston_route_id <- routes() %>%
+    dplyr::filter(route_name == "Frankston") %>%
+    pull(route_id)
+}
+
 recovering_frankston_direction <- city_directions$direction_id %>%
   directions(direction_id = .) %>%
   filter(
@@ -39,7 +58,7 @@ test_that("Frankston route can be recovered with directions call", {
 # Testing directions with route type
 test_that("Frankstain train directions are all train routes", {
   city_train_directions <- city_directions$direction_id %>%
-    directions(direction_id = ., route_type = train_route_type)
+    directions(direction_id = ., route_type = "Train")
   expect_true(
     all(
       grepl(
