@@ -63,3 +63,23 @@ test_that("Cheltenham Station can be identified with stop_information", {
 })
 
 # stops_nearby() is defined and tested in the helper.R test file.
+
+test_that("stops_nearby() can be filtered with multiple route types", {
+  # We use Southern Cross because it has a variety of route types
+  expect_equal(
+    stops_nearby(
+      latitude = -37.818229,
+      longitude = 144.952404,
+      route_types = c(0, 1)
+    ) %>% pull(route_type) %>% unique %>% sort,
+    c(0, 1)
+  )
+  expect_equal(
+    stops_nearby(
+      latitude = -37.818229,
+      longitude = 144.952404,
+      route_types = c(0, 3)
+    ) %>% pull(route_type) %>% unique %>% sort,
+    c(0, 3)
+  )
+})
