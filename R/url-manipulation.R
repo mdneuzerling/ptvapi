@@ -146,14 +146,15 @@ prefix_base_url_and_version <- function(string) {
 #'
 #' @keywords internal
 #'
-#' @examples
+#' @examples \dontrun{
 #' add_parameter("www.example.com", "animal", "crocodile")
 #' add_parameter(
 #'   "www.example.com",
 #'   "numbers",
 #'   c(1, 2, 3),
 #'   .combine = "repeat_names"
-#' )
+#' )}
+#'
 add_parameter <- function(request,
                           parameter_name,
                           parameter_value,
@@ -199,7 +200,7 @@ add_parameter <- function(request,
 #'
 #' @keywords internal
 #'
-#' @examples
+#' @examples \dontrun{
 #' add_parameters("www.example.com", animal = crocodile)
 #' add_parameters("www.example.com", animal = crocodile, food = "cherries")
 #' add_parameters(
@@ -207,7 +208,7 @@ add_parameter <- function(request,
 #'   animal = crocodile,
 #'   numbers = c(1, 2, 3),
 #'   .combine = "repeat_names"
-#' )
+#' )}
 #'
 add_parameters <- function(request, ..., .combine = "repeat_name") {
   dots <- list(...)

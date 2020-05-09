@@ -44,6 +44,7 @@ example, \verb{("request", "para", c(1, 2))} will return "request?para=1\%2C2".
 }
 }
 \examples{
+\dontrun{
 add_parameters("www.example.com", animal = crocodile)
 add_parameters("www.example.com", animal = crocodile, food = "cherries")
 add_parameters(
@@ -51,7 +52,7 @@ add_parameters(
   animal = crocodile,
   numbers = c(1, 2, 3),
   .combine = "repeat_names"
-)
+)}
 
 }
 \keyword{internal}
