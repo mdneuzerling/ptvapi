@@ -12,3 +12,17 @@ test_that("Can convert only integer-like things to integers", {
   expect_error(to_integer(3.5), "Cannot convert 3.5 to an integer")
   expect_error(to_integer(data.frame()), "Cannot convert list to an integer")
 })
+
+test_that("Can convert API-provided timestamp to Melbourne time", {
+  raw_time <- "2020-05-09T06:38:47.3194196+00:00" # this is what the API gives
+  expect_equal(
+    convert_to_melbourne_time(raw_time),
+    as.POSIXct("2020-05-09 16:38:47.3194196 AEST")
+  )
+})
+
+test_that("converting NULL datetime to NA", {
+  NA_datetime <- as.POSIXct(NA)
+  attr(NA_datetime, "tzone") <- "Australia/Melbourne"
+  expect_identical(convert_to_melbourne_time(NULL), NA_datetime)
+})

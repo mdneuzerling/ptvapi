@@ -18,7 +18,6 @@ Imports:
     glue,
     digest,
     jsonlite,
-    lubridate,
     purrr,
     tibble,
     assertthat

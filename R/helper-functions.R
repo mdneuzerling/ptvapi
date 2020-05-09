@@ -25,17 +25,23 @@ new_ptvapi_tibble <- function(response, parsed) {
 #'
 #' @keywords internal
 #'
+#' @examples
+#' convert_to_melbourne_time("2020-05-09T06:38:47.3194196+00:00")
 convert_to_melbourne_time <- function(datetime) {
 
   if (is.null(datetime)) {
-    return(lubridate::as_datetime(NA))
+    NA_datetime <- as.POSIXct(NA)
+    attr(NA_datetime, "tzone") <- "Australia/Melbourne"
+    return(NA_datetime)
   }
 
-  lubridate::ymd_hms(
+  converted <- as.POSIXct(
     datetime,
-    tz = "Australia/Melbourne",
-    quiet = TRUE
+    tz = "GMT",
+    format = "%Y-%m-%dT%H:%M:%OS"
   )
+  attr(converted, "tzone") <- "Australia/Melbourne"
+  converted
 }
 
 #' Map and rbind a list of data frames
@@ -57,7 +63,7 @@ map_and_rbind <- function(.x, .f, ...) {
   if (length(.x) == 0) {
     return(tibble::tibble())
   }
-  purrr::reduce(purrr::map(.x, .f, ...), rbind)
+  do.call(rbind, lapply(.x, .f, ...))
 }
 
 #' Assert that the API has returned the expected attributes
