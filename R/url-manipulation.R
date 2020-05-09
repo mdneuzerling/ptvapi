@@ -26,19 +26,36 @@ sign_request <- function(request,
                          api_key = determine_api_key()) {
   # The object to be signed is the request URL, including the version, but
   # not the base URL. So if the request is
-  # http://timetableapi.ptv.vic.gov.au/v3/path?param=value&devid=123456
-  # then the signature is calculated on /v3/path?param=value&devid=123456
-  assertthat::assert_that(
-    !grepl("devid", request),)
-  assertthat::assert_that(!grepl("http", request))
-  assertthat::assert_that(!grepl("signature", request))
-  request_without_signature <- prefix_version(request)
-  request_without_signature <- add_parameter(
-    request_without_signature,
-    "devid",
-    user_id
+  # http://timetableapi.ptv.vic.gov.au/v3/path?param=value&devid=1234567
+  # then the signature is calculated on /v3/path?param=value&devid=1234567
+  # This function will prefix the version and suffix the devid, so in this
+  # scenario with would accept an input of simply "path?param=value
+
+  input_error <- paste(
+    "This function signs a request without a domain, version number, URL,",
+    "or devid/user_id. So if the request URL is",
+    "'http://timetableapi.ptv.vic.gov.au/v3/path?param=1&devid=1234567'",
+    "then this function will take as input 'path?param=1'."
   )
 
+  # It's very easy to make a mistake when signing a request. Extensive
+  # assertions are a big help.
+  assertthat::assert_that(
+    !grepl("http", request),
+    !grepl("vic.gov.au", request),
+    !grepl("devid", request),
+    !grepl("v3", request),
+    msg = input_error
+  )
+  assertthat::assert_that(
+    !grepl("signature", request),
+    msg = "This request already has a signature"
+  )
+
+  request_without_signature <- add_parameters(
+    prefix_version(request),
+    devid = user_id
+  )
   signature <- digest::hmac(
     key = api_key,
     object = request_without_signature,
