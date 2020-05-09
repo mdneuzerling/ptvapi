@@ -116,7 +116,7 @@ add_parameters <- function(request, ...) {
   for (i in seq_along(dots)) {
     dot_name <- dots_names[i]
     dot_value <- dots[[i]]
-    if (dot_name == "") stop("Parameters must be named")
+    if (is.null(dot_name) || dot_name == "") stop("Parameters must be named")
     # add_parameter will error if dot_value if not a singletons, and will
     # return the request unaltered if dot_value is NULL
     request <- add_parameter(request, dot_name, dot_value)
