@@ -15,10 +15,7 @@ generate_request_url <- function(request,
     api_key = api_key
   )
   unsigned_request <- prefix_base_url_and_version(request)
-  unsigned_request <- add_parameter(unsigned_request, "devid", user_id)
-  add_parameter(
-    unsigned_request, "signature", signature
-  )
+  add_parameters(unsigned_request, devid = user_id, signature = signature)
 }
 
 sign_request <- function(request,
