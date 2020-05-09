@@ -41,7 +41,7 @@ test_that("86 tram route can be found", {
 
 test_that("Can identify individual route", {
   craigieburn_train_route_id <- all_routes %>%
-    filter(
+    dplyr::filter(
       grepl("Craigieburn", route_name),
       route_type == translate_route_type("Train")
     ) %>%
