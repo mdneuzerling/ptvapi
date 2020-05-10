@@ -26,6 +26,9 @@ routes <- function(route_id = NULL,
   # column names as if multiple routes were returned
   if (!is.null(route_id)) {
     assert_correct_attributes(names(content), c("route", "status"))
+    if (is.null(content$route)) {
+      return(tibble::tibble())
+    }
     assert_correct_attributes(
       names(content$route),
       c("route_service_status", "route_type", "route_id", "route_name",
