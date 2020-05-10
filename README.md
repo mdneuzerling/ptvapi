@@ -10,7 +10,7 @@ This package provides a friendly interface to the Public Transport Victoria (PTV
 **This package is an unofficial wrapper of the Public Transport Victoria timetable API. The author of this package is not associated with Public Transport Victoria.**
 
 Implementation progress:
-⬛⬛⬛⬛⬛⬛⬛⬛⬜⬜ 80%
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬜ 90%
 
 ## Installing
 
@@ -66,27 +66,27 @@ The API recognises five route types: "Train", "Tram", "Bus", "Vline", and "Night
 
 ## Implementation progress
 
-The PTV Timetable API calls are split into multiple functions when the inputs or outputs differ significantly, eg. retrieving stop information is performed with with the `stops_on_route()`, `stops_nearby()`, and `stop_information()` functions. Their inputs are all very different, and `stop_information()` has an output that is different to the other two functions.
+All API calls have been implemented. Some API calls have been combined into a single function with arguments, and some have been split into multiple functions. **Many optional arguments and filters still need to be implemented.**
 
-When two API calls differ only by an optional parameter, they are consolidated into a single function. For example, there are two API calls for retrieving runs on a route based on whether or not a route type has been provided. These have both been condensed into the single `runs_on_route()` function, with an optional `route_type()` argument.
+The following functions are available through this package:
 
-The below information can be obtained with the API:
-
-1. `departures`
-1. `directions`
-1. `disruptions`
-1. `outlets`
-1. `patterns`
-1. `route_type`
-1. `routes`
-1. `runs`
-1. `stops`
-
-Yet to be implemented:
-
-1. `search`
-
-Other tasks:
-* Many of the implemented functions make API calls that have optional parameters, and these optional parameters have not all been implemented.
-* Disruptions are currently returned as lists, but should probably use a `disruption_to_tibble` function
-* I'm uncomfortable with the output of the `patterns` function. It's a list of tibbles, and each tibble contains one row. It seems like a strange format for so many single-element objects.
+* `departures`
+* `directions`
+* `disruption_modes`
+* `disruption_to_tibble`
+* `disruptions_at_stop`
+* `disruptions_on_route`
+* `outlets`
+* `outlets_nearby`
+* `patterns`
+* `route_directions`
+* `route_types`
+* `routes`
+* `run_information`
+* `runs_on_route`
+* `search_outlets`
+* `search_routes`
+* `search_stops`
+* `stop_information`
+* `stops_nearby`
+* `stops_on_route`      
