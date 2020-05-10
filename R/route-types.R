@@ -60,13 +60,20 @@ route_types_cached <- function(user_id = determine_user_id(),
 #'
 #' Many API calls require a route type (eg. "Tram" or "Train"). These must be
 #' provided as integers, which are translated to route type descriptions with
+#' the `route_types()` function/API call. This function will: \itemize{
+#' \item Translate a case-insensitive description such as "Tram" or "Train" to
+#' the corresponding route type code
+#' \item Check a given integer to see if it is a valid route type code,
+#' returning it if so and erroring otherwise
+#' \item Return NULL on NULL input
+#' }
 #'
 #' @param route_type A route type which can be provided either as a non-negative
 #'   integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
 #'   Bus". Character inputs are not case-sensitive. Use the `route_types`
 #'   function to extract a vector of all route types.
 #'
-#' @return An integer route type code
+#' @return An integer route type code, or NULL if the input is NULL
 #'
 #' @keywords internal
 #'
