@@ -110,6 +110,8 @@ stops_on_route <- function(route_id,
 #'   Street Station is at approximately -37.8183 latitude.
 #' @param longitude Numeric. Longitude in decimal degrees. For example, Flinders
 #'   Street Station is at approximately 144.9671 longitude.
+#' @param max_distance Integer. Optionally filter by maximum distance from the
+#'   given location, in metres.
 #' @param route_types Optionally filter by a vector of route types. A route type
 #'   can be provided either as a non-negative integer code, or as a character:
 #'   "Tram", "Train", "Bus", "Vline" or "Night Bus". Character inputs are not
@@ -126,18 +128,24 @@ stops_on_route <- function(route_id,
 #' }
 stops_nearby <- function(latitude,
                          longitude,
+                         max_distance = NULL,
                          route_types = NULL,
                          user_id = determine_user_id(),
                          api_key = determine_api_key()) {
 
   assertthat::assert_that(is.numeric(latitude))
   assertthat::assert_that(is.numeric(longitude))
+  if (!is.null(max_distance)) max_distance <- to_integer(max_distance)
 
-  request <- glue::glue("stops/location/{latitude},{longitude}")
   if (!is.null(route_types)) {
     route_types <- purrr::map_int(route_types, translate_route_type)
-    request <- add_parameters(request, route_types = route_types)
   }
+
+  request <- add_parameters(
+    glue::glue("stops/location/{latitude},{longitude}"),
+    max_distance = max_distance,
+    route_types = route_types
+  )
 
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content

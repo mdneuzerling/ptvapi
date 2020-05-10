@@ -99,6 +99,21 @@ test_that("Can find Flinders Street Station stop with latitude and longitude", {
   expect_true(length(flinders_street_stop_id) == 1)
 })
 
+test_that("stops_nearby filtered by max_distance", {
+  max_100 <- stops_nearby(
+    latitude = -37.8183,
+    longitude = 144.9671,
+    max_distance = 100
+  )
+  max_1000 <- stops_nearby(
+    latitude = -37.8183,
+    longitude = 144.9671,
+    max_distance = 1000
+  )
+  expect_true("Collins St/Queen St" %in% max_1000$stop_name)
+  expect_false("Collins St/Queen St" %in% max_100$stop_name)
+})
+
 test_that("stops_nearby() can be filtered with multiple route types", {
   # We use Southern Cross because it has a variety of route types
   expect_equal(
