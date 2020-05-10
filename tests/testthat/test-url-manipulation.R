@@ -94,6 +94,17 @@ test_that("Can correctly suffix an individual parameter", {
   )
 })
 
+test_that("Boolean parameters properly suffixed", {
+  expect_equal(
+    add_parameter("www.example.com", "pineapple", T),
+    "www.example.com?pineapple=true"
+  )
+  expect_equal(
+    add_parameter("www.example.com", "pineapple", F),
+    "www.example.com?pineapple=false"
+  )
+})
+
 # The rest of the tests will use the add_parameters function, which calls on the
 # add_parameter function. All parameters should be suffixed with add_parameters.
 

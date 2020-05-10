@@ -113,17 +113,15 @@ prefix_base_url_and_version <- function(string) {
 #' Convert an input to a form that can be used in a URL.
 #'
 #' Before a character can be used as part of a html, spaces must be converted to
-#' "%20". Logicals must be either "true" or "false", as characters.
+#' "%20".
 #'
-#' @param input Character or logical.
+#' @param input Character.
 #'
 #' @return Character.
 #'
 #' @keywords internal
 #'
 make_url_friendly <- function(input) {
-  if (is.logical(input) && input) return("true")
-  if (is.logical(input) && !input) return("false")
   gsub(" ", "%20", input)
 }
 
@@ -182,6 +180,9 @@ add_parameter <- function(request,
 
   if (length(parameter_value) == 1) {
     conjunction <- ifelse(grepl("\\?", request), "&", "?")
+    if (is.logical(parameter_value)) {
+      parameter_value <- ifelse(parameter_value, "true", "false")
+    }
     glue::glue("{request}{conjunction}{parameter_name}={parameter_value}")
   } else if (.combine == "repeat_name") {
     for (value in parameter_value) {
