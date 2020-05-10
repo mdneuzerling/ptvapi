@@ -19,6 +19,11 @@
 #' function to specify what is needed.
 #'
 #' @param search_term Character. Term used to perform search.
+#' @inheritParams stops_nearby
+#' @param include_outlets Boolean. Optional. Affects search results.
+#' @param match_stop_by_suburb Boolean. Optional. Affects search results.
+#' @param match_route_by_suburb Boolean. Optional. Affects search results.
+#' @param match_stop_by_gtfs_stop_id Boolean. Optional. Affects search results.
 #' @inheritParams PTVGET
 #'
 #' @return The response of the `search` API call.
@@ -26,21 +31,39 @@
 #' @keywords internal
 #'
 ptv_search <- function(search_term,
+                       latitude = NULL,
+                       longitude = NULL,
+                       max_distance = NULL,
+                       route_types = NULL,
                        include_outlets = FALSE,
                        match_stop_by_suburb = FALSE,
                        match_route_by_suburb = FALSE,
                        match_stop_by_gtfs_stop_id = FALSE,
                        user_id = determine_user_id(),
                        api_key = determine_api_key()) {
+
   search_term <- make_url_friendly(search_term)
+  if (!is.null(latitude)) assertthat::assert_that(is.numeric(latitude))
+  if (!is.null(longitude)) assertthat::assert_that(is.numeric(longitude))
+  if (xor(is.null(latitude), is.null(longitude))) {
+    stop("If searching near a location, both latitude and longitude must be ",
+         "provided")
+  }
+  if (!is.null(max_distance)) max_distance <- to_integer(max_distance)
+  if (!is.null(route_types)) {
+    route_types <- purrr::map_int(route_types, translate_route_type)
+  }
+
   request <- add_parameters(
     glue::glue("search/{search_term}"),
+    latitude = latitude,
+    longitude = longitude,
+    max_distance = max_distance,
     include_outlets = include_outlets,
     match_stop_by_suburb = match_stop_by_suburb,
     match_route_by_suburb = match_route_by_suburb,
     match_stop_by_gtfs_stop_id = match_stop_by_gtfs_stop_id
   )
-  return(request)
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
   assert_correct_attributes(
@@ -59,6 +82,7 @@ ptv_search <- function(search_term,
 #' no minimum character requirement for `search_term`.
 #'
 #' @inheritParams ptv_search
+#' @inheritParams stops_nearby
 #' @inheritParams PTVGET
 #'
 #' @inherit route_to_tibble return
@@ -69,10 +93,18 @@ ptv_search <- function(search_term,
 #' search_routes("Pakenham")
 #' }
 search_routes <- function(search_term,
+                          latitude = NULL,
+                          longitude = NULL,
+                          max_distance = NULL,
+                          route_types = NULL,
                           user_id = determine_user_id(),
                           api_key = determine_api_key()) {
   response <- ptv_search(
     search_term = search_term,
+    latitude = latitude,
+    longitude = longitude,
+    max_distance = max_distance,
+    route_types = route_types,
     user_id = user_id,
     api_key = api_key,
     match_route_by_suburb = TRUE
@@ -90,6 +122,7 @@ search_routes <- function(search_term,
 #' The search term must contain at least 3 characters, and cannot be numeric.
 #'
 #' @inheritParams ptv_search
+#' @inheritParams stops_nearby
 #' @inheritParams PTVGET
 #'
 #' @inherit stop_to_tibble return
@@ -100,6 +133,10 @@ search_routes <- function(search_term,
 #' search_stops("Ascot Vale")
 #' }
 search_stops <- function(search_term,
+                         latitude = NULL,
+                         longitude = NULL,
+                         max_distance = NULL,
+                         route_types = NULL,
                          user_id = determine_user_id(),
                          api_key = determine_api_key()) {
   if (is.numeric(search_term) || nchar(search_term) <= 3) {
@@ -107,6 +144,10 @@ search_stops <- function(search_term,
   }
   response <- ptv_search(
     search_term = search_term,
+    latitude = latitude,
+    longitude = longitude,
+    max_distance = max_distance,
+    route_types = route_types,
     user_id = user_id,
     api_key = api_key,
     match_stop_by_suburb = TRUE,
@@ -126,6 +167,7 @@ search_stops <- function(search_term,
 #' cannot be numeric.
 #'
 #' @inheritParams ptv_search
+#' @inheritParams stops_nearby
 #' @inheritParams PTVGET
 #'
 #' @inherit outlet_to_tibble return
@@ -136,13 +178,21 @@ search_stops <- function(search_term,
 #' search_outlets("St Kilda")
 #' }
 search_outlets <- function(search_term,
-                         user_id = determine_user_id(),
-                         api_key = determine_api_key()) {
+                           latitude = NULL,
+                           longitude = NULL,
+                           max_distance = NULL,
+                           route_types = NULL,
+                           user_id = determine_user_id(),
+                           api_key = determine_api_key()) {
   if (is.numeric(search_term) || nchar(search_term) <= 3) {
     stop("Search term cannot be numeric and must be at least 3 characters")
   }
   response <- ptv_search(
     search_term = search_term,
+    latitude = latitude,
+    longitude = longitude,
+    max_distance = max_distance,
+    route_types = route_types,
     user_id = user_id,
     api_key = api_key,
     include_outlets = TRUE
