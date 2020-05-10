@@ -49,6 +49,10 @@ ptv_search <- function(search_term,
     stop("If searching near a location, both latitude and longitude must be ",
          "provided")
   }
+  if (!is.null(max_distance) && is.null(longitude)) {
+    stop("Trying to limit search results with a maximum distance, but a ",
+         "latitude and longitude wasn't provided")
+  }
   if (!is.null(max_distance)) max_distance <- to_integer(max_distance)
   if (!is.null(route_types)) {
     route_types <- purrr::map_int(route_types, translate_route_type)
