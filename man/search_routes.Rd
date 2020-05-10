@@ -6,12 +6,31 @@
 \usage{
 search_routes(
   search_term,
+  latitude = NULL,
+  longitude = NULL,
+  max_distance = NULL,
+  route_types = NULL,
   user_id = determine_user_id(),
   api_key = determine_api_key()
 )
 }
 \arguments{
 \item{search_term}{Character. Term used to perform search.}
+
+\item{latitude}{Numeric. Latitude in decimal degrees. For example, Flinders
+Street Station is at approximately -37.8183 latitude.}
+
+\item{longitude}{Numeric. Longitude in decimal degrees. For example, Flinders
+Street Station is at approximately 144.9671 longitude.}
+
+\item{max_distance}{Integer. Optionally filter by maximum distance from the
+given location, in metres.}
+
+\item{route_types}{Optionally filter by a vector of route types. A route type
+can be provided either as a non-negative integer code, or as a character:
+"Tram", "Train", "Bus", "Vline" or "Night Bus". Character inputs are not
+case-sensitive. Use the \code{route_types} function to extract a vector of all
+route types.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}

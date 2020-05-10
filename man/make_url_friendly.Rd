@@ -7,13 +7,13 @@
 make_url_friendly(input)
 }
 \arguments{
-\item{input}{Character or logical.}
+\item{input}{Character.}
 }
 \value{
 Character.
 }
 \description{
 Before a character can be used as part of a html, spaces must be converted to
-"\%20". Logicals must be either "true" or "false", as characters.
+"\%20".
 }
 \keyword{internal}

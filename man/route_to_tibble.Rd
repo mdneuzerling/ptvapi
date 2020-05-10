@@ -23,7 +23,7 @@ A tibble of routes, with the following columns:
 }
 \description{
 This function is designed to parse the content returned by the interior
-steps of the \code{routes} function. Service status information is only included
-if it is available.
+steps of the \code{routes} function. Service status information may be \code{NA},
+depending on the API call that was used to populate the information.
 }
 \keyword{internal}

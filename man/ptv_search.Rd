@@ -6,12 +6,43 @@
 \usage{
 ptv_search(
   search_term,
+  latitude = NULL,
+  longitude = NULL,
+  max_distance = NULL,
+  route_types = NULL,
+  include_outlets = FALSE,
+  match_stop_by_suburb = FALSE,
+  match_route_by_suburb = FALSE,
+  match_stop_by_gtfs_stop_id = FALSE,
   user_id = determine_user_id(),
   api_key = determine_api_key()
 )
 }
 \arguments{
 \item{search_term}{Character. Term used to perform search.}
+
+\item{latitude}{Numeric. Latitude in decimal degrees. For example, Flinders
+Street Station is at approximately -37.8183 latitude.}
+
+\item{longitude}{Numeric. Longitude in decimal degrees. For example, Flinders
+Street Station is at approximately 144.9671 longitude.}
+
+\item{max_distance}{Integer. Optionally filter by maximum distance from the
+given location, in metres.}
+
+\item{route_types}{Optionally filter by a vector of route types. A route type
+can be provided either as a non-negative integer code, or as a character:
+"Tram", "Train", "Bus", "Vline" or "Night Bus". Character inputs are not
+case-sensitive. Use the \code{route_types} function to extract a vector of all
+route types.}
+
+\item{include_outlets}{Boolean. Optional. Affects search results.}
+
+\item{match_stop_by_suburb}{Boolean. Optional. Affects search results.}
+
+\item{match_route_by_suburb}{Boolean. Optional. Affects search results.}
+
+\item{match_stop_by_gtfs_stop_id}{Boolean. Optional. Affects search results.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}
@@ -30,6 +61,8 @@ search results, parse them, and return them to the user as a tibble.
 }
 \details{
 If the search term is numeric and/or less than 3 characters, the API will
-return only routes.
+return only routes. By default, as little matching is done as possible, and
+as little as possible is returned. We rely on functions that call on this
+function to specify what is needed.
 }
 \keyword{internal}

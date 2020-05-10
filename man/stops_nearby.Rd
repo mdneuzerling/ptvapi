@@ -7,6 +7,7 @@
 stops_nearby(
   latitude,
   longitude,
+  max_distance = NULL,
   route_types = NULL,
   user_id = determine_user_id(),
   api_key = determine_api_key()
@@ -18,6 +19,9 @@ Street Station is at approximately -37.8183 latitude.}
 
 \item{longitude}{Numeric. Longitude in decimal degrees. For example, Flinders
 Street Station is at approximately 144.9671 longitude.}
+
+\item{max_distance}{Integer. Optionally filter by maximum distance from the
+given location, in metres.}
 
 \item{route_types}{Optionally filter by a vector of route types. A route type
 can be provided either as a non-negative integer code, or as a character:
