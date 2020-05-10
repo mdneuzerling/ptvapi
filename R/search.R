@@ -83,7 +83,7 @@ search_routes <- function(search_term,
 #' @export
 #'
 #' @examples \dontrun{
-#' search_routes("Ascot Vale")
+#' search_stops("Ascot Vale")
 #' }
 search_stops <- function(search_term,
                          user_id = determine_user_id(),
