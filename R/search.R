@@ -14,7 +14,9 @@
 #' search results, parse them, and return them to the user as a tibble.
 #'
 #' If the search term is numeric and/or less than 3 characters, the API will
-#' return only routes.
+#' return only routes. By default, as little matching is done as possible, and
+#' as little as possible is returned. We rely on functions that call on this
+#' function to specify what is needed.
 #'
 #' @param search_term Character. Term used to perform search.
 #' @inheritParams PTVGET
@@ -24,10 +26,21 @@
 #' @keywords internal
 #'
 ptv_search <- function(search_term,
+                       include_outlets = FALSE,
+                       match_stop_by_suburb = FALSE,
+                       match_route_by_suburb = FALSE,
+                       match_stop_by_gtfs_stop_id = FALSE,
                        user_id = determine_user_id(),
                        api_key = determine_api_key()) {
   search_term <- make_url_friendly(search_term)
-  request <- glue::glue("search/{search_term}")
+  request <- add_parameters(
+    glue::glue("search/{search_term}"),
+    include_outlets = include_outlets,
+    match_stop_by_suburb = match_stop_by_suburb,
+    match_route_by_suburb = match_route_by_suburb,
+    match_stop_by_gtfs_stop_id = match_stop_by_gtfs_stop_id
+  )
+  return(request)
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
   assert_correct_attributes(
@@ -61,7 +74,8 @@ search_routes <- function(search_term,
   response <- ptv_search(
     search_term = search_term,
     user_id = user_id,
-    api_key = api_key
+    api_key = api_key,
+    match_route_by_suburb = TRUE
   )
   content <- response$content
 
@@ -94,7 +108,9 @@ search_stops <- function(search_term,
   response <- ptv_search(
     search_term = search_term,
     user_id = user_id,
-    api_key = api_key
+    api_key = api_key,
+    match_stop_by_suburb = TRUE,
+    match_stop_by_gtfs_stop_id = TRUE
   )
   content <- response$content
 
@@ -128,7 +144,8 @@ search_outlets <- function(search_term,
   response <- ptv_search(
     search_term = search_term,
     user_id = user_id,
-    api_key = api_key
+    api_key = api_key,
+    include_outlets = TRUE
   )
   content <- response$content
 
