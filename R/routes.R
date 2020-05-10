@@ -26,15 +26,7 @@ routes <- function(route_id = NULL,
   # column names as if multiple routes were returned
   if (!is.null(route_id)) {
     assert_correct_attributes(names(content), c("route", "status"))
-    if (is.null(content$route)) {
-      return(tibble::tibble())
-    }
-    assert_correct_attributes(
-      names(content$route),
-      c("route_service_status", "route_type", "route_id", "route_name",
-        "route_number", "route_gtfs_id")
-    )
-    parsed <- route_to_tibble(content$route)
+    parsed <- route_to_tibble(content$route) # may be an empty tibble
   } else {
     # We'll naively parse a single route to make sure all of the attributes are
     # as expected. Simply passing a single route to `as_tibble` will create two
@@ -57,8 +49,8 @@ routes <- function(route_id = NULL,
 #' Convert a single route to a tibble
 #'
 #' This function is designed to parse the content returned by the interior
-#' steps of the `routes` function. Service status information is only included
-#' if it is available.
+#' steps of the `routes` function. Service status information may be `NA`,
+#' depending on the API call that was used to populate the information.
 #'
 #' @param route A route, as a list, returned by the `routes` API call.
 #'
@@ -76,24 +68,41 @@ routes <- function(route_id = NULL,
 #' @keywords internal
 #'
 route_to_tibble <- function(route) {
+
   route_tibble <- tibble::tibble(
-    route_id = route$route_id,
-    route_gtfs_id = route$route_gtfs_id,
-    route_name = route$route_name,
-    route_type = route$route_type,
-    route_number = ifelse(
-      # Not a number, eg. "745a"
-      route$route_number == "", NA_character_, route$route_number
-    )
+    route_id = integer(),
+    route_gtfs_id = character(),
+    route_name = character(),
+    route_type = integer(),
+    route_number = character(),
+    service_status = character(),
+    service_status_timestampe = as.POSIXct(NA)
   )
 
-  if ("route_service_status" %in% names(route)) {
-    route_tibble$service_status <- route$route_service_status$description
-    route_tibble$service_status_timestamp <- convert_to_melbourne_time(
-      route$route_service_status$timestamp
-    )
+  if (is.null(route)) {
+    return(route_tibble)
   }
 
-  route_tibble
+  rbind(
+    route_tibble,
+    tibble::tibble(
+      route_id = route$route_id,
+      route_gtfs_id = route$route_gtfs_id,
+      route_name = route$route_name,
+      route_type = route$route_type,
+      route_number = ifelse(
+        # Not a number, eg. "745a"
+        route$route_number == "", NA_character_, route$route_number
+      ),
+      service_status = ifelse(
+        is.null(route$route_service_status$description),
+        NA_character_,
+        route$route_service_status$description
+      ),
+      service_status_timestampe = convert_to_melbourne_time(
+        route$route_service_status$timestamp
+      )
+    )
+  )
 
 }
