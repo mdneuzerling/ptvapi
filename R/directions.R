@@ -64,7 +64,7 @@ route_directions <- function(route_id,
 #' \item `route_direction_description`
 #' }
 #'
-#' @export
+#' @keywords internal
 #'
 parse_directions_content <- function(directions_content) {
   assert_correct_attributes(

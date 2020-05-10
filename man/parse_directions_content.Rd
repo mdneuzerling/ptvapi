@@ -23,3 +23,4 @@ A tibble consisting of the following columns: \itemize{
 This function is designed to parse the content returned by the interior
 steps of the \code{directions} function.
 }
+\keyword{internal}

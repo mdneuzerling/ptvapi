@@ -19,7 +19,8 @@
 #' @param ... Additional arguments passed to `httr::GET`.
 #'
 #' @return A HTTP response. Content can be accessed with `httr::content`.
-#' @export
+#'
+#' @keywords internal
 #'
 #' @examples \dontrun{
 #' PTVGET(
