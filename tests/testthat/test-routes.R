@@ -16,18 +16,14 @@ test_that("routes() result has class \"ptvapi\"", {
   expect_true("ptvapi" %in% class(all_routes))
 })
 
-test_that("We can find the Frankston route", {
+test_that("We can find the Frankston train route", {
   expect_true(length(frankston_route_id) == 1)
 })
 
-test_that("Frankston train route can be found", {
+test_that("We can query for a single route", {
   # I can't think of any non-train routes, but just in case
-  frankston_train_routes <- all_routes %>%
-    dplyr::filter(
-      route_name == "Frankston",
-      route_type == translate_route_type("Train")
-    )
-  expect_equal(nrow(frankston_train_routes), 1)
+  single_route_query <- routes(route_id = frankston_route_id)
+  expect_equal(nrow(single_route_query), 1)
 })
 
 test_that("86 tram route can be found", {

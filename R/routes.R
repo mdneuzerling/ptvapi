@@ -16,9 +16,8 @@ routes <- function(route_id = NULL,
                    api_key = determine_api_key()) {
   request <- "routes"
   if (!is.null(route_id)) {
-    route_id <- suppressWarnings(as.integer(route_id))
-    assertthat::assert_that(is.integer(route_id))
-    request <- glue::glue(request, "/{route_id}")
+    route_id <- to_integer(route_id)
+    request <- glue::glue("{request}/{route_id}")
   }
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
