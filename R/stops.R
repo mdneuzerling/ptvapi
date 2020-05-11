@@ -37,13 +37,30 @@ stop_information <- function(stop_id,
                              api_key = determine_api_key()) {
   stop_id <- to_integer(stop_id)
   route_type <- translate_route_type(route_type)
-  request <- glue::glue("stops/{stop_id}/route_type/{route_type}")
+  request <- add_parameters(
+    glue::glue("stops/{stop_id}/route_type/{route_type}"),
+    stop_location = TRUE,
+    stop_amenities = TRUE,
+    stop_accessibility = TRUE,
+    stop_contact = TRUE,
+    stop_ticket = TRUE,
+    stop_staffing = TRUE,
+    stop_disruptions = TRUE
+  )
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
   assert_correct_attributes(names(content), c("stop", "disruptions", "status"))
   stop <- content$stop
 
-  null_to_char_na <- function(x) ifelse(is.null(x), NA_character_, x)
+  null_to_char_na <- function(x) {
+    if (is.null(x) || x == "") NA_character_ else character(x)
+  }
+  null_to_int_na <- function(x) {
+    if (is.null(x)) NA_integer_ else as.integer(x)
+  }
+  null_to_logical_na <- function(x) {
+    if (is.null(x)) NA_integer_ else as.logical(x)
+  }
   parsed <- tibble::tibble(
     stop_id = stop$stop_id,
     stop_name = trimws(stop$stop_name),
@@ -59,12 +76,82 @@ stop_information <- function(stop_id,
       NA_character_,
       stop$flexible_stop_opening_hours
     ),
-    stop_contact = null_to_char_na(stop$stop_contact),
-    stop_ticket = null_to_char_na(stop$stop_ticket),
-    stop_location = null_to_char_na(stop$stop_location),
-    stop_amenities = null_to_char_na(stop$stop_amenities),
-    stop_accessibility = null_to_char_na(stop$stop_accessibility),
-    stop_staffing = null_to_char_na(stop$stop_staffing),
+    contact_phone = null_to_char_na(stop$stop_contact$phone),
+    contact_lost_property = null_to_char_na(stop$stop_contact$lost_property),
+    contact_lost_property_contact_number = null_to_char_na(
+      stop$stop_contact$lost_property_contact_number
+    ),
+    contact_feedback = null_to_char_na(stop$stop_contact$feedback),
+    ticket_type = null_to_char_na(stop$stop_ticket$ticket_type),
+    ticket_type = null_to_char_na(stop$stop_ticket$ticket_type),
+    ticket_type = null_to_logical_na(stop$stop_ticket$ticket_type),
+    ticket_type = null_to_logical_na(stop$stop_ticket$ticket_type),
+    ticket_type = null_to_logical_na(stop$stop_ticket$vline_reservation),
+    postcode = null_to_char_na(stop$stop_location$postcode),
+    municipality = null_to_char_na(stop$stop_location$municipality),
+    municipality_id = null_to_char_na(stop$stop_location$municipality_id),
+    primary_stop_name = null_to_char_na(stop$stop_location$primary_stop_name),
+    road_type_primary = null_to_char_na(stop$stop_location$road_type_primary),
+    second_stop_name = null_to_char_na(stop$stop_location$second_stop_name),
+    road_type_second = null_to_char_na(stop$stop_location$road_type_second),
+    bay_number = null_to_char_na(stop$stop_location$bay_nbr),
+    suburb = null_to_char_na(stop$stop_location$suburb),
+    latitude = null_to_char_na(stop$stop_location$gps$latitude),
+    longitude = null_to_char_na(stop$stop_location$gps$longitude),
+    amenity_seat_type = null_to_char_na(stop$stop_amenities$seat_type),
+    amenity_pay_phone = null_to_logical_na(stop$stop_amenities$pay_phone),
+    amenity_indoor_waiting_area = null_to_logical_na(
+      stop$stop_amenities$indoor_waiting_area
+    ),
+    amenity_sheltered_waiting_area = null_to_logical_na(
+      stop$stop_amenities$sheltered_waiting_area
+    ),
+    amenity_bicycle_rack = null_to_int_na(stop$stop_amenities$bicycle_rack),
+    amenity_bicycle_cage = null_to_logical_na(stop$stop_amenities$bicycle_cage),
+    amenity_bicycle_locker = null_to_int_na(
+      stop$stop_amenities$bicycle_locker
+    ),
+    amenity_luggage_locker = null_to_int_na(stop$stop_amenities$luggage_locker),
+    amenity_kiosk = null_to_logical_na(stop$stop_amenities$kiosk),
+    amenity_seat = null_to_char_na(stop$stop_amenities$seat),
+    amenity_stairs = null_to_char_na(stop$stop_amenities$stairs),
+    amenity_baby_change_facility = null_to_char_na(
+      stop$stop_amenities$baby_change_facility
+    ),
+    amenity_parkiteer = null_to_char_na(stop$stop_amenities$parkiteer),
+    amenity_replacement_bus_stop_loc = null_to_char_na(
+      stop$stop_amenities$replacement_bus_stop_loc
+    ),
+    amenity_qtem = null_to_logical_na(stop$stop_amenities$QTEM),
+    amenity_bike_storage = null_to_char_na(stop$stop_amenities$bike_storage),
+    amenity_pid = null_to_logical_na(stop$stop_amenities$PID),
+    amenity_atm = null_to_logical_na(stop$stop_amenities$atm),
+    amenity_travellers_aid = null_to_logical_na(stop$stop_amenities$logical),
+    amenity_premium_stop = null_to_logical_na(stop$stop_amenities$premium_stop),
+    amenity_psos = null_to_logical_na(stop$stop_amenities$PSOs),
+    amenity_melb_bike_share = null_to_logical_na(
+      stop$stop_amenities$melb_bike_share
+    ),
+    amenity_luggage_storage = null_to_logical_na(
+      stop$stop_amenities$luggage_storage
+    ),
+    amenity_luggage_storage = null_to_logical_na(
+      stop$stop_amenities$luggage_check_in
+    ),
+    amenity_toilet = null_to_logical_na(
+      stop$stop_amenities$luggage_toilet
+    ),
+    amenity_taxi_rank = null_to_logical_na(
+      stop$stop_amenities$taxi_rank
+    ),
+    amenity_toilet = null_to_char_na(
+      stop$stop_amenities$luggage_toilet
+    ),
+    amenity_cctv = null_to_logical_na(
+      stop$stop_amenities$luggage_cctv
+    ),
+    # stop_accessibility = null_to_char_na(stop$stop_accessibility),
+    # stop_staffing = null_to_char_na(stop$stop_staffing),
     disruption_ids = list(stop$disruption_ids)
   )
   new_ptvapi_tibble(response, parsed)
@@ -75,8 +162,8 @@ stop_information <- function(stop_id,
 #' @inheritSection stop_information Swagger documentation
 #'
 #' @inheritParams route_directions
-#' @param direction Optionally filter by a direction ID. These can be obtained
-#'   with the `route_directions` function.
+#' @param direction_id Optionally filter by a direction ID. These can be
+#'   obtained with the `route_directions()` function.
 #' @inheritParams translate_route_type
 #' @inheritParams PTVGET
 #'
@@ -86,15 +173,17 @@ stop_information <- function(stop_id,
 #'
 stops_on_route <- function(route_id,
                            route_type,
-                           direction = NULL,
+                           direction_id = NULL,
                            user_id = determine_user_id(),
                            api_key = determine_api_key()) {
   route_id <- to_integer(route_id)
   route_type <- translate_route_type(route_type)
-  request <- glue::glue("stops/route/{route_id}/route_type/{route_type}")
-  if (!is.null(direction)) {
-    request <- glue::glue(request, "?direction_id={direction}")
-  }
+  if (!is.null(direction_id)) direction_id <- to_integer(direction_id)
+  request <- add_parameters(
+    glue::glue("stops/route/{route_id}/route_type/{route_type}"),
+    direction_id = direction_id,
+    stop_disruptions = TRUE
+  )
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
 
@@ -144,7 +233,8 @@ stops_nearby <- function(latitude,
   request <- add_parameters(
     glue::glue("stops/location/{latitude},{longitude}"),
     max_distance = max_distance,
-    route_types = route_types
+    route_types = route_types,
+    stop_disruptions = TRUE
   )
 
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
