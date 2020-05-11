@@ -61,7 +61,14 @@ stop_information <- function(stop_id,
   null_to_logical_na <- function(x) {
     if (is.null(x)) NA_integer_ else as.logical(x)
   }
-  parsed <- tibble::tibble(
+  as_tibble_null_to_na <- function(x, prefix = "") {
+    tib <- tibble::as_tibble(
+      purrr::map(x, ~ifelse(is.null(.x), NA, .x))
+    )
+    colnames(tib) <- paste0(prefix, colnames(tib))
+    tib
+  }
+  major <- tibble::tibble(
     stop_id = stop$stop_id,
     stop_name = trimws(stop$stop_name),
     route_type = stop$route_type,
@@ -76,83 +83,22 @@ stop_information <- function(stop_id,
       NA_character_,
       stop$flexible_stop_opening_hours
     ),
-    contact_phone = null_to_char_na(stop$stop_contact$phone),
-    contact_lost_property = null_to_char_na(stop$stop_contact$lost_property),
-    contact_lost_property_contact_number = null_to_char_na(
-      stop$stop_contact$lost_property_contact_number
-    ),
-    contact_feedback = null_to_char_na(stop$stop_contact$feedback),
-    ticket_type = null_to_char_na(stop$stop_ticket$ticket_type),
-    ticket_type = null_to_char_na(stop$stop_ticket$ticket_type),
-    ticket_type = null_to_logical_na(stop$stop_ticket$ticket_type),
-    ticket_type = null_to_logical_na(stop$stop_ticket$ticket_type),
-    ticket_type = null_to_logical_na(stop$stop_ticket$vline_reservation),
-    postcode = null_to_char_na(stop$stop_location$postcode),
-    municipality = null_to_char_na(stop$stop_location$municipality),
-    municipality_id = null_to_char_na(stop$stop_location$municipality_id),
-    primary_stop_name = null_to_char_na(stop$stop_location$primary_stop_name),
-    road_type_primary = null_to_char_na(stop$stop_location$road_type_primary),
-    second_stop_name = null_to_char_na(stop$stop_location$second_stop_name),
-    road_type_second = null_to_char_na(stop$stop_location$road_type_second),
-    bay_number = null_to_char_na(stop$stop_location$bay_nbr),
-    suburb = null_to_char_na(stop$stop_location$suburb),
-    latitude = null_to_char_na(stop$stop_location$gps$latitude),
-    longitude = null_to_char_na(stop$stop_location$gps$longitude),
-    amenity_seat_type = null_to_char_na(stop$stop_amenities$seat_type),
-    amenity_pay_phone = null_to_logical_na(stop$stop_amenities$pay_phone),
-    amenity_indoor_waiting_area = null_to_logical_na(
-      stop$stop_amenities$indoor_waiting_area
-    ),
-    amenity_sheltered_waiting_area = null_to_logical_na(
-      stop$stop_amenities$sheltered_waiting_area
-    ),
-    amenity_bicycle_rack = null_to_int_na(stop$stop_amenities$bicycle_rack),
-    amenity_bicycle_cage = null_to_logical_na(stop$stop_amenities$bicycle_cage),
-    amenity_bicycle_locker = null_to_int_na(
-      stop$stop_amenities$bicycle_locker
-    ),
-    amenity_luggage_locker = null_to_int_na(stop$stop_amenities$luggage_locker),
-    amenity_kiosk = null_to_logical_na(stop$stop_amenities$kiosk),
-    amenity_seat = null_to_char_na(stop$stop_amenities$seat),
-    amenity_stairs = null_to_char_na(stop$stop_amenities$stairs),
-    amenity_baby_change_facility = null_to_char_na(
-      stop$stop_amenities$baby_change_facility
-    ),
-    amenity_parkiteer = null_to_char_na(stop$stop_amenities$parkiteer),
-    amenity_replacement_bus_stop_loc = null_to_char_na(
-      stop$stop_amenities$replacement_bus_stop_loc
-    ),
-    amenity_qtem = null_to_logical_na(stop$stop_amenities$QTEM),
-    amenity_bike_storage = null_to_char_na(stop$stop_amenities$bike_storage),
-    amenity_pid = null_to_logical_na(stop$stop_amenities$PID),
-    amenity_atm = null_to_logical_na(stop$stop_amenities$atm),
-    amenity_travellers_aid = null_to_logical_na(stop$stop_amenities$logical),
-    amenity_premium_stop = null_to_logical_na(stop$stop_amenities$premium_stop),
-    amenity_psos = null_to_logical_na(stop$stop_amenities$PSOs),
-    amenity_melb_bike_share = null_to_logical_na(
-      stop$stop_amenities$melb_bike_share
-    ),
-    amenity_luggage_storage = null_to_logical_na(
-      stop$stop_amenities$luggage_storage
-    ),
-    amenity_luggage_storage = null_to_logical_na(
-      stop$stop_amenities$luggage_check_in
-    ),
-    amenity_toilet = null_to_logical_na(
-      stop$stop_amenities$luggage_toilet
-    ),
-    amenity_taxi_rank = null_to_logical_na(
-      stop$stop_amenities$taxi_rank
-    ),
-    amenity_toilet = null_to_char_na(
-      stop$stop_amenities$luggage_toilet
-    ),
-    amenity_cctv = null_to_logical_na(
-      stop$stop_amenities$luggage_cctv
-    ),
-    # stop_accessibility = null_to_char_na(stop$stop_accessibility),
-    # stop_staffing = null_to_char_na(stop$stop_staffing),
     disruption_ids = list(stop$disruption_ids)
+  )
+  contact <- as_tibble_null_to_na(stop$stop_contact, prefix = "contact_")
+  ticket <- as_tibble_null_to_na(stop$stop_ticket, prefix = "ticket_")
+  location <- as_tibble_null_to_na(stop$stop_location, prefix = "location_")
+  amenities <- as_tibble_null_to_na(stop$stop_amenities, prefix = "amenity_")
+  accessibility <- as_tibble_null_to_na(
+    stop$stop_accessibility,
+    prefix = "accessibility_"
+  )
+  staffing <- as_tibble_null_to_na(stop$stop_staffing, prefix = "staffing_")
+
+  parsed <- tibble::as_tibble(
+    cbind(
+      major, contact, ticket, location, amenities, accessibility, staffing
+    )
   )
   new_ptvapi_tibble(response, parsed)
 }
