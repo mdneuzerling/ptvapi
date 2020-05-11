@@ -52,15 +52,6 @@ stop_information <- function(stop_id,
   assert_correct_attributes(names(content), c("stop", "disruptions", "status"))
   stop <- content$stop
 
-  null_to_char_na <- function(x) {
-    if (is.null(x) || x == "") NA_character_ else character(x)
-  }
-  null_to_int_na <- function(x) {
-    if (is.null(x)) NA_integer_ else as.integer(x)
-  }
-  null_to_logical_na <- function(x) {
-    if (is.null(x)) NA_integer_ else as.logical(x)
-  }
   as_tibble_null_to_na <- function(x, prefix = "") {
     tib <- tibble::as_tibble(
       purrr::map(x, ~ifelse(is.null(.x), NA, .x))
