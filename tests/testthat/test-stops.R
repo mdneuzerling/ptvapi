@@ -68,7 +68,7 @@ test_that("Stop sequence when travelling Frankston to City", {
   frankston_to_city <- stops_on_route(
     route_id = frankston_route_id,
     route_type = "Train",
-    direction = city_direction_id
+    direction_id = city_direction_id
   )
   frankston_to_city_ends <- frankston_to_city %>%
     filter(stop_sequence == max(stop_sequence))
@@ -76,17 +76,12 @@ test_that("Stop sequence when travelling Frankston to City", {
   expect_equal(frankston_to_city_ends$stop_suburb, "Melbourne City")
 })
 
-cheltenham_stop_id <- stops_on_frankston_line %>%
-  filter(stop_name == "Cheltenham Station") %>%
-  pull(stop_id)
-
-test_that("Cheltenham Station can be identified with stop_information", {
-  cheltenham_station_information <- stop_information(
-    stop_id = cheltenham_stop_id,
+test_that("Flinders Street stop_information is complete", {
+  flinders_info <- stop_information(
+    flinders_street_stop_id,
     route_type = "Train"
   )
-  # The API seems to cut the Station off when retrieving an individual stop
-  expect_true(grepl("Cheltenham", cheltenham_station_information$stop_name))
+  expect_lt(mean(is.na(flinders_info)), 0.25) # max prop of NA columns
 })
 
 # stops_near_flinders_street defined at top of file
