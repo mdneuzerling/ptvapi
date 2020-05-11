@@ -76,11 +76,16 @@ test_that("Stop sequence when travelling Frankston to City", {
   expect_equal(frankston_to_city_ends$stop_suburb, "Melbourne City")
 })
 
+flinders_info <- stop_information(
+  flinders_street_stop_id,
+  route_type = "Train"
+)
+
+test_that("stop_information result has class \"ptvapi\"", {
+  expect_true("ptvapi" %in% class(flinders_info))
+})
+
 test_that("Flinders Street stop_information is complete", {
-  flinders_info <- stop_information(
-    flinders_street_stop_id,
-    route_type = "Train"
-  )
   expect_lt(mean(is.na(flinders_info)), 0.25) # max prop of NA columns
 })
 
