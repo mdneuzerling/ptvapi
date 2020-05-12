@@ -14,6 +14,10 @@ test_that("Can find Pakenham route with search_routes", {
   )
 })
 
+test_that("search_routes result has class \"ptvapi\"", {
+  expect_s3_class(pakenham, "ptvapi")
+})
+
 test_that("Errors when providing incomplete location arguments", {
   expect_error(
     search_routes("Bundoora", latitude = -37.818229),

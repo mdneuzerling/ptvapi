@@ -1,5 +1,9 @@
 ascot_vale <- search_stops("Ascot Vale")
 
+test_that("search_stops result has class \"ptvapi\"", {
+  expect_s3_class(ascot_vale, "ptvapi")
+})
+
 test_that("results in search_stops can relate to stop name alone", {
   expect_gte(
     nrow(

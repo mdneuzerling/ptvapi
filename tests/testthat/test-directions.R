@@ -16,7 +16,7 @@ if (!exists("frankston_route_id")) {
 # Simply running this functions asserts that column names, etc. are as expected
 frankston_route_directions <- route_directions(route_id = frankston_route_id)
 test_that("route_directions result has class \"ptvapi\"", {
-  expect_true("ptvapi" %in% class(frankston_route_directions))
+  expect_s3_class(frankston_route_directions, "ptvapi")
 })
 
 city_directions <- frankston_route_directions %>%

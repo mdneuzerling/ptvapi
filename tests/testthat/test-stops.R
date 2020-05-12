@@ -31,7 +31,7 @@ stops_on_frankston_line <- stops_on_route(
 )
 
 test_that("stops_on_route result has class \"ptvapi\"", {
-  expect_true("ptvapi" %in% class(stops_on_frankston_line))
+  expect_s3_class(stops_on_frankston_line, "ptvapi")
 })
 
 test_that("Stop names along a route are unique", {
@@ -82,7 +82,7 @@ flinders_info <- stop_information(
 )
 
 test_that("stop_information result has class \"ptvapi\"", {
-  expect_true("ptvapi" %in% class(flinders_info))
+  expect_s3_class(flinders_info, "ptvapi")
 })
 
 test_that("Flinders Street stop_information is complete", {
@@ -91,7 +91,7 @@ test_that("Flinders Street stop_information is complete", {
 
 # stops_near_flinders_street defined at top of file
 test_that("stops_nearby result has class \"ptvapi\"", {
-  expect_true("ptvapi" %in% class(stops_near_flinders_street))
+  expect_s3_class(stops_near_flinders_street, "ptvapi")
 })
 
 # flinders_street_stop_id defined at top of file

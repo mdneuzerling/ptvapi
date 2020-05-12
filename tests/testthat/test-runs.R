@@ -24,7 +24,7 @@ runs_on_frankston_route <- runs_on_route(
 )
 
 test_that("runs_on_route result has class \"ptvapi\"", {
-  expect_true("ptvapi" %in% class(runs_on_frankston_route))
+  expect_s3_class(runs_on_frankston_route, "ptvapi")
 })
 
 test_that("Runs on the Frankston route end at stops on the Frankston route", {
@@ -42,9 +42,11 @@ test_that("Runs on the Frankston route end at stops on the Frankston route", {
 })
 
 run_one <- run_information(run_id = 1)
+
 test_that("run_information() result has class \"ptvapi\"", {
-  expect_true("ptvapi" %in% class(run_one))
+  expect_s3_class(run_one, "ptvapi")
 })
+
 test_that("Run 1 exists, and is unique up to route type", {
   expect_gte(nrow(run_one), 1)
   expect_equal(anyDuplicated(run_one$route_type), 0)

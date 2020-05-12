@@ -1,5 +1,9 @@
 st_kilda <- search_outlets("st kilda")
 
+test_that("search_outlets result has class \"ptvapi\"", {
+  expect_s3_class(st_kilda, "ptvapi")
+})
+
 test_that("results in search_outlets can relate to outlet name alone", {
   expect_gte(
     nrow(

@@ -31,7 +31,7 @@ flinders_departures <- departures(
 )
 
 test_that("route_directions result has class \"ptvapi\"", {
-  expect_true("ptvapi" %in% class(flinders_departures))
+  expect_s3_class(flinders_departures, "ptvapi")
 })
 
 flinders_street_stop_id <- stops_nearby(

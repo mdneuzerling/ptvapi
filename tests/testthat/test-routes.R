@@ -15,7 +15,7 @@ if (!exists("frankston_route_id")) {
 single_route <- route_information(route_id = frankston_route_id)
 
 test_that("route_information() result has class \"ptvapi\"", {
-  expect_true("ptvapi" %in% class(single_route))
+  expect_s3_class(single_route, "ptvapi")
 })
 
 test_that("we can query for a single route", {
@@ -23,7 +23,7 @@ test_that("we can query for a single route", {
 })
 
 test_that("routes() result has class \"ptvapi\"", {
-  expect_true("ptvapi" %in% class(all_routes))
+  expect_s3_class(all_routes, "ptvapi")
 })
 
 test_that("we can find the Frankston train route", {
