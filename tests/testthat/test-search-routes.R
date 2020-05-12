@@ -6,8 +6,9 @@ test_that("can find route number 11 with search_routes", {
   )
 })
 
+pakenham <- search_routes("pakenham")
+
 test_that("Can find Pakenham route with search_routes", {
-  pakenham <- search_routes("pakenham")
   expect_gte(
     nrow(dplyr::filter(pakenham, route_name == "Pakenham Line")),
     1
