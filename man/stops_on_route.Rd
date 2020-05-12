@@ -7,7 +7,7 @@
 stops_on_route(
   route_id,
   route_type,
-  direction = NULL,
+  direction_id = NULL,
   user_id = determine_user_id(),
   api_key = determine_api_key()
 )
@@ -21,8 +21,8 @@ integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
 Bus". Character inputs are not case-sensitive. Use the \code{route_types}
 function to extract a vector of all route types.}
 
-\item{direction}{Optionally filter by a direction ID. These can be obtained
-with the \code{route_directions} function.}
+\item{direction_id}{Optionally filter by a direction ID. These can be
+obtained with the \code{route_directions()} function.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}
