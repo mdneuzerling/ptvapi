@@ -4,6 +4,9 @@
 #' All timestamps returned by this function are in Melbourne time.
 #'
 #' @param route_id Integer. Optionally filter results to a particular route ID.
+#' @inheritParams stops_nearby
+#' @param route_name Character. Optionally filter by route name. Partial matches
+#'   are accepted, and the matches are not case sensitive.
 #' @inheritParams PTVGET
 #'
 #' @inherit route_to_tibble return
@@ -12,13 +15,22 @@
 #'
 #' @examples \dontrun{routes()}
 routes <- function(route_id = NULL,
+                   route_types = NULL,
+                   route_name = NULL,
                    user_id = determine_user_id(),
                    api_key = determine_api_key()) {
-  request <- "routes"
-  if (!is.null(route_id)) {
-    route_id <- to_integer(route_id)
-    request <- glue::glue("{request}/{route_id}")
+  if (!is.null(route_id)) route_id <- to_integer(route_id)
+  if (!is.null(route_types)) {
+    route_types <- purrr::map_int(route_types, translate_route_type)
   }
+  if (!is.null(route_name)) assertthat::assert_that(is.character(route_name))
+
+  request <- add_parameters(
+    "routes",
+    route_id = route_id,
+    route_types = route_types,
+    route_name = route_name
+  )
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
 

@@ -20,6 +20,25 @@ test_that("We can find the Frankston train route", {
   expect_true(length(frankston_route_id) == 1)
 })
 
+test_that("We can find the Frankston train route with a route ID", {
+  expect_equal(
+    nrow(routes(route_id = frankston_route_id)),
+    1
+  )
+})
+
+test_that("We can filter route results by name", {
+  frankston_named_routes <- routes(route_name = "frank")
+  expect_gt(nrow(frankston_named_routes), 0)
+  expect_equal(
+    dplyr::filter(
+      frankston_named_routes,
+      grepl("frank", route_name, ignore.case = TRUE)
+    ),
+    0
+  )
+})
+
 test_that("We can query for a single route", {
   # I can't think of any non-train routes, but just in case
   single_route_query <- routes(route_id = frankston_route_id)
