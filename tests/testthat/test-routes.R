@@ -46,7 +46,7 @@ test_that("86 tram route can be found", {
   eighty_six_tram_routes <- all_routes %>%
     dplyr::filter(
       route_number == 86,
-      route_types == translate_route_type("Tram")
+      route_type == translate_route_type("Tram")
     )
   expect_equal(nrow(eighty_six_tram_routes), 1)
 })
