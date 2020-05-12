@@ -12,6 +12,16 @@ if (!exists("frankston_route_id")) {
 }
 # ---------------------------------------------------------------------------- #
 
+single_route <- route_information(route_id = frankston_route_id)
+
+test_that("route_information() result has class \"ptvapi\"", {
+  expect_true("ptvapi" %in% class(single_route))
+})
+
+test_that("We can query for a single route", {
+  expect_equal(nrow(single_route), 1)
+})
+
 test_that("routes() result has class \"ptvapi\"", {
   expect_true("ptvapi" %in% class(all_routes))
 })
@@ -30,14 +40,6 @@ test_that("We can filter route results by name", {
     )),
     0
   )
-})
-
-test_that("We can query for a single route", {
-  single_route_query <- routes(
-    route_id = frankston_route_id,
-    route_types = "train"
-  )
-  expect_equal(nrow(single_route_query), 1)
 })
 
 test_that("86 tram route can be found", {

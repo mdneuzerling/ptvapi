@@ -1,9 +1,34 @@
+#' Retrieve route information for a given route
+#'
+#' @details
+#' All timestamps returned by this function are in Melbourne time.
+#'
+#' @inheritParams route_directions
+#' @inheritParams translate_route_type
+#' @inheritParams PTVGET
+#'
+#' @inherit route_to_tibble return
+#'
+#' @export
+#'
+route_information <- function(route_id,
+                              user_id = determine_user_id(),
+                              api_key = determine_api_key()) {
+  route_id <- to_integer(route_id)
+  request <- glue::glue("routes/{route_id}")
+  response <- PTVGET(request, user_id = user_id, api_key = api_key)
+  content <- response$content
+
+  assert_correct_attributes(names(content), c("route", "status"))
+  parsed <- route_to_tibble(content$route) # may be an empty tibble
+  new_ptvapi_tibble(response, parsed)
+}
+
 #' Retrieve route information
 #'
 #' @details
 #' All timestamps returned by this function are in Melbourne time.
 #'
-#' @param route_id Integer. Optionally filter results to a particular route ID.
 #' @inheritParams stops_nearby
 #' @param route_name Character. Optionally filter by route name. Partial matches
 #'   are accepted, and the matches are not case sensitive.
@@ -14,12 +39,10 @@
 #' @export
 #'
 #' @examples \dontrun{routes()}
-routes <- function(route_id = NULL,
-                   route_types = NULL,
+routes <- function(route_types = NULL,
                    route_name = NULL,
                    user_id = determine_user_id(),
                    api_key = determine_api_key()) {
-  if (!is.null(route_id)) route_id <- to_integer(route_id)
   if (!is.null(route_types)) {
     route_types <- purrr::map_int(route_types, translate_route_type)
   }
@@ -27,35 +50,13 @@ routes <- function(route_id = NULL,
 
   request <- add_parameters(
     "routes",
-    route_id = route_id,
     route_types = route_types,
     route_name = route_name
   )
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
-
-  # Slightly different output for single route, which we coerce to the same
-  # column names as if multiple routes were returned
-  if (!is.null(route_id)) {
-    assert_correct_attributes(names(content), c("route", "status"))
-    parsed <- route_to_tibble(content$route) # may be an empty tibble
-  } else {
-    # We'll naively parse a single route to make sure all of the attributes are
-    # as expected. Simply passing a single route to `as_tibble` will create two
-    # rows, as `route_service_status` is nested, but this is fine for checking
-    # attributes.
-    assert_correct_attributes(names(content), c("routes", "status"))
-    routes_tibble_example <- tibble::as_tibble(content$routes[[1]])
-    assert_correct_attributes(
-      colnames(routes_tibble_example),
-      c("route_service_status", "route_type", "route_id", "route_name",
-        "route_number", "route_gtfs_id")
-    )
-    parsed <- map_and_rbind(content$routes, route_to_tibble)
-  }
-
+  parsed <- map_and_rbind(content$routes, route_to_tibble)
   new_ptvapi_tibble(response, parsed)
-
 }
 
 #' Convert a single route to a tibble
@@ -80,23 +81,19 @@ routes <- function(route_id = NULL,
 #' @keywords internal
 #'
 route_to_tibble <- function(route) {
-
-  route_tibble <- tibble::tibble(
-    route_id = integer(),
-    route_gtfs_id = character(),
-    route_name = character(),
-    route_type = integer(),
-    route_number = character(),
-    service_status = character(),
-    service_status_timestampe = as.POSIXct(NA)
-  )
-
   if (is.null(route)) {
-    return(route_tibble)
-  }
-
-  rbind(
-    route_tibble,
+    return(
+      tibble::tibble(
+        route_id = integer(),
+        route_gtfs_id = character(),
+        route_name = character(),
+        route_type = integer(),
+        route_number = character(),
+        service_status = character(),
+        service_status_timestampe = as.POSIXct(NA)
+      )
+    )
+  } else {
     tibble::tibble(
       route_id = route$route_id,
       route_gtfs_id = route$route_gtfs_id,
@@ -115,6 +112,5 @@ route_to_tibble <- function(route) {
         route$route_service_status$timestamp
       )
     )
-  )
-
+  }
 }
