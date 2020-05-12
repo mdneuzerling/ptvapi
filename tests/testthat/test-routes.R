@@ -18,7 +18,7 @@ test_that("route_information() result has class \"ptvapi\"", {
   expect_true("ptvapi" %in% class(single_route))
 })
 
-test_that("We can query for a single route", {
+test_that("we can query for a single route", {
   expect_equal(nrow(single_route), 1)
 })
 
@@ -26,11 +26,11 @@ test_that("routes() result has class \"ptvapi\"", {
   expect_true("ptvapi" %in% class(all_routes))
 })
 
-test_that("We can find the Frankston train route", {
+test_that("we can find the Frankston train route", {
   expect_true(length(frankston_route_id) == 1)
 })
 
-test_that("We can filter route results by name", {
+test_that("we can filter route results by name", {
   frankston_named_routes <- routes(route_name = "frank")
   expect_gt(nrow(frankston_named_routes), 0)
   expect_equal(
@@ -46,7 +46,14 @@ test_that("86 tram route can be found", {
   eighty_six_tram_routes <- all_routes %>%
     dplyr::filter(
       route_number == 86,
-      route_type == translate_route_type("Tram")
+      route_types == translate_route_type("Tram")
     )
   expect_equal(nrow(eighty_six_tram_routes), 1)
+})
+
+test_that("we can filter routes by multiple route types", {
+  expect_equal(
+    routes(route_types = c(0, 1)) %>% pull(route_type) %>% unique %>% sort,
+    c(0, 1)
+  )
 })
