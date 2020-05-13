@@ -16,7 +16,7 @@ A tibble with the following columns: \itemize{
 \item \code{route_type}
 \item \code{direction_id}
 \item \code{run_sequence}
-\item \code{final_stop_id }
+\item \code{final_stop_id}
 \item \code{destination_name}
 \item \code{status}
 \item \code{express_stop_count}

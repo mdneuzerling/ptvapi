@@ -71,7 +71,7 @@ runs_on_route <- function(route_id,
 #' \item `route_type`
 #' \item `direction_id`
 #' \item `run_sequence`
-#' \item `final_stop_id `
+#' \item `final_stop_id`
 #' \item `destination_name`
 #' \item `status`
 #' \item `express_stop_count`
