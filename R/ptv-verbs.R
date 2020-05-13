@@ -71,8 +71,8 @@ process_response <- function(response, request_url_without_auth) {
 
   structured_response <- structure(
     list(
-      status_code = status_code,
       request = request_url_without_auth,
+      status_code = status_code,
       content = jsonlite::fromJSON(
         httr::content(response, "text", encoding = "UTF-8"),
         simplifyVector = FALSE
@@ -93,5 +93,20 @@ process_response <- function(response, request_url_without_auth) {
   }
 
   structured_response
+}
 
+# This print function hides the custom attributes that we attach the objects
+# returned by the api functions. In particular, the "content" attribute contains
+# the raw content returned by the API, and is very ugly to print. The request
+# and status code are printed at the top, and everything else is printed as
+# normal.
+#' @export
+print.ptvapi <- function(x, ...) {
+  cat("Request: ", attr(x, "request"), "\n")
+  cat("Status code: ", attr(x, "status_code"), "\n")
+  attr(x, "request") <- NULL
+  attr(x, "status_code") <- NULL
+  attr(x, "content") <- NULL
+  class(x) <- class(x)[class(x) != "ptvapi"]
+  print(x)
 }
