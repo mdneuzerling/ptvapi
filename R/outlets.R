@@ -23,7 +23,6 @@ outlets <- function(user_id = determine_user_id(),
   # included here. It's possibly accidentally copied from the API call used in
   # the `outlets_nearby()` function.
 
-  if (!is.null(max_results)) max_results <- to_integer(max_results)
   request <- "outlets"
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
