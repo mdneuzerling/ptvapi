@@ -9,6 +9,7 @@ new_ptvapi_tibble <- function(response, parsed) {
     nrow = nrow(parsed),
     class = "ptvapi",
     request = response$request,
+    retrieved = response$retrieved,
     status_code = response$status_code,
     content = response$content
   )

@@ -72,6 +72,11 @@ process_response <- function(response, request_url_without_auth) {
   structured_response <- structure(
     list(
       request = request_url_without_auth,
+      retrieved = format(
+        Sys.time(),
+        format = "%Y-%m-%dT%H:%M:%OS %Z",
+        tz = "Australia/Melbourne"
+      ),
       status_code = status_code,
       content = jsonlite::fromJSON(
         httr::content(response, "text", encoding = "UTF-8"),
@@ -103,8 +108,10 @@ process_response <- function(response, request_url_without_auth) {
 #' @export
 print.ptvapi <- function(x, ...) {
   cat("Request: ", attr(x, "request"), "\n")
+  cat("Retrieved: ", attr(x, "retrieved"), "\n")
   cat("Status code: ", attr(x, "status_code"), "\n")
   attr(x, "request") <- NULL
+  attr(x, "retrieved") <- NULL
   attr(x, "status_code") <- NULL
   attr(x, "content") <- NULL
   class(x) <- class(x)[class(x) != "ptvapi"]
