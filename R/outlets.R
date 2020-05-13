@@ -24,7 +24,7 @@ outlets <- function(user_id = determine_user_id(),
   # the `outlets_nearby()` function.
 
   if (!is.null(max_results)) max_results <- to_integer(max_results)
-  request <- add_parameters("outlets", max_results = max_results)
+  request <- "outlets"
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
   assert_correct_attributes(

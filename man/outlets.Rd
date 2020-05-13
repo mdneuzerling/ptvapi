@@ -4,11 +4,7 @@
 \alias{outlets}
 \title{Retrieve outlet information}
 \usage{
-outlets(
-  max_results = NULL,
-  user_id = determine_user_id(),
-  api_key = determine_api_key()
-)
+outlets(user_id = determine_user_id(), api_key = determine_api_key())
 }
 \arguments{
 \item{user_id}{Integer or character. A user ID or devid provided by Public
