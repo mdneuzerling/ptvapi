@@ -7,6 +7,8 @@
 patterns(
   run_id,
   route_type,
+  stop_id = NULL,
+  datetime = NULL,
   user_id = determine_user_id(),
   api_key = determine_api_key()
 )
@@ -20,6 +22,14 @@ be provided either as a non-negative integer code, or as a character:
 "Tram", "Train", "Bus", "Vline" or "Night Bus". Character inputs are not
 case-sensitive. Use the \code{route_types} function to extract a vector of all
 route types.}
+
+\item{stop_id}{Integer. Optionally filter results to a specific stop ID.
+These can be searched for with the \code{stops_on_route()} and \code{stops_nearby()}
+functions.}
+
+\item{datetime}{POSIXct or Character. Optionally filter results to a
+datetime. Characters are automatically converted to datetimes, and are
+assumed to be given as Melbourne time.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}
@@ -47,4 +57,12 @@ of tibbles, with output corresponding to their respective API calls.
 The \code{stops} tibble has an output similar to that returned by
 \code{stops_on_route}. The \code{routes} tibble does not contain service status
 information.
+}
+\examples{
+\dontrun{
+patterns(run_id = 1, route_type = 0)
+patterns(run_id = 1, route_type = "Train")
+patterns(run_id = 1, route_type = "Train", datetime = "2020-03-01T16:41:50")
+}
+
 }

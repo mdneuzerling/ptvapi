@@ -10,6 +10,10 @@
 #'
 #' @inheritParams run_information
 #' @inheritParams translate_route_type
+#' @inheritParams disruptions_on_route
+#' @param datetime POSIXct or Character. Optionally filter results to a
+#'   datetime. Characters are automatically converted to datetimes, and are
+#'   assumed to be given as Melbourne time.
 #' @inheritParams PTVGET
 #'
 #' @return An object of class "ptvapi", which is effectively a list with the
@@ -24,14 +28,49 @@
 #'
 #' @export
 #'
+#' @examples \dontrun{
+#' patterns(run_id = 1, route_type = 0)
+#' patterns(run_id = 1, route_type = "Train")
+#' patterns(run_id = 1, route_type = "Train", datetime = "2020-03-01T16:41:50")
+#' }
+#'
 patterns <- function(run_id,
                      route_type,
+                     stop_id = NULL,
+                     datetime = NULL,
                      user_id = determine_user_id(),
                      api_key = determine_api_key()) {
   run_id <- to_integer(run_id)
   route_type <- translate_route_type(route_type)
-  request <- glue::glue("pattern/run/{run_id}/route_type/{route_type}")
-  request <- add_parameter(request, "expand", "all")
+  if (!is.null(stop_id)) stop_id <- to_integer(stop_id)
+  if (!is.null(datetime)) {
+    # The API expects an ISO-8601 timestamp in UTC, although we convert input
+    # from Melbourne time and output to Melbourne time.
+    if (is.character(datetime)) {
+      datetime <- as.POSIXct(
+        datetime,
+        tz = "Australia/Melbourne",
+        tryFormats = c("%Y-%m-%dT%H:%M:%OS",
+                       "%Y-%m-%d %H:%M:%OS",
+                       "%Y/%m/%d %H:%M:%OS",
+                       "%Y-%m-%d %H:%M",
+                       "%Y/%m/%d %H:%M",
+                       "%Y-%m-%d",
+                       "%Y/%m/%d")
+      )
+    }
+    datetime_url_friendly <- format(
+      datetime,
+      format = "%Y-%m-%dT%H:%M:%OS",
+      tz = "UTC"
+    )
+  }
+  request <- add_parameters(
+    glue::glue("pattern/run/{run_id}/route_type/{route_type}"),
+    expand = "all",
+    stop_id = stop_id,
+    date_utc = datetime_url_friendly
+  )
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
   assert_correct_attributes(
