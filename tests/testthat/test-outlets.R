@@ -23,3 +23,27 @@ test_that("There's a 7-Eleven near Flinders Street", {
     any(grepl("7-Eleven", outlets_near_flinders$outlet_business))
   )
 })
+
+test_that("outlets_nearby filtered by max_results", {
+  one_outlet <- outlets_nearby(
+    latitude = -37.8183,
+    longitude = 144.9671,
+    max_results = 1
+  )
+  expect_equal(nrow(one_outlet), 1)
+})
+
+test_that("outlets_nearby filtered by max_distance", {
+  max_100 <- outlets_nearby(
+    latitude = -37.8183,
+    longitude = 144.9671,
+    max_distance = 100
+  )
+  max_1000 <- outlets_nearby(
+    latitude = -37.8183,
+    longitude = 144.9671,
+    max_distance = 1000
+  )
+  expect_true("Collins and Russell - Exhibition" %in% max_1000$outlet_name)
+  expect_false("Collins and Russell - Exhibition" %in% max_100$outlet_name)
+})

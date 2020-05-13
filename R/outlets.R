@@ -15,9 +15,17 @@
 #'
 #' @examples \dontrun{outlets()}
 #'
-outlets <- function(user_id = determine_user_id(),
+outlets <- function(max_results = NULL,
+                    user_id = determine_user_id(),
                     api_key = determine_api_key()) {
-  request <- "outlets"
+
+  # This API call nominally supports an `max_results` parameter, which defaults
+  # to 30. It seems to have no impact on the results, so it hasn't been
+  # included here. It's possibly accidentally copied from the API call used in
+  # the `outlets_nearby()` function.
+
+  if (!is.null(max_results)) max_results <- to_integer(max_results)
+  request <- add_parameters("outlets", max_results = max_results)
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
   assert_correct_attributes(
@@ -34,6 +42,8 @@ outlets <- function(user_id = determine_user_id(),
 #' @inherit outlets details
 #'
 #' @inheritParams stops_nearby
+#' @param max_results Integer. Defaults to 30. Caps the number of results
+#'   returned.
 #' @inheritParams PTVGET
 #'
 #' @inherit outlet_to_tibble return
@@ -46,13 +56,21 @@ outlets <- function(user_id = determine_user_id(),
 #'
 outlets_nearby <- function(latitude,
                            longitude,
+                           max_distance = NULL,
+                           max_results = 30,
                            user_id = determine_user_id(),
                            api_key = determine_api_key()) {
 
   assertthat::assert_that(is.numeric(latitude))
   assertthat::assert_that(is.numeric(longitude))
+  if (!is.null(max_distance)) max_distance <- to_integer(max_distance)
+  max_results <- to_integer(max_results)
 
-  request <- glue::glue("outlets/location/{latitude},{longitude}")
+  request <- add_parameters(
+    glue::glue("outlets/location/{latitude},{longitude}"),
+    max_distance = max_distance,
+    max_results = max_results
+  )
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
   assert_correct_attributes(

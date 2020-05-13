@@ -7,6 +7,8 @@
 outlets_nearby(
   latitude,
   longitude,
+  max_distance = NULL,
+  max_results = 30,
   user_id = determine_user_id(),
   api_key = determine_api_key()
 )
@@ -17,6 +19,12 @@ Street Station is at approximately -37.8183 latitude.}
 
 \item{longitude}{Numeric. Longitude in decimal degrees. For example, Flinders
 Street Station is at approximately 144.9671 longitude.}
+
+\item{max_distance}{Integer. Optionally filter by maximum distance from the
+given location, in metres.}
+
+\item{max_results}{Integer. Defaults to 30. Caps the number of results
+returned.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}
