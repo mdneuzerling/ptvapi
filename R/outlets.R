@@ -15,8 +15,7 @@
 #'
 #' @examples \dontrun{outlets()}
 #'
-outlets <- function(max_results = NULL,
-                    user_id = determine_user_id(),
+outlets <- function(user_id = determine_user_id(),
                     api_key = determine_api_key()) {
 
   # This API call nominally supports an `max_results` parameter, which defaults
