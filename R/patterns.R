@@ -43,28 +43,8 @@ patterns <- function(run_id,
   run_id <- to_integer(run_id)
   route_type <- translate_route_type(route_type)
   if (!is.null(stop_id)) stop_id <- to_integer(stop_id)
-  if (!is.null(datetime)) {
-    # The API expects an ISO-8601 timestamp in UTC, although we convert input
-    # from Melbourne time and output to Melbourne time.
-    if (is.character(datetime)) {
-      datetime <- as.POSIXct(
-        datetime,
-        tz = "Australia/Melbourne",
-        tryFormats = c("%Y-%m-%dT%H:%M:%OS",
-                       "%Y-%m-%d %H:%M:%OS",
-                       "%Y/%m/%d %H:%M:%OS",
-                       "%Y-%m-%d %H:%M",
-                       "%Y/%m/%d %H:%M",
-                       "%Y-%m-%d",
-                       "%Y/%m/%d")
-      )
-    }
-    datetime_url_friendly <- format(
-      datetime,
-      format = "%Y-%m-%dT%H:%M:%OS",
-      tz = "UTC"
-    )
-  }
+  if (!is.null(datetime)) datetime <- to_datetime(datetime)
+
   request <- add_parameters(
     glue::glue("pattern/run/{run_id}/route_type/{route_type}"),
     expand = "all",

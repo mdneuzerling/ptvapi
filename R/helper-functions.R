@@ -46,6 +46,42 @@ convert_to_melbourne_time <- function(datetime) {
   converted
 }
 
+#' Convert a POSIXct or character datetime to a format ready for a URL
+#'
+#' Datetimes accepted by the API need to be given in UTC. This function will
+#' accept a datetime or a character with a suitable datetime format, and output
+#' a character that is suitable for a URL. All URL input and output in this
+#' package should be in Melbourne time, and the UTC conversion should happen
+#'
+#' The API seems to accept both "%Y-%m-%dT%H:%M:%OS" and "%Y-%m-%d %H:%M:%OS", but we opt for the former.
+#'
+#' @param datetime POSIXct or Character.
+#'
+#' @return Character.
+#'
+#' @keywords internal
+#'
+to_datetime <- function(datetime) {
+  if (is.character(datetime)) {
+    datetime <- as.POSIXct(
+      datetime,
+      tz = "Australia/Melbourne",
+      tryFormats = c("%Y-%m-%dT%H:%M:%OS",
+                     "%Y-%m-%d %H:%M:%OS",
+                     "%Y/%m/%d %H:%M:%OS",
+                     "%Y-%m-%d %H:%M",
+                     "%Y/%m/%d %H:%M",
+                     "%Y-%m-%d",
+                     "%Y/%m/%d")
+    )
+  }
+  format(
+    datetime,
+    format = "%Y-%m-%dT%H:%M:%OS",
+    tz = "UTC"
+  )
+}
+
 #' Map and rbind a list of data frames
 #'
 #' This function is a simple combination of `purrr::map()` and `purrr::reduce()`
