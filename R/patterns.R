@@ -11,9 +11,7 @@
 #' @inheritParams run_information
 #' @inheritParams translate_route_type
 #' @inheritParams disruptions_on_route
-#' @param datetime POSIXct or Character. Optionally filter results to a
-#'   datetime. Characters are automatically converted to datetimes, and are
-#'   assumed to be given as Melbourne time.
+#' @inheritParams departures
 #' @inheritParams PTVGET
 #'
 #' @return An object of class "ptvapi", which is effectively a list with the
@@ -49,7 +47,7 @@ patterns <- function(run_id,
     glue::glue("pattern/run/{run_id}/route_type/{route_type}"),
     expand = "all",
     stop_id = stop_id,
-    date_utc = datetime_url_friendly
+    date_utc = datetime
   )
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
