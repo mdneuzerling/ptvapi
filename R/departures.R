@@ -8,6 +8,9 @@
 #' @inheritParams translate_route_type
 #' @param route_id Optionally filter by a route ID. These can be obtained with
 #'   the `routes` function.
+#' @param datetime POSIXct or Character. Optionally filter results to a
+#'   datetime. Characters are automatically converted to datetimes, and are
+#'   assumed to be given as Melbourne time.
 #' @inheritParams PTVGET
 #'
 #' @export
@@ -15,6 +18,7 @@
 departures <- function(stop_id,
                        route_type,
                        route_id = NULL,
+                       datetime = NULL,
                        user_id = determine_user_id(),
                        api_key = determine_api_key()) {
 
@@ -26,6 +30,9 @@ departures <- function(stop_id,
     assertthat::assert_that(is.integer(route_id))
     request <- glue::glue("{request}/route/{route_id}")
   }
+  if (!is.null(datetime)) datetime <- to_datetime(datetime)
+
+  request <- add_parameters(request, date_utc = datetime)
 
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
