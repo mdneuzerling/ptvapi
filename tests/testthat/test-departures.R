@@ -57,3 +57,15 @@ test_that("Departures filtered by datetime", {
     as.POSIXct(morning_test_time)
   )
 })
+
+test_that("Departures filtered by datetime and max_results", {
+  flinders_afternoon_departures <- departures(
+    stop_id = flinders_street_stop_id,
+    route_type = "Train",
+    datetime = afternoon_test_time,
+    max_results = 3
+  )
+  expect_gt(nrow(flinders_afternoon_departures), 0) # must have some results
+  departures_per_route_id <- count(flinders_afternoon_departures, route_id)
+  expect_true(all(departures_per_route_id$n == 3))
+})
