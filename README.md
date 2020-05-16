@@ -72,8 +72,9 @@ The following functions are available through this package:
 
 * `departures`
 * `directions`
+* `disruption_information`
 * `disruption_modes`
-* `disruption_to_tibble`
+* `disruptions`
 * `disruptions_at_stop`
 * `disruptions_on_route`
 * `outlets`
