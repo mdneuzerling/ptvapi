@@ -203,7 +203,8 @@ all_disruptions_to_tibble <- function(disruptions_content) {
 #' \item `display_on_board`
 #' \item `display_status`
 #' }
-#' @export
+#'
+#' @keywords internal
 #'
 disruption_to_tibble <- function(disruption) {
   tibble::tibble(
