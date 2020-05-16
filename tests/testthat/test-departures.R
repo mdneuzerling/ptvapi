@@ -45,6 +45,19 @@ test_that("Frankston train departs from Flinders Street Station",
   expect_true(frankston_route_id %in% flinders_departures$route_id)
 )
 
+test_that("Departures filtered by platform_number", {
+  platform_5_6_departures <- departures(
+    stop_id = flinders_street_stop_id,
+    route_type = "Train",
+    platform_numbers = c("5", "6"), # despite the name, they are characters
+  )
+  expect_gt(nrow(platform_5_6_departures), 0) # must have some results
+  expect_equal(
+    platform_5_6_departures %>% pull(platform_number) %>% unique %>% sort,
+    c("5", "6")
+  )
+})
+
 test_that("Departures filtered by datetime", {
   flinders_morning_departures <- departures(
     stop_id = flinders_street_stop_id,
@@ -54,7 +67,7 @@ test_that("Departures filtered by datetime", {
   expect_gt(nrow(flinders_morning_departures), 0) # must have some results
   expect_gt(
     min(flinders_morning_departures$scheduled_departure),
-    as.POSIXct(morning_test_time, tz = "Australia")
+    as.POSIXct(morning_test_time, tz = "Australia/Melbourne")
   )
 })
 

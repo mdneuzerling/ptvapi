@@ -51,6 +51,7 @@ departures <- function(stop_id,
                        route_type,
                        route_id = NULL,
                        direction_id = NULL,
+                       platform_numbers = NULL,
                        datetime = NULL,
                        max_results = 5,
                        include_cancelled = FALSE,
@@ -65,6 +66,9 @@ departures <- function(stop_id,
   route_type <- translate_route_type(route_type)
   if (!is.null(route_id)) route_id <- to_integer(route_id)
   if (!is.null(max_results)) max_results <- to_integer(max_results)
+  if (!is.null(platform_numbers)) {
+    platform_numbers <- purrr::map_int(platform_numbers, to_integer)
+  }
   if (!is.null(datetime)) {
     datetime <- as.POSIXct(
       datetime,
@@ -87,9 +91,10 @@ departures <- function(stop_id,
   request <- add_parameters(
     glue::glue("departures/route_type/{route_type}/stop/{stop_id}"),
     direction_id = direction_id,
+    platform_numbers = platform_numbers,
     max_results = 0, # results for the whole day. We'll filter later.
-    include_cancelled = include_cancelled,
-    date_utc = url_datetime
+    date_utc = url_datetime,
+    include_cancelled = include_cancelled
   )
 
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
