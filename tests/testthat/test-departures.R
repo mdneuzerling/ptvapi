@@ -54,7 +54,7 @@ test_that("Departures filtered by datetime", {
   expect_gt(nrow(flinders_morning_departures), 0) # must have some results
   expect_gt(
     min(flinders_morning_departures$scheduled_departure),
-    as.POSIXct(morning_test_time)
+    as.POSIXct(morning_test_time, tz = "Australia")
   )
 })
 
