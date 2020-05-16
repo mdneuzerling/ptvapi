@@ -1,13 +1,36 @@
-#' Stop information (metropolitan and V/Line stations only).
+#' Retrieve information on a particular disruption.
 #'
 #' This function can be used when integer disruption ID is already known. This
-#' can be searched for with either the `disruptions_on_route` or
-#' `disruptions_at_stop` functions.
-#'
-#' @section Swagger documentation:
-#'   \url{http://timetableapi.ptv.vic.gov.au/swagger/ui/index#/Stops}
+#' can be searched for with either `disruptions()`, `disruptions_on_route()`,
+#' or `disruptions_at_stop()` functions.
 #'
 #' @param disruption_id Integer. Optionally filter by a disruption ID.
+#' @inheritParams translate_route_type
+#' @inheritParams PTVGET
+#'
+#' @inherit all_disruptions_to_tibble return
+#'
+#' @export
+#'
+disruption_information <- function(disruption_id,
+                                   user_id = determine_user_id(),
+                                   api_key = determine_api_key()) {
+  disruption_id <- to_integer(disruption_id)
+  request <- glue::glue("disruptions/{disruption_id}")
+  response <- PTVGET(request, user_id = user_id, api_key = api_key)
+  content <- response$content
+  assert_correct_attributes(
+    names(content),
+    c("disruption", "status")
+  )
+
+  parsed <- disruption_to_tibble(content$disruption)
+  new_ptvapi_tibble(response, parsed)
+}
+
+
+#' Retrieve information for all disruptions.
+#'
 #' @inheritParams stops_nearby
 #' @param disruption_modes Integer vector. Optionally filter by disruption
 #'   modes. For a full list of modes and their corresponding descriptions, use
@@ -15,29 +38,17 @@
 #' @param disruption_status Character. Can be used to filter to either "current"
 #'   or "planned" disruptions. Defaults to NULL, in which case no filter is
 #'   applied.
-#' @inheritParams translate_route_type
 #' @inheritParams PTVGET
 #'
-disruptions <- function(disruption_id = NULL,
-                        route_types = NULL,
+#' @inherit all_disruptions_to_tibble return
+#'
+#' @export
+#'
+disruptions <- function(route_types = NULL,
                         disruption_modes = NULL,
                         disruption_status = NULL,
                         user_id = determine_user_id(),
                         api_key = determine_api_key()) {
-
-  if (!is.null(disruption_id)) {
-    disruption_id <- to_integer(disruption_id)
-    other_filters_defined <- any(
-      purrr::map_lgl(list(route_types, NULL, 2, 4), ~!is.null(.x))
-    )
-    if (other_filters_defined) {
-      warning("A disruption_id has been providing, ",
-              "so ignoring all other filters")
-      route_types <- NULL
-      disruption_modes <- NULL
-      disruption_status <- NULL
-    }
-  }
 
   if (!is.null(route_types)) {
     route_types <- purrr::map_int(route_types, translate_route_type)
@@ -55,23 +66,20 @@ disruptions <- function(disruption_id = NULL,
     )
   }
 
-  if (!is.null(disruption_id)) {
-    request <- glue::glue("disruptions/{disruption_id}")
-  } else {
-    request <- "disruptions"
-  }
   request <- add_parameters(
-    request,
-    disruption_status = disruption_status
+    "disruptions",
+    route_types = route_types,
+    disruption_status = disruption_status,
+    disruption_modes = disruption_modes
   )
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
   assert_correct_attributes(
     names(content),
-    c("disruption", "status")
+    c("disruptions", "status")
   )
 
-  parsed <- disruption_to_tibble(content$disruption)
+  parsed <- all_disruptions_to_tibble(content$disruptions)
   new_ptvapi_tibble(response, parsed)
 }
 
@@ -127,7 +135,7 @@ disruptions_on_route <- function(route_id,
 #' Disruptions at a given stop
 #'
 #' @inheritParams stop_information
-#' @inheritParams disruption_status
+#' @inheritParams disruptions
 #' @inheritParams PTVGET
 #'
 #' @inherit all_disruptions_to_tibble return
@@ -146,7 +154,6 @@ disruptions_at_stop <- function(stop_id,
                   "\"current\" or \"planned\"")
     )
   }
-  return(disruption_type)
   request <- add_parameters(
     glue::glue("disruptions/stop/{stop_id}"),
     disruption_status = disruption_status

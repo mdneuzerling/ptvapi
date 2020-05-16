@@ -35,6 +35,8 @@
 #' @param route_id Optionally filter by a route ID. These can be obtained with
 #'   the `routes()` function.
 #' @inheritParams stops_on_route
+#' @param platform_numbers Character vector. Optionally filter results by
+#' platform number. Despite the name, these are characters.
 #' @param datetime POSIXct or Character. Optionally filter results to a
 #'   datetime. Characters are automatically converted to datetimes, and are
 #'   assumed to be given as Melbourne time. Defaults to the current date and

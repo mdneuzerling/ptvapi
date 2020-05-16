@@ -2,10 +2,9 @@
 % Please edit documentation in R/disruptions.R
 \name{disruptions}
 \alias{disruptions}
-\title{Stop information (metropolitan and V/Line stations only).}
+\title{Retrieve information for all disruptions.}
 \usage{
 disruptions(
-  disruption_id = NULL,
   route_types = NULL,
   disruption_modes = NULL,
   disruption_status = NULL,
@@ -14,8 +13,6 @@ disruptions(
 )
 }
 \arguments{
-\item{disruption_id}{Integer. Optionally filter by a disruption ID.}
-
 \item{route_types}{Optionally filter by a vector of route types. A route type
 can be provided either as a non-negative integer code, or as a character:
 "Tram", "Train", "Bus", "Vline" or "Night Bus". Character inputs are not
@@ -36,13 +33,26 @@ Transport Victoria. See section "Obtaining API authentication details".}
 \item{api_key}{Character. An API key, with dashes, provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}
 }
+\value{
+A tibble with the following columns: \itemize{
+\item \code{service_type}
+\item \code{disruption_id}
+\item \code{title}
+\item \code{url}
+\item \code{description}
+\item \code{disruption_status}
+\item \code{disruption_type}
+\item \code{published_on}
+\item \code{last_updated}
+\item \code{from_date}
+\item \code{to_date}
+\item \code{routes}
+\item \code{stops}
+\item \code{colour}
+\item \code{display_on_board}
+\item \code{display_status}
+}
+}
 \description{
-This function can be used when integer disruption ID is already known. This
-can be searched for with either the \code{disruptions_on_route} or
-\code{disruptions_at_stop} functions.
+Retrieve information for all disruptions.
 }
-\section{Swagger documentation}{
-
-\url{http://timetableapi.ptv.vic.gov.au/swagger/ui/index#/Stops}
-}
-
