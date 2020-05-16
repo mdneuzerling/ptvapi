@@ -1,24 +1,38 @@
 #' Retrieve departures at a stop
 #'
-#' @details
-#' All timestamps returned by this function are in Melbourne time.
+#' @details All timestamps returned by this function are in Melbourne time.
+#'
+#' @section max_results:
+#' The `max_results` parameter should be interpreted with caution --- requesting
+#' a maximum of `n` results does not guarantee that the returned tibble will be
+#' `n` rows per route ID and departure, and often fewer than `n` departures are
+#' returned. Be cautious when providing a value to the `route_id` argument as
+#' well as to `max_results`, as the results may contain route IDs other than the
+#' given argument. For example, running
+#' `departures(1071, "Train", route_id = 1, max_results = 1)`
+#' will return departures for route 1 (Alamein) with direction
+#' ID 0, but also route 7 (Glen Waverley) with direction ID 1. This is the
+#' behaviour of the API, and so it has been replicated here. If you are
+#' concerned with one route ID only, it is advised to filter the results
+#' accordingly.
 #'
 #' @param stop_id An integer stop ID returned by the `stops_on_route` or
 #'   `stops_nearby` functions.
 #' @inheritParams translate_route_type
 #' @param route_id Optionally filter by a route ID. These can be obtained with
-#'   the `routes` function.
+#'   the `routes()` function.
 #' @param datetime POSIXct or Character. Optionally filter results to a
 #'   datetime. Characters are automatically converted to datetimes, and are
 #'   assumed to be given as Melbourne time. Defaults to the current date and
 #'   time.
-#' @param max_results Integer. Caps the number of results returned. If not
-#'   provided, results for the
+#' @param max_results Integer. The maximum number of departures to return for
+#'   each route_id and direction. This argument behaves in unexpected ways (see
+#'   results). Defaults to 5.
 #' @param look_backwards Logical. Whether results should be returned if they
-#' arrive before at destination before `datetime`. Requires `max_results > 0`.
-#' Defaults to FALSE.
+#'   arrive before at destination before `datetime`. Requires `max_results > 0`.
+#'   Defaults to FALSE.
 #' @param include_cancelled Logical. Whether results should be returned if they
-#' have been cancelled. Metropolitan train services only. Defaults to FALSE.
+#'   have been cancelled. Metropolitan train services only. Defaults to FALSE.
 #' @inheritParams PTVGET
 #'
 #' @export
@@ -28,7 +42,7 @@ departures <- function(stop_id,
                        route_id = NULL,
                        direction_id = NULL,
                        datetime = NULL,
-                       max_results = NULL,
+                       max_results = 5,
                        look_backwards = FALSE,
                        include_cancelled = FALSE,
                        user_id = determine_user_id(),
