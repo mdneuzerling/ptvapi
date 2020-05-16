@@ -9,9 +9,11 @@ library(dplyr, quietly = TRUE)
 # the morning, and one in the afternoon.
 
 morning_test_time <- paste0(
-  format(Sys.Date() + 2, format = "%Y-%m-%d"), "T07:48:08"
+  format(Sys.Date() + 2, format = "%Y-%m-%d", tz = "Australia/Melbourne"),
+  "T07:48:08"
 )
 
 afternoon_test_time <- paste0(
-  format(Sys.Date() + 2, format = "%Y-%m-%d"), "T16:48:08"
+  format(Sys.Date() + 2, format = "%Y-%m-%d", tz = "Australia/Melbourne"),
+  "T16:48:08"
 )
