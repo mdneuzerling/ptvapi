@@ -8,20 +8,23 @@
 #' `stops_on_route`. The `routes` tibble does not contain service status
 #' information.
 #'
+#' @details Filtering by date: While the PTV Timetable API supports filtering
+#'   patterns by date times and maximum results returned, the behaviour of these
+#'   parameters is unpredictable and contrary to documentation. As such, this
+#'   function allows for filtering **by date only**, and `max_results` is not a
+#'   supported argument. Only the date portion of a datetime will be considered.
+#'
 #' @inheritParams run_information
 #' @inheritParams translate_route_type
 #' @inheritParams disruptions_on_route
+#' @param datetime POSIXct or character. Optionally filter by date. See Details.
+#'   Characters are automatically converted to datetimes, and are assumed to be
+#'   given as Melbourne time.
 #' @inheritParams PTVGET
 #'
 #' @return An object of class "ptvapi", which is effectively a list with the
-#'   following names: \itemize{
-#' \item `departures`
-#' \item `stops`
-#' \item `routes`
-#' \item `runs`
-#' \item `directions`
-#' \item `disruptions`
-#' }
+#'   following names: \itemize{ \item `departures` \item `stops` \item `routes`
+#'   \item `runs` \item `directions` \item `disruptions` }
 #'
 #' @export
 #'
@@ -34,16 +37,20 @@
 patterns <- function(run_id,
                      route_type,
                      stop_id = NULL,
+                     datetime = NULL,
                      user_id = determine_user_id(),
                      api_key = determine_api_key()) {
   run_id <- to_integer(run_id)
   route_type <- translate_route_type(route_type)
   if (!is.null(stop_id)) stop_id <- to_integer(stop_id)
+  if (!is.null(datetime)) datetime <- to_datetime(datetime)
 
   request <- add_parameters(
     glue::glue("pattern/run/{run_id}/route_type/{route_type}"),
     expand = "all",
-    stop_id = stop_id
+    stop_id = stop_id,
+    date_utc = datetime,
+    max_results = 0
   )
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content

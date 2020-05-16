@@ -8,6 +8,7 @@ patterns(
   run_id,
   route_type,
   stop_id = NULL,
+  datetime = NULL,
   user_id = determine_user_id(),
   api_key = determine_api_key()
 )
@@ -26,6 +27,10 @@ route types.}
 These can be searched for with the \code{stops_on_route()} and \code{stops_nearby()}
 functions.}
 
+\item{datetime}{POSIXct or character. Optionally filter by date. See Details.
+Characters are automatically converted to datetimes, and are assumed to be
+given as Melbourne time.}
+
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}
 
@@ -34,14 +39,8 @@ Transport Victoria. See section "Obtaining API authentication details".}
 }
 \value{
 An object of class "ptvapi", which is effectively a list with the
-following names: \itemize{
-\item \code{departures}
-\item \code{stops}
-\item \code{routes}
-\item \code{runs}
-\item \code{directions}
-\item \code{disruptions}
-}
+following names: \itemize{ \item \code{departures} \item \code{stops} \item \code{routes}
+\item \code{runs} \item \code{directions} \item \code{disruptions} }
 }
 \description{
 A pattern consists of all departures, stops, routes, runs, directions and
@@ -52,6 +51,12 @@ of tibbles, with output corresponding to their respective API calls.
 The \code{stops} tibble has an output similar to that returned by
 \code{stops_on_route}. The \code{routes} tibble does not contain service status
 information.
+
+Filtering by date: While the PTV Timetable API supports filtering
+patterns by date times and maximum results returned, the behaviour of these
+parameters is unpredictable and contrary to documentation. As such, this
+function allows for filtering \strong{by date only}, and \code{max_results} is not a
+supported argument. Only the date portion of a datetime will be considered.
 }
 \examples{
 \dontrun{
