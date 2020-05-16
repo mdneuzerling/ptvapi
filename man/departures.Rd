@@ -8,6 +8,11 @@ departures(
   stop_id,
   route_type,
   route_id = NULL,
+  direction_id = NULL,
+  datetime = NULL,
+  max_results = NULL,
+  look_backwards = FALSE,
+  include_cancelled = FALSE,
   user_id = determine_user_id(),
   api_key = determine_api_key()
 )
@@ -23,6 +28,21 @@ function to extract a vector of all route types.}
 
 \item{route_id}{Optionally filter by a route ID. These can be obtained with
 the \code{routes} function.}
+
+\item{datetime}{POSIXct or Character. Optionally filter results to a
+datetime. Characters are automatically converted to datetimes, and are
+assumed to be given as Melbourne time. Defaults to the current date and
+time.}
+
+\item{max_results}{Integer. Caps the number of results returned. If not
+provided, results for the}
+
+\item{look_backwards}{Logical. Whether results should be returned if they
+arrive before at destination before \code{datetime}. Requires \code{max_results > 0}.
+Defaults to FALSE.}
+
+\item{include_cancelled}{Logical. Whether results should be returned if they
+have been cancelled. Metropolitan train services only. Defaults to FALSE.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}

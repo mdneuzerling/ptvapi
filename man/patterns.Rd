@@ -29,7 +29,8 @@ functions.}
 
 \item{datetime}{POSIXct or Character. Optionally filter results to a
 datetime. Characters are automatically converted to datetimes, and are
-assumed to be given as Melbourne time.}
+assumed to be given as Melbourne time. Defaults to the current date and
+time.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}
