@@ -62,10 +62,10 @@ departures <- function(stop_id,
   }
   if (!is.null(max_results)) max_results <- to_integer(max_results)
   if (!is.null(datetime)) {
-    if (is.null(max_results)) {
-      # if max_results is NULL or 0, the time component of datetime is ignored,
-      # and results for the entire day are returned. If max_results is NULL, we
-      # warn the user of this potentially undesired behaviour.
+    if (max_results == 0) {
+      # if max_results 0 or not provided, then the time component of datetime is
+      # ignored, and results for the entire day are returned. If max_results is
+      # NULL, we warn the user of this potentially undesired behaviour.
       warning(
         "max_results is not set, so results for the entire day will be ",
         "returned"
