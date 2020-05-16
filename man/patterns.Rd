@@ -28,9 +28,9 @@ These can be searched for with the \code{stops_on_route()} and \code{stops_nearb
 functions.}
 
 \item{datetime}{POSIXct or Character. Optionally filter results to a
-datetime. Characters are automatically converted to datetimes, and are
-assumed to be given as Melbourne time. Defaults to the current date and
-time.}
+datetime. This argument does not behave as expected (see details).
+Characters are automatically converted to datetimes, and are assumed to be
+given as Melbourne time. Defaults to the current date and time.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}

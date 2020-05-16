@@ -2,35 +2,40 @@
 #'
 #' @details All timestamps returned by this function are in Melbourne time.
 #'
-#' @section max_results:
-#' The `max_results` parameter should be interpreted with caution --- requesting
-#' a maximum of `n` results does not guarantee that the returned tibble will be
-#' `n` rows per route ID and departure, and often fewer than `n` departures are
-#' returned. Be cautious when providing a value to the `route_id` argument as
-#' well as to `max_results`, as the results may contain route IDs other than the
-#' given argument. For example, running
-#' `departures(1071, "Train", route_id = 1, max_results = 1)`
-#' will return departures for route 1 (Alamein) with direction
-#' ID 0, but also route 7 (Glen Waverley) with direction ID 1. This is the
-#' behaviour of the API, and so it has been replicated here. If you are
-#' concerned with one route ID only, it is advised to filter the results
-#' accordingly.
+#' @section Filtering by maximum results: The `max_results` parameter should be
+#'   interpreted with caution --- requesting a maximum of `n` results does not
+#'   guarantee that the returned tibble will be `n` rows per route ID and
+#'   departure, and often fewer than `n` departures are returned. Be cautious
+#'   when providing a value to the `route_id` argument as well as to
+#'   `max_results`, as the results may contain route IDs other than the given
+#'   argument. For example, running `departures(1071, "Train", route_id = 1,
+#'   max_results = 1)` will return departures for route 1 (Alamein) with
+#'   direction ID 0, but also route 7 (Glen Waverley) with direction ID 1. This
+#'   is the behaviour of the API, and so it has been replicated here. If you are
+#'   concerned with one route ID only, it is advised to filter the results
+#'   accordingly.
+#'
+#' @section Filtering by datetime: As documented, the API should provide the
+#'   upcoming departures after the given `datetime` argument (defaults to the
+#'   current time). In practice, the API returns results _around_ the given
+#'   `datetime` argument, roughly 10--15 minutes before and after. The API does
+#'   support a `look_backwards` parameter (defaults to `FALSE`) but it appears
+#'   to have no effect on this behaviour, or any effect at all. Therefore, it's
+#'   been omitted from the function arguments.
 #'
 #' @param stop_id An integer stop ID returned by the `stops_on_route` or
 #'   `stops_nearby` functions.
 #' @inheritParams translate_route_type
 #' @param route_id Optionally filter by a route ID. These can be obtained with
 #'   the `routes()` function.
+#' @inheritParams stops_on_route
 #' @param datetime POSIXct or Character. Optionally filter results to a
-#'   datetime. Characters are automatically converted to datetimes, and are
-#'   assumed to be given as Melbourne time. Defaults to the current date and
-#'   time.
+#'   datetime. This argument does not behave as expected (see details).
+#'   Characters are automatically converted to datetimes, and are assumed to be
+#'   given as Melbourne time. Defaults to the current date and time.
 #' @param max_results Integer. The maximum number of departures to return for
 #'   each route_id and direction. This argument behaves in unexpected ways (see
 #'   results). Defaults to 5.
-#' @param look_backwards Logical. Whether results should be returned if they
-#'   arrive before at destination before `datetime`. Requires `max_results > 0`.
-#'   Defaults to FALSE.
 #' @param include_cancelled Logical. Whether results should be returned if they
 #'   have been cancelled. Metropolitan train services only. Defaults to FALSE.
 #' @inheritParams PTVGET
@@ -43,7 +48,6 @@ departures <- function(stop_id,
                        direction_id = NULL,
                        datetime = NULL,
                        max_results = 5,
-                       look_backwards = FALSE,
                        include_cancelled = FALSE,
                        user_id = determine_user_id(),
                        api_key = determine_api_key()) {
@@ -79,7 +83,6 @@ departures <- function(stop_id,
     direction_id = direction_id,
     date_utc = datetime,
     max_results = max_results,
-    look_backwards = look_backwards,
     include_cancelled = include_cancelled
   )
 
