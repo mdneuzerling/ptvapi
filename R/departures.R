@@ -10,7 +10,15 @@
 #'   the `routes` function.
 #' @param datetime POSIXct or Character. Optionally filter results to a
 #'   datetime. Characters are automatically converted to datetimes, and are
-#'   assumed to be given as Melbourne time.
+#'   assumed to be given as Melbourne time. Defaults to the current date and
+#'   time.
+#' @param max_results Integer. Caps the number of results returned. If not
+#'   provided, results for the
+#' @param look_backwards Logical. Whether results should be returned if they
+#' arrive before at destination before `datetime`. Requires `max_results > 0`.
+#' Defaults to FALSE.
+#' @param include_cancelled Logical. Whether results should be returned if they
+#' have been cancelled. Metropolitan train services only. Defaults to FALSE.
 #' @inheritParams PTVGET
 #'
 #' @export
@@ -18,9 +26,17 @@
 departures <- function(stop_id,
                        route_type,
                        route_id = NULL,
+                       direction_id = NULL,
                        datetime = NULL,
+                       max_results = NULL,
+                       look_backwards = FALSE,
+                       include_cancelled = FALSE,
                        user_id = determine_user_id(),
                        api_key = determine_api_key()) {
+
+  # if max_results is unset or 0, entire day's results will be returned
+  # Suggestion: we check if the given datetime is non-null and contains a
+  # time component. If max_results is NULL, raise a warning/
 
   stop_id <- to_integer(stop_id)
   route_type <- translate_route_type(route_type)
@@ -30,9 +46,28 @@ departures <- function(stop_id,
     assertthat::assert_that(is.integer(route_id))
     request <- glue::glue("{request}/route/{route_id}")
   }
-  if (!is.null(datetime)) datetime <- to_datetime(datetime)
+  if (!is.null(max_results)) max_results <- to_integer(max_results)
+  if (!is.null(datetime)) {
+    if (is.null(max_results)) {
+      # if max_results is NULL or 0, the time component of datetime is ignored,
+      # and results for the entire day are returned. If max_results is NULL, we
+      # warn the user of this potentially undesired behaviour.
+      warning(
+        "max_results is not set, so results for the entire day will be ",
+        "returned"
+      )
+    }
+    datetime <- to_datetime(datetime)
+  }
 
-  request <- add_parameters(request, date_utc = datetime)
+  request <- add_parameters(
+    request,
+    direction_id = direction_id,
+    date_utc = datetime,
+    max_results = max_results,
+    look_backwards = look_backwards,
+    include_cancelled = include_cancelled
+  )
 
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
