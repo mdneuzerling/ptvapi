@@ -43,7 +43,7 @@ departures <- function(stop_id,
   request <- glue::glue("departures/route_type/{route_type}/stop/{stop_id}")
 
   if (!is.null(route_id)) {
-    assertthat::assert_that(is.integer(route_id))
+    route_id <- to_integer(route_id)
     request <- glue::glue("{request}/route/{route_id}")
   }
   if (!is.null(max_results)) max_results <- to_integer(max_results)
