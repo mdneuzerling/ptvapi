@@ -108,13 +108,13 @@ process_response <- function(response, request_url_without_auth) {
 #' @export
 print.ptvapi <- function(x, ...) {
   if (!is.null(attr(x, "request"))) {
-    cat("Request: ", attr(x, "request"), "\n")
+    cat("Request:", attr(x, "request"), "\n")
   }
   if (!is.null(attr(x, "retrieved"))) {
-    cat("Retrieved: ", attr(x, "retrieved"), "\n")
+    cat("Retrieved:", attr(x, "retrieved"), "\n")
   }
   if (!is.null(attr(x, "status_code"))) {
-    cat("Status code: ", attr(x, "status_code"), "\n")
+    cat("Status code:", attr(x, "status_code"), "\n")
   }
   attr(x, "request") <- NULL
   attr(x, "retrieved") <- NULL
