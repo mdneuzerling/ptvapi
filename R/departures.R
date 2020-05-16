@@ -127,7 +127,7 @@ departures <- function(stop_id,
   if (max_results > 0) {
     parsed <- map_and_rbind(
       unique(parsed$route_id),
-      function(x) head(subset(parsed, route_id == x), max_results)
+      function(x) utils::head(subset(parsed, route_id == x), max_results)
     )
   }
 
