@@ -1,8 +1,8 @@
 #' Retrieve information on a particular disruption.
 #'
-#' This function can be used when integer disruption ID is already known. This
-#' can be searched for with either `disruptions()`, `disruptions_on_route()`,
-#' or `disruptions_at_stop()` functions.
+#' This function can be used when the integer disruption ID is already known.
+#' This can be searched for with either `disruptions()`,
+#' `disruptions_on_route()`, or `disruptions_at_stop()` functions.
 #'
 #' @param disruption_id Integer. Optionally filter by a disruption ID.
 #' @inheritParams translate_route_type
