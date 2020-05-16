@@ -11,7 +11,6 @@
 #' @inheritParams run_information
 #' @inheritParams translate_route_type
 #' @inheritParams disruptions_on_route
-#' @inheritParams departures
 #' @inheritParams PTVGET
 #'
 #' @return An object of class "ptvapi", which is effectively a list with the
@@ -35,19 +34,16 @@
 patterns <- function(run_id,
                      route_type,
                      stop_id = NULL,
-                     datetime = NULL,
                      user_id = determine_user_id(),
                      api_key = determine_api_key()) {
   run_id <- to_integer(run_id)
   route_type <- translate_route_type(route_type)
   if (!is.null(stop_id)) stop_id <- to_integer(stop_id)
-  if (!is.null(datetime)) datetime <- to_datetime(datetime)
 
   request <- add_parameters(
     glue::glue("pattern/run/{run_id}/route_type/{route_type}"),
     expand = "all",
-    stop_id = stop_id,
-    date_utc = datetime
+    stop_id = stop_id
   )
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content

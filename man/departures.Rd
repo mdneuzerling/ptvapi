@@ -32,13 +32,12 @@ the \code{routes()} function.}
 obtained with the \code{route_directions()} function.}
 
 \item{datetime}{POSIXct or Character. Optionally filter results to a
-datetime. This argument does not behave as expected (see details).
-Characters are automatically converted to datetimes, and are assumed to be
-given as Melbourne time. Defaults to the current date and time.}
+datetime. Characters are automatically converted to datetimes, and are
+assumed to be given as Melbourne time. Defaults to the current date and
+time.}
 
 \item{max_results}{Integer. The maximum number of departures to return for
-each route_id and direction. This argument behaves in unexpected ways (see
-results). Defaults to 5.}
+each route_id. Defaults to 5.}
 
 \item{include_cancelled}{Logical. Whether results should be returned if they
 have been cancelled. Metropolitan train services only. Defaults to FALSE.}
@@ -55,27 +54,3 @@ Retrieve departures at a stop
 \details{
 All timestamps returned by this function are in Melbourne time.
 }
-\section{Filtering by maximum results}{
- The \code{max_results} parameter should be
-interpreted with caution --- requesting a maximum of \code{n} results does not
-guarantee that the returned tibble will be \code{n} rows per route ID and
-departure, and often fewer than \code{n} departures are returned. Be cautious
-when providing a value to the \code{route_id} argument as well as to
-\code{max_results}, as the results may contain route IDs other than the given
-argument. For example, running \code{departures(1071, "Train", route_id = 1, max_results = 1)} will return departures for route 1 (Alamein) with
-direction ID 0, but also route 7 (Glen Waverley) with direction ID 1. This
-is the behaviour of the API, and so it has been replicated here. If you are
-concerned with one route ID only, it is advised to filter the results
-accordingly.
-}
-
-\section{Filtering by datetime}{
- As documented, the API should provide the
-upcoming departures after the given \code{datetime} argument (defaults to the
-current time). In practice, the API returns results \emph{around} the given
-\code{datetime} argument, roughly 10--15 minutes before and after. The API does
-support a \code{look_backwards} parameter (defaults to \code{FALSE}) but it appears
-to have no effect on this behaviour, or any effect at all. Therefore, it's
-been omitted from the function arguments.
-}
-

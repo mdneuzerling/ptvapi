@@ -1,27 +1,33 @@
+# We don't provide the `date_utc` and `max_results` arguments to the API, as the
+# behaviour of the API is unpredictable and contrary to its documentation. We also
+# don't use the `route_id` request, because the results are not always filtered
+# to the given route ID:
+#
+# * Requesting a maximum of `n` results does not guarantee that the returned
+# tibble will be `n` rows per route ID and departure, and often fewer than `n`
+# departures are returned.
+#
+# * When providing a value to the `route_id` argument as well as to
+# `max_results`, the results may contain route IDs other than the given
+# argument. For example, running `departures(1071, "Train", route_id = 1,
+# max_results = 1)` will return departures for route 1 (Alamein) with direction
+# ID 0, but also route 7 (Glen Waverley) with direction ID 1.
+#
+# * As documented, the API should provide the upcoming departures after the
+# given `date_utc` argument (defaults to the current time). In practice, the API
+# returns results _around_ the given `date_utc` argument, roughly 10--15 minutes
+# before and after.
+#
+# * The API does support a `look_backwards` parameter (defaults to `FALSE`) but
+# it appears to have no  effect at all.
+#
+# Instead, we always supply `max_results = 0` to the API, which returns all
+# departures for the entire day. We then filter the results in R.
+
+
 #' Retrieve departures at a stop
 #'
 #' @details All timestamps returned by this function are in Melbourne time.
-#'
-#' @section Filtering by maximum results: The `max_results` parameter should be
-#'   interpreted with caution --- requesting a maximum of `n` results does not
-#'   guarantee that the returned tibble will be `n` rows per route ID and
-#'   departure, and often fewer than `n` departures are returned. Be cautious
-#'   when providing a value to the `route_id` argument as well as to
-#'   `max_results`, as the results may contain route IDs other than the given
-#'   argument. For example, running `departures(1071, "Train", route_id = 1,
-#'   max_results = 1)` will return departures for route 1 (Alamein) with
-#'   direction ID 0, but also route 7 (Glen Waverley) with direction ID 1. This
-#'   is the behaviour of the API, and so it has been replicated here. If you are
-#'   concerned with one route ID only, it is advised to filter the results
-#'   accordingly.
-#'
-#' @section Filtering by datetime: As documented, the API should provide the
-#'   upcoming departures after the given `datetime` argument (defaults to the
-#'   current time). In practice, the API returns results _around_ the given
-#'   `datetime` argument, roughly 10--15 minutes before and after. The API does
-#'   support a `look_backwards` parameter (defaults to `FALSE`) but it appears
-#'   to have no effect on this behaviour, or any effect at all. Therefore, it's
-#'   been omitted from the function arguments.
 #'
 #' @param stop_id An integer stop ID returned by the `stops_on_route` or
 #'   `stops_nearby` functions.
@@ -30,12 +36,11 @@
 #'   the `routes()` function.
 #' @inheritParams stops_on_route
 #' @param datetime POSIXct or Character. Optionally filter results to a
-#'   datetime. This argument does not behave as expected (see details).
-#'   Characters are automatically converted to datetimes, and are assumed to be
-#'   given as Melbourne time. Defaults to the current date and time.
+#'   datetime. Characters are automatically converted to datetimes, and are
+#'   assumed to be given as Melbourne time. Defaults to the current date and
+#'   time.
 #' @param max_results Integer. The maximum number of departures to return for
-#'   each route_id and direction. This argument behaves in unexpected ways (see
-#'   results). Defaults to 5.
+#'   each route_id. Defaults to 5.
 #' @param include_cancelled Logical. Whether results should be returned if they
 #'   have been cancelled. Metropolitan train services only. Defaults to FALSE.
 #' @inheritParams PTVGET
@@ -58,32 +63,33 @@ departures <- function(stop_id,
 
   stop_id <- to_integer(stop_id)
   route_type <- translate_route_type(route_type)
-  request <- glue::glue("departures/route_type/{route_type}/stop/{stop_id}")
-
-  if (!is.null(route_id)) {
-    route_id <- to_integer(route_id)
-    request <- glue::glue("{request}/route/{route_id}")
-  }
+  if (!is.null(route_id)) route_id <- to_integer(route_id)
   if (!is.null(max_results)) max_results <- to_integer(max_results)
   if (!is.null(datetime)) {
-    if (max_results == 0) {
-      # if max_results 0 or not provided, then the time component of datetime is
-      # ignored, and results for the entire day are returned. If max_results is
-      # NULL, we warn the user of this potentially undesired behaviour.
-      warning(
-        "max_results is not set, so results for the entire day will be ",
-        "returned"
-      )
-    }
-    datetime <- to_datetime(datetime)
+    datetime <- as.POSIXct(
+      datetime,
+      tz = "Australia/Melbourne",
+      tryFormats = c("%Y-%m-%dT%H:%M:%OS",
+                     "%Y-%m-%d %H:%M:%OS",
+                     "%Y/%m/%d %H:%M:%OS",
+                     "%Y-%m-%d %H:%M",
+                     "%Y/%m/%d %H:%M",
+                     "%Y-%m-%d",
+                     "%Y/%m/%d")
+    )
+  }
+  url_datetime <- if (is.null(datetime)) {
+    NULL
+  } else {
+    format(datetime, format = "%Y-%m-%dT%H:%M:%OS", tz = "UTC")
   }
 
   request <- add_parameters(
-    request,
+    glue::glue("departures/route_type/{route_type}/stop/{stop_id}"),
     direction_id = direction_id,
-    date_utc = datetime,
-    max_results = max_results,
-    include_cancelled = include_cancelled
+    max_results = 0, # results for the whole day. We'll filter later.
+    include_cancelled = include_cancelled,
+    date_utc = url_datetime
   )
 
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
@@ -95,6 +101,36 @@ departures <- function(stop_id,
   )
 
   parsed <- map_and_rbind(content$departures, departure_to_tibble)
+
+  if (!is.null(datetime)) {
+    # from https://stackoverflow.com/a/19254510
+    coalesce2 <- function(...) {
+      Reduce(function(x, y) {
+        i <- which(is.na(x))
+        x[i] <- y[i]
+        x},
+        list(...))
+    }
+
+    parsed["departure"] <- coalesce2(
+      parsed$estimated_departure,
+      parsed$scheduled_departure
+    )
+    parsed <- subset(parsed, departure >= datetime)
+    parsed <- parsed[, names(parsed) != "departure"]
+  }
+
+  if (!is.null(route_id)) {
+    parsed <- subset(parsed, route_id == route_id)
+  }
+
+  if (max_results > 0) {
+    parsed <- map_and_rbind(
+      unique(parsed$route_id),
+      function(x) head(subset(parsed, route_id == x), max_results)
+    )
+  }
+
   new_ptvapi_tibble(response, parsed)
 }
 

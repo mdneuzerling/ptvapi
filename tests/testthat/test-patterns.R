@@ -1,7 +1,6 @@
 pats <- patterns(
   run_id = 1,
-  route_type = "Train",
-  datetime = "2020-03-01T16:41:50"
+  route_type = "Train"
 )
 
 test_that("patterns returns list with right names", {
