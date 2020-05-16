@@ -33,3 +33,4 @@ A tibble with the following columns: \itemize{
 This function is designed to parse the content returned by the interior
 steps of the \code{disruptions_on_route} and \code{disruptions_at_stop} functions.
 }
+\keyword{internal}

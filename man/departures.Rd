@@ -9,6 +9,7 @@ departures(
   route_type,
   route_id = NULL,
   direction_id = NULL,
+  platform_numbers = NULL,
   datetime = NULL,
   max_results = 5,
   include_cancelled = FALSE,

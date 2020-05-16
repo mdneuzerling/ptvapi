@@ -7,6 +7,7 @@
 disruptions_on_route(
   route_id,
   stop_id = NULL,
+  disruption_status = NULL,
   user_id = determine_user_id(),
   api_key = determine_api_key()
 )
@@ -18,6 +19,10 @@ function.}
 \item{stop_id}{Integer. Optionally filter results to a specific stop ID.
 These can be searched for with the \code{stops_on_route()} and \code{stops_nearby()}
 functions.}
+
+\item{disruption_status}{Character. Can be used to filter to either "current"
+or "planned" disruptions. Defaults to NULL, in which case no filter is
+applied.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}

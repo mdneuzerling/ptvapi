@@ -7,15 +7,63 @@
 #' @section Swagger documentation:
 #'   \url{http://timetableapi.ptv.vic.gov.au/swagger/ui/index#/Stops}
 #'
-#' @param disruption_id Integer disruption ID.
+#' @param disruption_id Integer. Optionally filter by a disruption ID.
+#' @inheritParams stops_nearby
+#' @param disruption_modes Integer vector. Optionally filter by disruption
+#'   modes. For a full list of modes and their corresponding descriptions, use
+#'   the `description_modes()` function.
+#' @param disruption_status Character. Can be used to filter to either "current"
+#'   or "planned" disruptions. Defaults to NULL, in which case no filter is
+#'   applied.
 #' @inheritParams translate_route_type
 #' @inheritParams PTVGET
 #'
-disruption_information <- function(disruption_id,
-                                   user_id = determine_user_id(),
-                                   api_key = determine_api_key()) {
-  disruption_id <- to_integer(disruption_id)
-  request <- glue::glue("disruptions/{disruption_id}")
+disruptions <- function(disruption_id = NULL,
+                        route_types = NULL,
+                        disruption_modes = NULL,
+                        disruption_status = NULL,
+                        user_id = determine_user_id(),
+                        api_key = determine_api_key()) {
+
+  if (!is.null(disruption_id)) {
+    disruption_id <- to_integer(disruption_id)
+    other_filters_defined <- any(
+      purrr::map_lgl(list(route_types, NULL, 2, 4), ~!is.null(.x))
+    )
+    if (other_filters_defined) {
+      warning("A disruption_id has been providing, ",
+              "so ignoring all other filters")
+      route_types <- NULL
+      disruption_modes <- NULL
+      disruption_status <- NULL
+    }
+  }
+
+  if (!is.null(route_types)) {
+    route_types <- purrr::map_int(route_types, translate_route_type)
+  }
+
+  if (!is.null(disruption_modes)) {
+    disruption_modes <- purrr::map_int(disruption_modes, to_integer)
+  }
+
+  if (!is.null(disruption_status)) {
+    assertthat::assert_that(
+      disruption_status %in% c("current", "planned"),
+      msg = paste("disruption_status, if provided, must be either",
+                  "\"current\" or \"planned\"")
+    )
+  }
+
+  if (!is.null(disruption_id)) {
+    request <- glue::glue("disruptions/{disruption_id}")
+  } else {
+    request <- "disruptions"
+  }
+  request <- add_parameters(
+    request,
+    disruption_status = disruption_status
+  )
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
   assert_correct_attributes(
@@ -33,6 +81,7 @@ disruption_information <- function(disruption_id,
 #' @param stop_id Integer. Optionally filter results to a specific stop ID.
 #'   These can be searched for with the `stops_on_route()` and `stops_nearby()`
 #'   functions.
+#' @inheritParams disruptions
 #' @inheritParams PTVGET
 #'
 #' @inherit all_disruptions_to_tibble return
@@ -41,14 +90,29 @@ disruption_information <- function(disruption_id,
 #'
 disruptions_on_route <- function(route_id,
                                  stop_id = NULL,
+                                 disruption_status = NULL,
                                  user_id = determine_user_id(),
                                  api_key = determine_api_key()) {
+  # Covers the following API calls:
+  # get /v3/disruptions/route/{route_id}
+  # get /v3/disruptions/route/{route_id}/stop/{stop_id}
   route_id <- to_integer(route_id)
   request <- glue::glue("disruptions/route/{route_id}")
   if (!is.null(stop_id)) {
     stop_id <- to_integer(stop_id)
     request <- glue::glue("{request}/stop/{stop_id}")
   }
+  if (!is.null(disruption_status)) {
+    assertthat::assert_that(
+      disruption_status %in% c("current", "planned"),
+      msg = paste("disruption_status, if provided, must be either",
+                  "\"current\" or \"planned\"")
+    )
+  }
+  request <- add_parameters(
+    request,
+    disruption_status = disruption_status
+  )
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
   assert_correct_attributes(
@@ -63,6 +127,7 @@ disruptions_on_route <- function(route_id,
 #' Disruptions at a given stop
 #'
 #' @inheritParams stop_information
+#' @inheritParams disruption_status
 #' @inheritParams PTVGET
 #'
 #' @inherit all_disruptions_to_tibble return
@@ -70,10 +135,22 @@ disruptions_on_route <- function(route_id,
 #' @export
 #'
 disruptions_at_stop <- function(stop_id,
+                                disruption_status = NULL,
                                 user_id = determine_user_id(),
                                 api_key = determine_api_key()) {
   stop_id <- to_integer(stop_id)
-  request <- glue::glue("disruptions/stop/{stop_id}")
+  if (!is.null(disruption_status)) {
+    assertthat::assert_that(
+      disruption_status %in% c("current", "planned"),
+      msg = paste("disruption_status, if provided, must be either",
+                  "\"current\" or \"planned\"")
+    )
+  }
+  return(disruption_type)
+  request <- add_parameters(
+    glue::glue("disruptions/stop/{stop_id}"),
+    disruption_status = disruption_status
+  )
   response <- PTVGET(request = request, user_id = user_id, api_key = api_key)
   content <- response$content
   assert_correct_attributes(

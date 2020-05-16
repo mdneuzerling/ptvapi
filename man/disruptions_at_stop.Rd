@@ -6,6 +6,7 @@
 \usage{
 disruptions_at_stop(
   stop_id,
+  disruption_status = NULL,
   user_id = determine_user_id(),
   api_key = determine_api_key()
 )
