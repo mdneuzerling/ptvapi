@@ -53,7 +53,8 @@ convert_to_melbourne_time <- function(datetime) {
 #' a character that is suitable for a URL. All URL input and output in this
 #' package should be in Melbourne time, and the UTC conversion should happen
 #'
-#' The API seems to accept both "%Y-%m-%dT%H:%M:%OS" and "%Y-%m-%d %H:%M:%OS", but we opt for the former.
+#' The API seems to accept both "%Y-%m-%dT%H:%M:%OS" and "%Y-%m-%d %H:%M:%OS",
+#' but we opt for the former.
 #'
 #' @param datetime POSIXct or Character.
 #'
@@ -75,11 +76,13 @@ to_datetime <- function(datetime) {
                      "%Y/%m/%d")
     )
   }
-  format(
-    datetime,
-    format = "%Y-%m-%dT%H:%M:%OS",
-    tz = "UTC"
+
+  assertthat::assert_that(
+    inherits(datetime, "POSIXct"),
+    msg = "datetime must be POSIXct, or character that parses as POSIXct"
   )
+
+  datetime
 }
 
 #' Map and rbind a list of data frames

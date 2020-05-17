@@ -73,19 +73,7 @@ departures <- function(stop_id,
   if (!is.null(platform_numbers)) {
     platform_numbers <- purrr::map_int(platform_numbers, to_integer)
   }
-  if (!is.null(datetime) && is.character(datetime)) {
-    datetime <- as.POSIXct(
-      datetime,
-      tz = "Australia/Melbourne",
-      tryFormats = c("%Y-%m-%dT%H:%M:%OS",
-                     "%Y-%m-%d %H:%M:%OS",
-                     "%Y/%m/%d %H:%M:%OS",
-                     "%Y-%m-%d %H:%M",
-                     "%Y/%m/%d %H:%M",
-                     "%Y-%m-%d",
-                     "%Y/%m/%d")
-    )
-  }
+  if (!is.null(datetime)) datetime <- to_datetime(datetime)
   url_datetime <- if (is.null(datetime)) {
     NULL
   } else {
