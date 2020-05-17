@@ -41,8 +41,7 @@
 #' platform number. Despite the name, these are characters.
 #' @param datetime POSIXct or Character. Optionally filter results to a
 #'   datetime. Characters are automatically converted to datetimes, and are
-#'   assumed to be given as Melbourne time. Defaults to the current date and
-#'   time.
+#'   assumed to be given as Melbourne time. Defaults to the current system time.
 #' @param max_results Integer. The maximum number of departures to return for
 #'   each route_id. Defaults to 5.
 #' @param include_cancelled Logical. Whether results should be returned if they
@@ -56,7 +55,7 @@ departures <- function(stop_id,
                        route_id = NULL,
                        direction_id = NULL,
                        platform_numbers = NULL,
-                       datetime = NULL,
+                       datetime = Sys.time(),
                        max_results = 5,
                        include_cancelled = FALSE,
                        user_id = determine_user_id(),
@@ -73,12 +72,8 @@ departures <- function(stop_id,
   if (!is.null(platform_numbers)) {
     platform_numbers <- purrr::map_int(platform_numbers, to_integer)
   }
-  if (!is.null(datetime)) datetime <- to_datetime(datetime)
-  url_datetime <- if (is.null(datetime)) {
-    NULL
-  } else {
-    format(datetime, format = "%Y-%m-%dT%H:%M:%OS", tz = "UTC")
-  }
+  datetime <- to_datetime(datetime)
+  url_datetime <- format(datetime, format = "%Y-%m-%dT%H:%M:%OS", tz = "UTC")
 
   request <- add_parameters(
     glue::glue("departures/route_type/{route_type}/stop/{stop_id}"),
