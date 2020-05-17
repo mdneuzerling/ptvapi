@@ -29,6 +29,15 @@
 
 #' Retrieve departures at a stop
 #'
+#' @details Filtering departures: The API supports filtering by departure time,
+#'   to show the departures after the given time. However, its behaviour is
+#'   unpredictable, returning departures around the given time, both before and
+#'   after. We apply an additional filter once the results are retrieved to
+#'   ensure that only departures at or after the given `datetime` are shown.
+#'   Moreover, we don't use the API's functionality to filter by route ID or
+#'   `max_results`, since they don't work. Instead, we filter these in after
+#'   results are retrieved.
+#'
 #' @details All timestamps returned by this function are in Melbourne time.
 #'
 #' @param stop_id An integer stop ID returned by the `stops_on_route` or
@@ -38,7 +47,7 @@
 #'   the `routes()` function.
 #' @inheritParams stops_on_route
 #' @param platform_numbers Character vector. Optionally filter results by
-#' platform number. Despite the name, these are characters.
+#'   platform number. Despite the name, these are characters.
 #' @param datetime POSIXct or Character. Optionally filter results to a
 #'   datetime. Characters are automatically converted to datetimes, and are
 #'   assumed to be given as Melbourne time. Defaults to the current system time.

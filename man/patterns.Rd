@@ -8,6 +8,7 @@ patterns(
   run_id,
   route_type,
   stop_id = NULL,
+  datetime = Sys.time(),
   user_id = determine_user_id(),
   api_key = determine_api_key()
 )
@@ -25,6 +26,11 @@ route types.}
 \item{stop_id}{Integer. Optionally filter results to a specific stop ID.
 These can be searched for with the \code{stops_on_route()} and \code{stops_nearby()}
 functions.}
+
+\item{datetime}{POSIXct or character. Optionally filter by date. See Details.
+Characters are automatically converted to datetimes, and are assumed to be
+given as Melbourne time. The behaviour of the API is unpredictable when
+using this argument --- see details. Defaults to the current system time.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}
@@ -49,7 +55,7 @@ information.
 
 Departures: The API seems to return the earliest 7 departures. While
 the PTV Timetable API supports filtering patterns by date times, the
-behaviour of this function is not reliable --- it appears to filter by day
+behaviour of this argument is not reliable --- it appears to filter by day
 only, returning the earliest 7 departures of a different day. It is
 recommended that departures are retrieved via the \code{departures()} function.
 }
