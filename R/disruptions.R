@@ -222,7 +222,8 @@ disruption_modes <- function(user_id = determine_user_id(),
 #'   `disruptions` API call.
 #'
 #' @return A tibble with the following columns: \itemize{
-#' \item `service_type`
+#' \item `disruption_mode`
+#' \item `disruption_mode_description`
 #' \item `disruption_id`
 #' \item `title`
 #' \item `url`
@@ -243,15 +244,20 @@ disruption_modes <- function(user_id = determine_user_id(),
 #' @keywords internal
 #'
 all_disruptions_to_tibble <- function(disruptions_content) {
+  dis_modes <- disruption_modes()
   dis <- purrr::reduce(
     purrr::map(seq_along(disruptions_content), function(x) {
-      service_type <- names(disruptions_content)[x]
+      disruption_mode_description <- names(disruptions_content)[x]
+      disruption_mode <- names(
+        dis_modes[dis_modes == disruption_mode_description]
+      )
       dis <- disruptions_content[[x]]
       if (length(dis) == 0) {
         tibble::tibble()
       } else {
         dis_tibble <- map_and_rbind(dis, disruption_to_tibble)
-        dis_tibble$service_type <- service_type
+        dis_tibble$disruption_mode <- disruption_mode
+        dis_tibble$disruption_mode_description <- disruption_mode_description
         dis_tibble
       }
     }),
@@ -259,7 +265,10 @@ all_disruptions_to_tibble <- function(disruptions_content) {
   )
 
   # Base R method of moving service column to the front
-  dis[, c("service_type", colnames(dis)[colnames(dis) != "service_type"])]
+  dis <- dis[, c("disruption_mode_description",
+                 colnames(dis)[colnames(dis) != "disruption_mode_description"])]
+  dis <- dis[, c("disruption_mode",
+                 colnames(dis)[colnames(dis) != "disruption_mode"])]
 }
 
 #' Convert a single disruptions to a tibble

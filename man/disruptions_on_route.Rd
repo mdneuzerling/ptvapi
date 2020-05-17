@@ -32,7 +32,8 @@ Transport Victoria. See section "Obtaining API authentication details".}
 }
 \value{
 A tibble with the following columns: \itemize{
-\item \code{service_type}
+\item \code{disruption_mode}
+\item \code{disruption_mode_description}
 \item \code{disruption_id}
 \item \code{title}
 \item \code{url}
