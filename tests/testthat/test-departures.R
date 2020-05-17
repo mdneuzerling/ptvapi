@@ -30,7 +30,7 @@ flinders_departures <- departures(
   route_type = "Train"
 )
 
-test_that("route_directions result has class \"ptvapi\"", {
+test_that("departures result has class \"ptvapi\"", {
   expect_s3_class(flinders_departures, "ptvapi")
 })
 
