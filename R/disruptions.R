@@ -264,6 +264,10 @@ all_disruptions_to_tibble <- function(disruptions_content) {
     rbind
   )
 
+  if (nrow(dis) == 0) {
+    return(dis)
+  }
+
   # Base R method of moving service column to the front
   dis <- dis[, c("disruption_mode_description",
                  colnames(dis)[colnames(dis) != "disruption_mode_description"])]
