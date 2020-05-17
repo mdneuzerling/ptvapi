@@ -55,27 +55,22 @@ test_that("Can filter by disruption modes", {
 })
 
 test_that("Can filter by route_types", {
+  # Route types seem to correspond to disruption modes, not the contents of the
+  # routes tibbles in the disruptions. If at least 3 disruption modes are
+  # present, we test for the ability to filter to 2, using route_type.
   skip_if(nrow(all_disruptions) == 0)
-  affected_routes <- rbind(all_disruptions$routes)
-  affected_route_types <- sort(unique(affected_routes$route_type))
+  skip_if_not("metro_train" %in% all_disruptions$disruption_mode_description)
+  skip_if_not("metro_tram" %in% all_disruptions$disruption_mode_description)
+  skip_if_not("metro_bus" %in% all_disruptions$disruption_mode_description)
 
-  skip_if(length(affected_route_types) < 2)
-  a_route_type <- sample(affected_route_types, 1)
-  disruptions_with_a_route_type <- disruptions(
-    route_types = a_route_type
-  )
-  expect_equal(
-    unique(rbind(disruptions_with_a_route_type$routes)$route_type),
-    a_route_type
-  )
-
-  skip_if(length(affected_route_types) < 3)
-  two_route_types <- sort(sample(affected_route_types, 2))
+  train_route_type <- translate_route_type("Train")
+  tram_route_type <- translate_route_type("Tram")
+  two_route_types <- c(train_route_type, tram_route_type)
   disruptions_with_two_route_types <- disruptions(
     route_types = two_route_types
   )
   expect_equal(
-    sort(unique(rbind(disruptions_with_two_route_types$routes)$route_type)),
-    two_route_types
+    sort(unique(disruptions_with_two_route_types$disruption_mode_description)),
+    c("metro_train", "metro_tram")
   )
 })
