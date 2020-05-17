@@ -74,7 +74,7 @@ process_response <- function(response, request_url_without_auth) {
       request = request_url_without_auth,
       retrieved = format(
         Sys.time(),
-        format = "%Y-%m-%dT%H:%M:%OS %Z",
+        format = "%Y-%m-%d %H:%M:%OS %Z",
         tz = "Australia/Melbourne"
       ),
       status_code = status_code,
