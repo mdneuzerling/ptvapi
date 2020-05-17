@@ -21,8 +21,10 @@
 # * The API does support a `look_backwards` parameter (defaults to `FALSE`) but
 # it appears to have no  effect at all.
 #
-# Instead, we always supply `max_results = 0` to the API, which returns all
-# departures for the entire day. We then filter the results in R.
+# Instead, we apply a filter in R to the results to ensure that `datetime` and
+# `max_results` are respected, and that `max_results` applies per route ID. We
+# also ignore the option to filter by route_id via the API, and filter in R
+# instead. This is all performed with the `filter_departures()` function.
 
 
 #' Retrieve departures at a stop
@@ -94,7 +96,7 @@ departures <- function(stop_id,
     glue::glue("departures/route_type/{route_type}/stop/{stop_id}"),
     direction_id = direction_id,
     platform_numbers = platform_numbers,
-    max_results = 0, # results for the whole day. We'll filter later.
+    max_results = max_results, # results for the whole day. We'll filter later.
     date_utc = url_datetime,
     include_cancelled = include_cancelled
   )
