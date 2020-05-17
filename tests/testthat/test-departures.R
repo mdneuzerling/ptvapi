@@ -65,9 +65,37 @@ test_that("Departures filtered by datetime", {
     datetime = morning_test_time
   )
   expect_gt(nrow(flinders_morning_departures), 0) # must have some results
-  expect_gt(
+  expect_gte(
     min(flinders_morning_departures$scheduled_departure),
     as.POSIXct(morning_test_time, tz = "Australia/Melbourne")
+  )
+})
+
+test_that("Departures filtered by datetime with max_results = 0", {
+  flinders_all_day_departures <- departures(
+    stop_id = flinders_street_stop_id,
+    route_type = "Train",
+    datetime = afternoon_test_time,
+    max_results = 0
+  )
+  expect_gt(nrow(flinders_all_day_departures), 0) # must have some results
+
+  # When max_results = 0, all departures after the given datetime for the entire
+  # day are returned. Because of how a "day" is considered in public transport,
+  # this may include some departures in the early hours of the next morning.
+  expect_gte(
+    min(flinders_all_day_departures$scheduled_departure),
+    as.POSIXct(afternoon_test_time, tz = "Australia/Melbourne")
+  )
+  departure_dates <- as.Date(
+    flinders_all_day_departures$scheduled_departure,
+    tz = "Australia/Melbourne"
+  )
+  expect_true(
+    all(departure_dates %in% c(
+      as.Date(afternoon_test_time, tz = "Australia/Melbourne"),
+      as.Date(afternoon_test_time, tz = "Australia/Melbourne") + 1)
+    )
   )
 })
 
@@ -79,6 +107,10 @@ test_that("Departures filtered by datetime and max_results", {
     max_results = 3
   )
   expect_gt(nrow(flinders_afternoon_departures), 0) # must have some results
+  expect_gte(
+    min(flinders_afternoon_departures$scheduled_departure),
+    as.POSIXct(afternoon_test_time, tz = "Australia/Melbourne")
+  )
   departures_per_route_id <- count(flinders_afternoon_departures, route_id)
   expect_true(all(departures_per_route_id$n == 3))
 })

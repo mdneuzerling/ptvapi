@@ -8,12 +8,12 @@ library(dplyr, quietly = TRUE)
 # may return empty results. Our test times will be two days from today: one in
 # the morning, and one in the afternoon.
 
-morning_test_time <- paste0(
+morning_test_time <- paste(
   format(Sys.Date() + 2, format = "%Y-%m-%d", tz = "Australia/Melbourne"),
   "T07:48:08"
 )
 
-afternoon_test_time <- paste0(
+afternoon_test_time <- paste(
   format(Sys.Date() + 2, format = "%Y-%m-%d", tz = "Australia/Melbourne"),
-  "T16:48:08"
+  "16:48:08"
 )
