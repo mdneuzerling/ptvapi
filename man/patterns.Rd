@@ -8,7 +8,6 @@ patterns(
   run_id,
   route_type,
   stop_id = NULL,
-  datetime = NULL,
   user_id = determine_user_id(),
   api_key = determine_api_key()
 )
@@ -26,10 +25,6 @@ route types.}
 \item{stop_id}{Integer. Optionally filter results to a specific stop ID.
 These can be searched for with the \code{stops_on_route()} and \code{stops_nearby()}
 functions.}
-
-\item{datetime}{POSIXct or character. Optionally filter by date. See Details.
-Characters are automatically converted to datetimes, and are assumed to be
-given as Melbourne time.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}
@@ -52,17 +47,16 @@ The \code{stops} tibble has an output similar to that returned by
 \code{stops_on_route}. The \code{routes} tibble does not contain service status
 information.
 
-Filtering by date: While the PTV Timetable API supports filtering
-patterns by date times and maximum results returned, the behaviour of these
-parameters is unpredictable and contrary to documentation. As such, this
-function allows for filtering \strong{by date only}, and \code{max_results} is not a
-supported argument. Only the date portion of a datetime will be considered.
+Departures: The API seems to return the earliest 7 departures. While
+the PTV Timetable API supports filtering patterns by date times, the
+behaviour of this function is not reliable --- it appears to filter by day
+only, returning the earliest 7 departures of a different day. It is
+recommended that departures are retrieved via the \code{departures()} function.
 }
 \examples{
 \dontrun{
 patterns(run_id = 1, route_type = 0)
 patterns(run_id = 1, route_type = "Train")
-patterns(run_id = 1, route_type = "Train", datetime = "2020-03-01T16:41:50")
 }
 
 }

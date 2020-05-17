@@ -19,6 +19,7 @@ a character that is suitable for a URL. All URL input and output in this
 package should be in Melbourne time, and the UTC conversion should happen
 }
 \details{
-The API seems to accept both "\%Y-\%m-\%dT\%H:\%M:\%OS" and "\%Y-\%m-\%d \%H:\%M:\%OS", but we opt for the former.
+The API seems to accept both "\%Y-\%m-\%dT\%H:\%M:\%OS" and "\%Y-\%m-\%d \%H:\%M:\%OS",
+but we opt for the former.
 }
 \keyword{internal}
