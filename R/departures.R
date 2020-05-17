@@ -52,7 +52,9 @@
 #'   datetime. Characters are automatically converted to datetimes, and are
 #'   assumed to be given as Melbourne time. Defaults to the current system time.
 #' @param max_results Integer. The maximum number of departures to return for
-#'   each route_id. Defaults to 5.
+#'   each route_id. When set to 0, all departures after the given datetime for
+#'   the entire day are shown, and potentially some in the early hours of the
+#'   next morning. Defaults to 5.
 #' @param include_cancelled Logical. Whether results should be returned if they
 #'   have been cancelled. Metropolitan train services only. Defaults to FALSE.
 #' @inheritParams PTVGET
