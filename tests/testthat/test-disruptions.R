@@ -1,3 +1,7 @@
+# Testing for disruptions is hard because there may be none! We rely on skipping
+# tests here if possible, but it should be rare to have no disruptions across
+# the network, even if we require a variety of disruption modes.
+
 # ---------------------------------------------------------------------------- #
 # ---- Define values if they haven't already been defined by another test ---- #
 # ---------------------------------------------------------------------------- #

@@ -11,7 +11,7 @@ disruption_information(
 )
 }
 \arguments{
-\item{disruption_id}{Integer. Optionally filter by a disruption ID.}
+\item{disruption_id}{Integer.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}

@@ -13,11 +13,15 @@ disruptions(
 )
 }
 \arguments{
-\item{route_types}{Optionally filter by a vector of route types. A route type
-can be provided either as a non-negative integer code, or as a character:
-"Tram", "Train", "Bus", "Vline" or "Night Bus". Character inputs are not
-case-sensitive. Use the \code{route_types} function to extract a vector of all
-route types.}
+\item{route_types}{Integer or character vector. Optionally filter by a vector
+of route types. A route type can be provided either as a non-negative
+integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
+Bus". Character inputs are not case-sensitive. Use the \code{route_types}
+function to extract a vector of all route types. The filter is applied to
+the disruption mode, rather than the routes that are affected by the
+disruption. For example, filtering by the "train" route type will restrict
+the disruptions returned to those with a mode corresponding to
+"metro_train".}
 
 \item{disruption_modes}{Integer vector. Optionally filter by disruption
 modes. For a full list of modes and their corresponding descriptions, use

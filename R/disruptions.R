@@ -4,7 +4,7 @@
 #' This can be searched for with either `disruptions()`,
 #' `disruptions_on_route()`, or `disruptions_at_stop()` functions.
 #'
-#' @param disruption_id Integer. Optionally filter by a disruption ID.
+#' @param disruption_id Integer.
 #' @inheritParams translate_route_type
 #' @inheritParams PTVGET
 #'
@@ -31,7 +31,15 @@ disruption_information <- function(disruption_id,
 
 #' Retrieve information for all disruptions.
 #'
-#' @inheritParams stops_nearby
+#' @param route_types Integer or character vector. Optionally filter by a vector
+#'   of route types. A route type can be provided either as a non-negative
+#'   integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
+#'   Bus". Character inputs are not case-sensitive. Use the `route_types`
+#'   function to extract a vector of all route types. The filter is applied to
+#'   the disruption mode, rather than the routes that are affected by the
+#'   disruption. For example, filtering by the "train" route type will restrict
+#'   the disruptions returned to those with a mode corresponding to
+#'   "metro_train".
 #' @param disruption_modes Integer vector. Optionally filter by disruption
 #'   modes. For a full list of modes and their corresponding descriptions, use
 #'   the `description_modes()` function.

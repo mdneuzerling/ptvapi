@@ -30,11 +30,11 @@ Street Station is at approximately 144.9671 longitude.}
 \item{max_distance}{Integer. Optionally filter by maximum distance from the
 given location, in metres.}
 
-\item{route_types}{Optionally filter by a vector of route types. A route type
-can be provided either as a non-negative integer code, or as a character:
-"Tram", "Train", "Bus", "Vline" or "Night Bus". Character inputs are not
-case-sensitive. Use the \code{route_types} function to extract a vector of all
-route types.}
+\item{route_types}{Integer or character vector. Optionally filter by a vector
+of route types. A route type can be provided either as a non-negative
+integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
+Bus". Character inputs are not case-sensitive. Use the \code{route_types}
+function to extract a vector of all route types.}
 
 \item{include_outlets}{Boolean. Optional. Affects search results.}
 
