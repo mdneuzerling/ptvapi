@@ -66,8 +66,7 @@ departures <- function(stop_id,
 
   stop_id <- to_integer(stop_id)
   route_type <- translate_route_type(route_type)
-  # base R doesn't use data masking, so we need to rename route_id
-  if (!is.null(route_id)) input_route_id <- to_integer(route_id)
+  if (!is.null(route_id)) route_id <- to_integer(route_id)
   if (!is.null(max_results)) max_results <- to_integer(max_results)
   if (!is.null(platform_numbers)) {
     platform_numbers <- purrr::map_int(platform_numbers, to_integer)
@@ -109,37 +108,78 @@ departures <- function(stop_id,
   )
 
   parsed <- map_and_rbind(content$departures, departure_to_tibble)
+  parsed_filtered <- filter_departures(
+    parsed,
+    datetime = datetime,
+    route_id = route_id,
+    max_results = max_results
+  )
+  new_ptvapi_tibble(response, parsed_filtered)
+}
+
+
+#' Filter parsed departures content according to user input
+#'
+#' The departures API call isn't always reliable. This function will take a
+#' tibble of parsed departures content and filter it according to the following
+#' inputs, if they are not `NULL`: \itemize{
+#' \item Only departures after the given `datetime`
+#' \item Only departures on the given route ID
+#' \item The next max_results departures per route ID, if `max_results` is not
+#'   0.
+#' }
+#'
+#' @param parsed A tibble of parsed departures content.
+#' @param datetime POSIXct in the "Australia/Melbourne" time zone.
+#' @param route_id Integer route_id.
+#' @param max_results Integer max results.
+#'
+#' @return A filtered tibble.
+#'
+#' @keywords internal
+#'
+filter_departures <- function(parsed,
+                              datetime = NULL,
+                              route_id = NULL,
+                              max_results = NULL) {
+
+  # Everything is done according to estimated departure if available, and
+  # otherwise scheduled departure.
+  # coalesce2 from https://stackoverflow.com/a/19254510
+  coalesce2 <- function(...) {
+    Reduce(function(x, y) {
+      i <- which(is.na(x))
+      x[i] <- y[i]
+      x},
+      list(...))
+  }
+  parsed["departure"] <- coalesce2(
+    parsed$estimated_departure,
+    parsed$scheduled_departure
+  )
 
   if (!is.null(datetime)) {
-    # from https://stackoverflow.com/a/19254510
-    coalesce2 <- function(...) {
-      Reduce(function(x, y) {
-        i <- which(is.na(x))
-        x[i] <- y[i]
-        x},
-        list(...))
-    }
-
-    parsed["departure"] <- coalesce2(
-      parsed$estimated_departure,
-      parsed$scheduled_departure
-    )
     parsed <- subset(parsed, departure >= datetime)
-    parsed <- parsed[, names(parsed) != "departure"]
   }
 
   if (!is.null(route_id)) {
+    input_route_id <- route_id # have to copy because there's no data masking
     parsed <- subset(parsed, route_id == input_route_id)
   }
 
-  if (max_results > 0) {
-    parsed <- map_and_rbind(
-      unique(parsed$route_id),
-      function(x) utils::head(subset(parsed, route_id == x), max_results)
-    )
+  if (!is.null(max_results) && max_results > 0) {
+    subset_order_and_head <- function(route_id_part) {
+      sub_route_id <- subset(parsed, route_id == route_id_part)
+      utils::head(
+        sub_route_id[order(sub_route_id$departure), ],
+        max_results
+      )
+    }
+
+    parsed <- map_and_rbind(unique(parsed$route_id), subset_order_and_head)
   }
 
-  new_ptvapi_tibble(response, parsed)
+  parsed[, names(parsed) != "departure"]
 }
 
 #' Convert a single departure to a tibble
