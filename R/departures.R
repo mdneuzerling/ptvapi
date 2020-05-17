@@ -179,6 +179,7 @@ filter_departures <- function(parsed,
     parsed <- map_and_rbind(unique(parsed$route_id), subset_order_and_head)
   }
 
+  parsed <- parsed[order(parsed$departure), ]
   parsed[, names(parsed) != "departure"]
 }
 
