@@ -66,7 +66,8 @@ departures <- function(stop_id,
 
   stop_id <- to_integer(stop_id)
   route_type <- translate_route_type(route_type)
-  if (!is.null(route_id)) route_id <- to_integer(route_id)
+  # base R doesn't use data masking, so we need to rename route_id
+  if (!is.null(route_id)) input_route_id <- to_integer(route_id)
   if (!is.null(max_results)) max_results <- to_integer(max_results)
   if (!is.null(platform_numbers)) {
     platform_numbers <- purrr::map_int(platform_numbers, to_integer)
@@ -128,7 +129,7 @@ departures <- function(stop_id,
   }
 
   if (!is.null(route_id)) {
-    parsed <- subset(parsed, route_id == route_id)
+    parsed <- subset(parsed, route_id == input_route_id)
   }
 
   if (max_results > 0) {

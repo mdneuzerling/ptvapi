@@ -82,3 +82,15 @@ test_that("Departures filtered by datetime and max_results", {
   departures_per_route_id <- count(flinders_afternoon_departures, route_id)
   expect_true(all(departures_per_route_id$n == 3))
 })
+
+test_that("Departures filtered by route_id", {
+  flinders_route_6_departures <- departures(
+    stop_id = flinders_street_stop_id,
+    route_type = "Train",
+    route_id = 6
+  )
+  expect_equal(
+    distinct(flinders_route_6_departures, route_id)$route_id,
+    6
+  )
+})
