@@ -116,10 +116,5 @@ print.ptvapi <- function(x, ...) {
   if (!is.null(attr(x, "status_code"))) {
     cat("Status code:", attr(x, "status_code"), "\n")
   }
-  attr(x, "request") <- NULL
-  attr(x, "retrieved") <- NULL
-  attr(x, "status_code") <- NULL
-  attr(x, "content") <- NULL
-  class(x) <- class(x)[class(x) != "ptvapi"]
-  print(x)
+  NextMethod()
 }
