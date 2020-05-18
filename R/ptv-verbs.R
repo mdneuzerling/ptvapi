@@ -69,26 +69,13 @@ process_response <- function(response, request_url_without_auth) {
     stop("URL not found: ", request_url_without_auth)
   }
 
-  structured_response <- structure(
-    list(
-      request = request_url_without_auth,
-      retrieved = format(
-        Sys.time(),
-        format = "%Y-%m-%d %H:%M:%OS %Z",
-        tz = "Australia/Melbourne"
-      ),
-      status_code = status_code,
-      content = jsonlite::fromJSON(
-        httr::content(response, "text", encoding = "UTF-8"),
-        simplifyVector = FALSE
-      )
-    ),
-    class = "ptvapi"
+  content <- jsonlite::fromJSON(
+    httr::content(response, "text", encoding = "UTF-8"),
+    simplifyVector = FALSE
   )
 
   if (status_code == 400) {
-    stop("Invalid request: ", request_url_without_auth, " - ",
-         structured_response$content$message)
+    stop("Invalid request: ", request_url_without_auth, " - ", content$message)
   }
   if (status_code == 403) {
     stop("Access denied.")
@@ -97,7 +84,16 @@ process_response <- function(response, request_url_without_auth) {
     stop("Status code ", status_code)
   }
 
-  structured_response
+  list(
+    request = request_url_without_auth,
+    retrieved = format(
+      Sys.time(),
+      format = "%Y-%m-%d %H:%M:%OS %Z",
+      tz = "Australia/Melbourne"
+    ),
+    status_code = status_code,
+    content = content
+  )
 }
 
 # This print function hides the custom attributes that we attach the objects

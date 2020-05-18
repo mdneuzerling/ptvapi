@@ -1,7 +1,4 @@
 new_ptvapi_tibble <- function(response, parsed) {
-  if (class(response) != "ptvapi_response") {
-    stop("Response must be be an object returned by PTVGET()")
-  }
   assertthat::assert_that(is.data.frame(parsed))
 
   ptvapi_tibble <- tibble::new_tibble(
