@@ -83,7 +83,7 @@ process_response <- function(response, request_url_without_auth) {
         simplifyVector = FALSE
       )
     ),
-    class = "ptvapi_response"
+    class = "ptvapi"
   )
 
   if (status_code == 400) {
