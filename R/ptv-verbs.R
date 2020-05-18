@@ -102,7 +102,7 @@ process_response <- function(response, request_url_without_auth) {
 # and status code are printed at the top, and everything else is printed as
 # normal.
 #' @export
-print.ptvapi <- function(x, ...) {
+print.ptvapi <- function(x) {
   if (!is.null(attr(x, "request"))) {
     cat("Request:", attr(x, "request"), "\n")
   }
