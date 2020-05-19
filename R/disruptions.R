@@ -12,6 +12,10 @@
 #'
 #' @export
 #'
+#' @examples \dontrun{
+#' disruption_information(206639)
+#' }
+#'
 disruption_information <- function(disruption_id,
                                    user_id = determine_user_id(),
                                    api_key = determine_api_key()) {
@@ -51,6 +55,13 @@ disruption_information <- function(disruption_id,
 #' @inherit all_disruptions_to_tibble return
 #'
 #' @export
+#'
+#' @examples \dontrun{
+#' disruptions()
+#' disruptions(route_types = c("Train", "Tram"))
+#' disruptions(disruption_modes = c(0, 1))
+#' disruptions(disruption_status = "current")
+#' }
 #'
 disruptions <- function(route_types = NULL,
                         disruption_modes = NULL,
@@ -104,6 +115,12 @@ disruptions <- function(route_types = NULL,
 #'
 #' @export
 #'
+#' @examples \dontrun{
+#' disruptions_on_route(6)
+#' disruptions_on_route(6, stop_id = 1071)
+#' disruptions_on_route(6, disruption_status = "current")
+#' }
+#'
 disruptions_on_route <- function(route_id,
                                  stop_id = NULL,
                                  disruption_status = NULL,
@@ -150,6 +167,11 @@ disruptions_on_route <- function(route_id,
 #'
 #' @export
 #'
+#' @examples \dontrun{
+#' disruptions_at_stop(1071)
+#' disruptions_at_stop(1071, disruption_status = "current")
+#' }
+#'
 disruptions_at_stop <- function(stop_id,
                                 disruption_status = NULL,
                                 user_id = determine_user_id(),
@@ -192,6 +214,7 @@ disruptions_at_stop <- function(stop_id,
 #' @export
 #'
 #' @examples \dontrun{disruption_modes()}
+#'
 disruption_modes <- function(user_id = determine_user_id(),
                              api_key = determine_api_key()) {
   request <- "disruptions/modes"

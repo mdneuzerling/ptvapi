@@ -26,4 +26,5 @@ in snake case, that is, all lower case with underscores between words.
 }
 \examples{
 \dontrun{disruption_modes()}
+
 }

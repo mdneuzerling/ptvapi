@@ -54,3 +54,11 @@ A tibble with the following columns: \itemize{
 \description{
 Disruptions on a given route
 }
+\examples{
+\dontrun{
+disruptions_on_route(6)
+disruptions_on_route(6, stop_id = 1071)
+disruptions_on_route(6, disruption_status = "current")
+}
+
+}

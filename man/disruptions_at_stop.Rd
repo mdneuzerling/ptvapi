@@ -48,3 +48,10 @@ A tibble with the following columns: \itemize{
 \description{
 Disruptions at a given stop
 }
+\examples{
+\dontrun{
+disruptions_at_stop(1071)
+disruptions_at_stop(1071, disruption_status = "current")
+}
+
+}

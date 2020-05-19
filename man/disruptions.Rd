@@ -61,3 +61,12 @@ A tibble with the following columns: \itemize{
 \description{
 Retrieve information for all disruptions
 }
+\examples{
+\dontrun{
+disruptions()
+disruptions(route_types = c("Train", "Tram"))
+disruptions(disruption_modes = c(0, 1))
+disruptions(disruption_status = "current")
+}
+
+}
