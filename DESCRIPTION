@@ -25,6 +25,7 @@ Suggests:
     testthat (>= 2.1.0),
     dplyr,
     lintr,
-    rprojroot
+    rprojroot,
+    lubridate
 URL: https://github.com/mdneuzerling/ptvapi
 BugReports: https://github.com/mdneuzerling/ptvapi/issues

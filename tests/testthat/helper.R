@@ -3,6 +3,7 @@
 # the tests.
 
 library(dplyr, quietly = TRUE)
+library(lubridate, quietly = TRUE)
 
 # The API doesn't seem to keep a full history, so dates too far in the past
 # may return empty results. Our test times will be two days from today: one in
