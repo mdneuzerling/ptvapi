@@ -21,7 +21,7 @@ new_ptvapi_tibble <- function(response, parsed) {
 # and status code are printed at the top, and everything else is printed as
 # normal.
 #' @export
-print.ptvapi <- function(x) {
+print.ptvapi <- function(x, ...) {
   if (!is.null(attr(x, "request"))) {
     cat("Request:", attr(x, "request"), "\n")
   }
