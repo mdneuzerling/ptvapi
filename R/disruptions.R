@@ -1,4 +1,4 @@
-#' Retrieve information on a particular disruption
+#' Information on a particular disruption
 #'
 #' This function can be used when the integer disruption ID is already known.
 #' This can be searched for with either `disruptions()`,
@@ -33,7 +33,7 @@ disruption_information <- function(disruption_id,
 }
 
 
-#' Retrieve information for all disruptions
+#' Information for all disruptions
 #'
 #' @param route_types Integer or character vector. Optionally filter by a vector
 #'   of route types. A route type can be provided either as a non-negative

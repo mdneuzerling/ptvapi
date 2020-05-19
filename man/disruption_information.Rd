@@ -2,7 +2,7 @@
 % Please edit documentation in R/disruptions.R
 \name{disruption_information}
 \alias{disruption_information}
-\title{Retrieve information on a particular disruption}
+\title{Information on a particular disruption}
 \usage{
 disruption_information(
   disruption_id,
