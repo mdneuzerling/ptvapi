@@ -12,21 +12,21 @@ if (!exists("frankston_route_id")) {
 }
 # ---------------------------------------------------------------------------- #
 
-# Testing route_directions
+# Testing directions_on_route
 # Simply running this functions asserts that column names, etc. are as expected
-frankston_route_directions <- route_directions(route_id = frankston_route_id)
-test_that("route_directions result has class \"ptvapi\"", {
-  expect_s3_class(frankston_route_directions, "ptvapi")
+frankston_directions_on_route <- directions_on_route(route_id = frankston_route_id)
+test_that("directions_on_route result has class \"ptvapi\"", {
+  expect_s3_class(frankston_directions_on_route, "ptvapi")
 })
 
-city_directions <- frankston_route_directions %>%
+city_directions <- frankston_directions_on_route %>%
   filter(grepl("City", direction_name, ignore.case = TRUE))
 
 test_that("Frankston train goes to the city", {
   expect_equal(nrow(city_directions), 1)
 })
 
-frankston_directions <- frankston_route_directions %>%
+frankston_directions <- frankston_directions_on_route %>%
   filter(grepl("Frankston", direction_name, ignore.case = TRUE))
 
 test_that("Frankston train goes to the city", {

@@ -33,7 +33,7 @@ run_information <- function(run_id,
 
 #' Retrieve a tibble of all runs on a particular route
 #'
-#' @inheritParams route_directions
+#' @inheritParams directions_on_route
 #' @inheritParams directions
 #' @inheritParams PTVGET
 #'

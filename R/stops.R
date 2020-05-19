@@ -98,9 +98,9 @@ stop_information <- function(stop_id,
 #'
 #' @inheritSection stop_information Swagger documentation
 #'
-#' @inheritParams route_directions
+#' @inheritParams directions_on_route
 #' @param direction_id Optionally filter by a direction ID. These can be
-#'   obtained with the `route_directions()` function.
+#'   obtained with the `directions_on_route()` function.
 #' @inheritParams translate_route_type
 #' @inheritParams PTVGET
 #'

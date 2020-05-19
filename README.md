@@ -72,6 +72,7 @@ The following functions are available through this package:
 
 * `departures`
 * `directions`
+* `directions_on_route`
 * `disruption_information`
 * `disruption_modes`
 * `disruptions`
@@ -81,7 +82,6 @@ The following functions are available through this package:
 * `outlets`
 * `outlets_nearby`
 * `patterns`
-* `route_directions`
 * `route_information`
 * `route_types`
 * `routes`

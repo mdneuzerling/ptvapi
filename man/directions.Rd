@@ -12,8 +12,7 @@ directions(
 )
 }
 \arguments{
-\item{direction_id}{Integer. Try searching for a direction_id on a particular
-route with \code{route_direction}.}
+\item{direction_id}{Integer.}
 
 \item{route_type}{Optionally filter results by a route type. A route type can
 be provided either as a non-negative integer code, or as a character:
@@ -37,5 +36,7 @@ A tibble consisting of the following columns: \itemize{
 }
 }
 \description{
-Directions for a given direction ID
+This function returns all directions with a given ID. Directions that share
+an ID are not necessarily related. It's advised to use to the
+\code{directions_on_route} function to search for directions of interest.
 }

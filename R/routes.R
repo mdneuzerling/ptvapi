@@ -3,7 +3,7 @@
 #' @details
 #' All timestamps returned by this function are in Melbourne time.
 #'
-#' @inheritParams route_directions
+#' @inheritParams directions_on_route
 #' @inheritParams translate_route_type
 #' @inheritParams PTVGET
 #'

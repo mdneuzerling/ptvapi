@@ -22,7 +22,7 @@ Bus". Character inputs are not case-sensitive. Use the \code{route_types}
 function to extract a vector of all route types.}
 
 \item{direction_id}{Optionally filter by a direction ID. These can be
-obtained with the \code{route_directions()} function.}
+obtained with the \code{directions_on_route()} function.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}

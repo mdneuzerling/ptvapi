@@ -1,7 +1,10 @@
 #' Directions for a given direction ID
 #'
-#' @param direction_id Integer. Try searching for a direction_id on a particular
-#'   route with `route_direction`.
+#' This function returns all directions with a given ID. Directions that share
+#' an ID are not necessarily related. It's advised to use to the
+#' `directions_on_route` function to search for directions of interest.
+#'
+#' @param direction_id Integer.
 #' @param route_type Optionally filter results by a route type. A route type can
 #'   be provided either as a non-negative integer code, or as a character:
 #'   "Tram", "Train", "Bus", "Vline" or "Night Bus". Character inputs are not
@@ -37,7 +40,7 @@ directions <- function(direction_id,
 #' @inherit parse_directions_content return
 #' @export
 #'
-route_directions <- function(route_id,
+directions_on_route <- function(route_id,
                              user_id = determine_user_id(),
                              api_key = determine_api_key()) {
   route_id <- to_integer(route_id)

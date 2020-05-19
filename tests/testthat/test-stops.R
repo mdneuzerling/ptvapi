@@ -44,10 +44,10 @@ test_that("Expected stops on Frankston train line", {
 })
 
 # Stops with a direction_id parameters
-frankston_route_directions <- route_directions(frankston_route_id)
+frankston_directions_on_route <- directions_on_route(frankston_route_id)
 
 test_that("Stop sequence when travelling City to Frankston", {
-  frankston_direction_id <- frankston_route_directions %>%
+  frankston_direction_id <- frankston_directions_on_route %>%
     filter(direction_name == "Frankston") %>%
     pull(direction_id)
   city_to_frankston <- stops_on_route(
@@ -62,7 +62,7 @@ test_that("Stop sequence when travelling City to Frankston", {
 })
 
 test_that("Stop sequence when travelling Frankston to City", {
-  city_direction_id <- frankston_route_directions %>%
+  city_direction_id <- frankston_directions_on_route %>%
     filter(grepl("City", direction_name)) %>%
     pull(direction_id)
   frankston_to_city <- stops_on_route(

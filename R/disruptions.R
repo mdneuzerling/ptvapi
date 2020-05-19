@@ -93,7 +93,7 @@ disruptions <- function(route_types = NULL,
 
 #' Disruptions on a given route
 #'
-#' @inheritParams route_directions
+#' @inheritParams directions_on_route
 #' @param stop_id Integer. Optionally filter results to a specific stop ID.
 #'   These can be searched for with the `stops_on_route()` and `stops_nearby()`
 #'   functions.
