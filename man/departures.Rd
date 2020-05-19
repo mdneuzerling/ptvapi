@@ -10,7 +10,8 @@ departures(
   route_id = NULL,
   direction_id = NULL,
   platform_numbers = NULL,
-  datetime = Sys.time(),
+  departs = Sys.time(),
+  look_backwards = FALSE,
   max_results = 5,
   include_cancelled = FALSE,
   user_id = determine_user_id(),
@@ -35,12 +36,15 @@ obtained with the \code{route_directions()} function.}
 \item{platform_numbers}{Character vector. Optionally filter results by
 platform number. Despite the name, these are characters.}
 
-\item{datetime}{POSIXct or Character. Optionally filter results to a
-datetime. Characters are automatically converted to datetimes, and are
-assumed to be given as Melbourne time. Defaults to the current system time.}
+\item{departs}{POSIXct or Character. Optionally filter results to a datetime
+Characters are automatically converted to datetimes, and are assumed to be
+given as Melbourne time. Defaults to the current system time.}
+
+\item{look_backwards}{Boolean. Whether to look before \code{departs}. Use with
+caution (see Details). Defaults to \code{FALSE}.}
 
 \item{max_results}{Integer. The maximum number of departures to return for
-each route_id. When set to 0, all departures after the given datetime for
+each route_id. When set to 0, all departures after the given \code{departs} for
 the entire day are shown, and potentially some in the early hours of the
 next morning. Defaults to 5.}
 
@@ -54,17 +58,20 @@ Transport Victoria. See section "Obtaining API authentication details".}
 Transport Victoria. See section "Obtaining API authentication details".}
 }
 \description{
-Retrieve departures at a stop
+\code{departures} retrieves all upcoming departures for a given stop ID and route
+type.
 }
 \details{
 Filtering departures: The API supports filtering by departure time,
 to show the departures after the given time. However, its behaviour is
 unpredictable, returning departures around the given time, both before and
 after. We apply an additional filter once the results are retrieved to
-ensure that only departures at or after the given \code{datetime} are shown.
-Moreover, we don't use the API's functionality to filter by route ID or
-\code{max_results}, since they don't work. Instead, we filter these in after
+ensure that only departures at or after the given \code{departs} datetime are
+shown. Moreover, we don't use the API's functionality to filter by route ID
+or \code{max_results}, since they don't work. Instead, we filter these in after
 results are retrieved.
 
-All timestamps returned by this function are in Melbourne time.
+It's not clear what functionality \code{look_backwards} has. It's included here
+regardless, and will disable the filtering on \code{departs} that would occur
+after the content is retrieved.
 }

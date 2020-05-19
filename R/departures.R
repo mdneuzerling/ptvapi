@@ -1,7 +1,7 @@
 # We don't provide the `date_utc` and `max_results` arguments to the API, as the
-# behaviour of the API is unpredictable and contrary to its documentation. We also
-# don't use the `route_id` request, because the results are not always filtered
-# to the given route ID:
+# behaviour of the API is unpredictable and contrary to its documentation. We
+# also don't use the `route_id` request, because the results are not always
+# filtered to the given route ID:
 #
 # * Requesting a maximum of `n` results does not guarantee that the returned
 # tibble will be `n` rows per route ID and departure, and often fewer than `n`
@@ -21,7 +21,7 @@
 # * The API does support a `look_backwards` parameter (defaults to `FALSE`) but
 # it appears to have no  effect at all.
 #
-# Instead, we apply a filter in R to the results to ensure that `datetime` and
+# Instead, we apply a filter in R to the results to ensure that `departs` and
 # `max_results` are respected, and that `max_results` applies per route ID. We
 # also ignore the option to filter by route_id via the API, and filter in R
 # instead. This is all performed with the `filter_departures()` function.
@@ -29,16 +29,21 @@
 
 #' Retrieve departures at a stop
 #'
+#' `departures` retrieves all upcoming departures for a given stop ID and route
+#' type.
+#'
 #' @details Filtering departures: The API supports filtering by departure time,
 #'   to show the departures after the given time. However, its behaviour is
 #'   unpredictable, returning departures around the given time, both before and
 #'   after. We apply an additional filter once the results are retrieved to
-#'   ensure that only departures at or after the given `datetime` are shown.
-#'   Moreover, we don't use the API's functionality to filter by route ID or
-#'   `max_results`, since they don't work. Instead, we filter these in after
+#'   ensure that only departures at or after the given `departs` datetime are
+#'   shown. Moreover, we don't use the API's functionality to filter by route ID
+#'   or `max_results`, since they don't work. Instead, we filter these in after
 #'   results are retrieved.
 #'
-#' @details All timestamps returned by this function are in Melbourne time.
+#'   It's not clear what functionality `look_backwards` has. It's included here
+#'   regardless, and will disable the filtering on `departs` that would occur
+#'   after the content is retrieved.
 #'
 #' @param stop_id An integer stop ID returned by the `stops_on_route` or
 #'   `stops_nearby` functions.
@@ -48,11 +53,13 @@
 #' @inheritParams stops_on_route
 #' @param platform_numbers Character vector. Optionally filter results by
 #'   platform number. Despite the name, these are characters.
-#' @param datetime POSIXct or Character. Optionally filter results to a
-#'   datetime. Characters are automatically converted to datetimes, and are
-#'   assumed to be given as Melbourne time. Defaults to the current system time.
+#' @param departs POSIXct or Character. Optionally filter results to a datetime
+#'   Characters are automatically converted to datetimes, and are assumed to be
+#'   given as Melbourne time. Defaults to the current system time.
+#' @param look_backwards Boolean. Whether to look before `departs`. Use with
+#'   caution (see Details). Defaults to `FALSE`.
 #' @param max_results Integer. The maximum number of departures to return for
-#'   each route_id. When set to 0, all departures after the given datetime for
+#'   each route_id. When set to 0, all departures after the given `departs` for
 #'   the entire day are shown, and potentially some in the early hours of the
 #'   next morning. Defaults to 5.
 #' @param include_cancelled Logical. Whether results should be returned if they
@@ -66,14 +73,15 @@ departures <- function(stop_id,
                        route_id = NULL,
                        direction_id = NULL,
                        platform_numbers = NULL,
-                       datetime = Sys.time(),
+                       departs = Sys.time(),
+                       look_backwards = FALSE,
                        max_results = 5,
                        include_cancelled = FALSE,
                        user_id = determine_user_id(),
                        api_key = determine_api_key()) {
 
   # if max_results is unset or 0, entire day's results will be returned
-  # Suggestion: we check if the given datetime is non-null and contains a
+  # Suggestion: we check if the given departs is non-null and contains a
   # time component. If max_results is NULL, raise a warning/
 
   stop_id <- to_integer(stop_id)
@@ -83,15 +91,16 @@ departures <- function(stop_id,
   if (!is.null(platform_numbers)) {
     platform_numbers <- purrr::map_int(platform_numbers, to_integer)
   }
-  datetime <- to_datetime(datetime)
-  url_datetime <- format(datetime, format = "%Y-%m-%dT%H:%M:%OS", tz = "UTC")
+  departs <- to_datetime(departs)
+  url_departs <- format(departs, format = "%Y-%m-%dT%H:%M:%OS", tz = "UTC")
 
   request <- add_parameters(
     glue::glue("departures/route_type/{route_type}/stop/{stop_id}"),
     direction_id = direction_id,
     platform_numbers = platform_numbers,
+    look_backwards = look_backwards,
     max_results = max_results, # results for the whole day. We'll filter later.
-    date_utc = url_datetime,
+    date_utc = url_departs,
     include_cancelled = include_cancelled
   )
 
@@ -106,7 +115,7 @@ departures <- function(stop_id,
   parsed <- map_and_rbind(content$departures, departure_to_tibble)
   parsed_filtered <- filter_departures(
     parsed,
-    datetime = datetime,
+    departs = departs,
     route_id = route_id,
     max_results = max_results
   )
@@ -119,14 +128,14 @@ departures <- function(stop_id,
 #' The departures API call isn't always reliable. This function will take a
 #' tibble of parsed departures content and filter it according to the following
 #' inputs, if they are not `NULL`: \itemize{
-#' \item Only departures after the given `datetime`
+#' \item Only departures after the given `departs`
 #' \item Only departures on the given route ID
 #' \item The next max_results departures per route ID, if `max_results` is not
 #'   0.
 #' }
 #'
 #' @param parsed A tibble of parsed departures content.
-#' @param datetime POSIXct in the "Australia/Melbourne" time zone.
+#' @param departs POSIXct in the "Australia/Melbourne" time zone.
 #' @param route_id Integer route_id.
 #' @param max_results Integer max results.
 #'
@@ -135,7 +144,7 @@ departures <- function(stop_id,
 #' @keywords internal
 #'
 filter_departures <- function(parsed,
-                              datetime = NULL,
+                              departs = NULL,
                               route_id = NULL,
                               max_results = NULL) {
 
@@ -154,8 +163,8 @@ filter_departures <- function(parsed,
     parsed$scheduled_departure
   )
 
-  if (!is.null(datetime)) {
-    parsed <- subset(parsed, departure >= datetime)
+  if (!is.null(departs)) {
+    parsed <- subset(parsed, departure >= departs)
   }
 
   if (!is.null(route_id)) {

@@ -62,7 +62,7 @@ test_that("Departures filtered by datetime", {
   flinders_morning_departures <- departures(
     stop_id = flinders_street_stop_id,
     route_type = "Train",
-    datetime = morning_test_time
+    departs = morning_test_time
   )
   expect_gt(nrow(flinders_morning_departures), 0) # must have some results
   expect_gte(
@@ -75,7 +75,7 @@ test_that("Departures filtered by datetime with max_results = 0", {
   flinders_all_day_departures <- departures(
     stop_id = flinders_street_stop_id,
     route_type = "Train",
-    datetime = afternoon_test_time,
+    departs = afternoon_test_time,
     max_results = 0
   )
   expect_gt(nrow(flinders_all_day_departures), 0) # must have some results
@@ -103,7 +103,7 @@ test_that("Departures filtered by datetime and max_results", {
   flinders_afternoon_departures <- departures(
     stop_id = flinders_street_stop_id,
     route_type = "Train",
-    datetime = afternoon_test_time,
+    departs = afternoon_test_time,
     max_results = 3
   )
   expect_gt(nrow(flinders_afternoon_departures), 0) # must have some results

@@ -68,6 +68,12 @@ fare_estimate <- function(min_zone,
     journey_touch_off_url <- NULL
   }
 
+  if (!is.null(travelled_route_types)) {
+    travelled_route_types <- purrr::map_int(
+      travelled_route_types, translate_route_type
+    )
+  }
+
   request <- add_parameters(
     glue::glue("fare_estimate/min_zone/{min_zone}/max_zone/{max_zone}"),
     journey_touch_on_utc = journey_touch_on_url,

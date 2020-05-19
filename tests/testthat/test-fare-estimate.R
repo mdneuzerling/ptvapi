@@ -1,3 +1,6 @@
+# I'm unsure how to test for journey_route_types. It's not clear how it affects
+# the results.
+
 zone12 <- fare_estimate(1, 2)
 
 test_that("fare_estimate result has class \"ptvapi\"", {

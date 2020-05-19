@@ -2,7 +2,7 @@
 % Please edit documentation in R/fare-estimate.R
 \name{fare_estimate}
 \alias{fare_estimate}
-\title{Calculate a fare estimate between zones.}
+\title{Calculate a fare estimate between zones}
 \usage{
 fare_estimate(
   min_zone,
@@ -61,7 +61,8 @@ following columns: \itemize{
 }
 }
 \description{
-Calculate a fare estimate between zones.
+Retrieve fare information for a journey through the given zones. Also
+supports journey touch on and off times, to accommodate for discounts.
 }
 \examples{
 \dontrun{

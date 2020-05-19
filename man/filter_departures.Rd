@@ -4,12 +4,12 @@
 \alias{filter_departures}
 \title{Filter parsed departures content according to user input}
 \usage{
-filter_departures(parsed, datetime = NULL, route_id = NULL, max_results = NULL)
+filter_departures(parsed, departs = NULL, route_id = NULL, max_results = NULL)
 }
 \arguments{
 \item{parsed}{A tibble of parsed departures content.}
 
-\item{datetime}{POSIXct in the "Australia/Melbourne" time zone.}
+\item{departs}{POSIXct in the "Australia/Melbourne" time zone.}
 
 \item{route_id}{Integer route_id.}
 
@@ -22,7 +22,7 @@ A filtered tibble.
 The departures API call isn't always reliable. This function will take a
 tibble of parsed departures content and filter it according to the following
 inputs, if they are not \code{NULL}: \itemize{
-\item Only departures after the given \code{datetime}
+\item Only departures after the given \code{departs}
 \item Only departures on the given route ID
 \item The next max_results departures per route ID, if \code{max_results} is not
 0.
