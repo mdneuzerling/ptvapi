@@ -18,7 +18,8 @@
 #'   `route_types` function to extract a vector of all route types.
 #' @inheritParams PTVGET
 #'
-#' @return
+#' @inherit parse_directions_content return
+#'
 #' @export
 #'
 fare_estimate <- function(min_zone,
@@ -68,6 +69,36 @@ fare_estimate <- function(min_zone,
   new_ptvapi_tibble(response, parsed)
 }
 
+#' Parse content of fare estimates API call
+#'
+#' This function is designed to parse the content returned by the interior
+#' steps of the `fare_estimate` function.
+#'
+#' @param fare_estimate_content A direction, as a list, returned by the
+#'   `fare_estimate` API call.
+#'
+#' @return A data frame consisting of one row for each `passenger_type`, and the
+#' following columns: \itemize{
+#' \item `min_zone`
+#' \item `max_zone`
+#' \item `unique_zones`
+#' \item `early_bird`
+#' \item `free_tram_zone`
+#' \item `weekend_journey`
+#' \item `passenger_type`
+#' \item `fare_2_hour_peak`
+#' \item `fare_2_hour_off_peak`
+#' \item `fare_daily_peak`
+#' \item `fare_daily_off_peak`
+#' \item `pass_7_days`
+#' \item `pass_28_to_69_day_per_day`
+#' \item `pass_70_plus_day_per_day`
+#' \item `weekend_cap`
+#' \item `holiday_cap`
+#' }
+#'
+#' @keywords internal
+#'
 parse_fare_estimate_content <- function(fare_estimate_content) {
   assert_correct_attributes(
     names(fare_estimate_content),
@@ -75,15 +106,32 @@ parse_fare_estimate_content <- function(fare_estimate_content) {
       "ZoneInfo", "PassengerFares")
   )
 
-  cbind(
-    tibble::tibble(
-      min_zone = fare_estimate_content$ZoneInfo$MinZone,
-      max_zone = fare_estimate_content$ZoneInfo$MaxZone,
-      unique_zones = list(unlist(fare_estimate_content$ZoneInfo$UniqueZones)),
-      early_bird = fare_estimate_content$IsEarlyBird,
-      free_tram_zone = fare_estimate_content$IsJourneyInFreeTramZone,
-      weekend_journey = fare_estimate_content$IsThisWeekendJourney
-    ),
-    map_and_rbind(fare_estimate_content$PassengerFares, tibble::as_tibble)
+  base_columns <- tibble::tibble(
+    min_zone = fare_estimate_content$ZoneInfo$MinZone,
+    max_zone = fare_estimate_content$ZoneInfo$MaxZone,
+    unique_zones = list(unlist(fare_estimate_content$ZoneInfo$UniqueZones)),
+    early_bird = fare_estimate_content$IsEarlyBird,
+    free_tram_zone = fare_estimate_content$IsJourneyInFreeTramZone,
+    weekend_journey = fare_estimate_content$IsThisWeekendJourney
   )
+  passenger_fares <- map_and_rbind(
+    fare_estimate_content$PassengerFares,
+    function(x) {
+      tibble::tibble(
+        passenger_type = x$PassengerType,
+        fare_2_hour_peak = x$Fare2HourPeak,
+        fare_2_hour_off_peak = x$Fare2HourOffPeak,
+        fare_daily_peak = x$FareDailyPeak,
+        fare_daily_off_peak = x$FareDailyOffPeak,
+        pass_7_days = x$Pass7Days,
+        pass_28_to_69_day_per_day = x$Pass28To69DayPerDay,
+        pass_70_plus_day_per_day = x$Pass70PlusDayPerDay,
+        weekend_cap = x$WeekendCap,
+        holiday_cap = x$HolidayCap
+      )
+    }
+  )
+
+  # cbind converts to data.frame, but this shouldn't matter
+  cbind(base_columns, passenger_fares)
 }
