@@ -50,7 +50,7 @@ test_that("Can filter departures with datetime", {
   expect_equal(
     filter_departures(
       test_departures,
-      datetime = as.POSIXct("2020-06-01 12:03:00", tz = "Australia/Melbourne")
+      departs = as.POSIXct("2020-06-01 12:03:00", tz = "Australia/Melbourne")
     ),
     tibble::tribble(
       ~route_id, ~scheduled_departure, ~estimated_departure,
@@ -91,7 +91,7 @@ test_that("Can filter departures with datetime and max_results", {
   expect_equal(
     filter_departures(
       test_departures,
-      datetime = as.POSIXct("2020-06-01 12:03:00", tz = "Australia/Melbourne"),
+      departs = as.POSIXct("2020-06-01 12:03:00", tz = "Australia/Melbourne"),
       max_results = 2
     ),
     tibble::tribble(
