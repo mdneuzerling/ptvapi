@@ -2,7 +2,7 @@
 % Please edit documentation in R/routes.R
 \name{routes}
 \alias{routes}
-\title{Retrieve route information}
+\title{Information for all routes}
 \usage{
 routes(
   route_types = NULL,
@@ -40,11 +40,16 @@ A tibble of routes, with the following columns:
 }
 }
 \description{
-Retrieve route information
-}
-\details{
-All timestamps returned by this function are in Melbourne time.
+Information for all routes
 }
 \examples{
-\dontrun{routes()}
+\dontrun{
+routes()
+routes(route_types = "Train")
+routes(route_types = 0)
+routes(route_types = c("Train", "Tram"))
+routes(route_name = "Frankston")
+routes(route_name = "Craigie")
+routes(route_name = "werribee")
+}
 }

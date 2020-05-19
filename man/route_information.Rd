@@ -2,7 +2,7 @@
 % Please edit documentation in R/routes.R
 \name{route_information}
 \alias{route_information}
-\title{Retrieve route information for a given route}
+\title{Information for a given route}
 \usage{
 route_information(
   route_id,
@@ -33,8 +33,11 @@ A tibble of routes, with the following columns:
 }
 }
 \description{
-Retrieve route information for a given route
+Information for a given route
 }
-\details{
-All timestamps returned by this function are in Melbourne time.
+\examples{
+\dontrun{
+route_information(6)
+}
+
 }

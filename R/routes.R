@@ -1,7 +1,4 @@
-#' Retrieve route information for a given route
-#'
-#' @details
-#' All timestamps returned by this function are in Melbourne time.
+#' Information for a given route
 #'
 #' @inheritParams directions_on_route
 #' @inheritParams translate_route_type
@@ -10,6 +7,10 @@
 #' @inherit route_to_tibble return
 #'
 #' @export
+#'
+#' @examples \dontrun{
+#' route_information(6)
+#' }
 #'
 route_information <- function(route_id,
                               user_id = determine_user_id(),
@@ -24,10 +25,7 @@ route_information <- function(route_id,
   new_ptvapi_tibble(response, parsed)
 }
 
-#' Retrieve route information
-#'
-#' @details
-#' All timestamps returned by this function are in Melbourne time.
+#' Information for all routes
 #'
 #' @inheritParams stops_nearby
 #' @param route_name Character. Optionally filter by route name. Partial matches
@@ -38,7 +36,15 @@ route_information <- function(route_id,
 #'
 #' @export
 #'
-#' @examples \dontrun{routes()}
+#' @examples \dontrun{
+#' routes()
+#' routes(route_types = "Train")
+#' routes(route_types = 0)
+#' routes(route_types = c("Train", "Tram"))
+#' routes(route_name = "Frankston")
+#' routes(route_name = "Craigie")
+#' routes(route_name = "werribee")
+#' }
 routes <- function(route_types = NULL,
                    route_name = NULL,
                    user_id = determine_user_id(),
