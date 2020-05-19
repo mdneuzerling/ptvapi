@@ -66,7 +66,7 @@ The API recognises five route types: "Train", "Tram", "Bus", "Vline", and "Night
 
 ## Implementation progress
 
-All API calls except fare estimates have been implemented so far. Some API calls have been combined into a single function with arguments, and some have been split into multiple functions. **Many optional arguments and filters still need to be implemented.**
+All API calls have been implemented. Some API calls have been combined into a single function with arguments, and some have been split into multiple functions. **Many optional arguments and filters still need to be implemented.**
 
 The following functions are available through this package:
 
@@ -77,6 +77,7 @@ The following functions are available through this package:
 * `disruptions`
 * `disruptions_at_stop`
 * `disruptions_on_route`
+* `fare_estimate`
 * `outlets`
 * `outlets_nearby`
 * `patterns`
