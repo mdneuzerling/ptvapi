@@ -20,15 +20,10 @@ fare_estimate(
 
 \item{max_zone}{Integer. Maximum zone travelled through.}
 
-\item{journey_touch_on}{POSIXct or Character. Optionally filter results to a
-journey time. If providing a value to this variable, a value must also be
-provided to \code{journey_touch_off}. Characters are automatically converted to
-datetimes, and are assumed to be given as Melbourne time.}
-
-\item{journey_touch_off}{POSIXct or Character. Optionally filter results to a
-journey time. If providing a value to this variable, a value must also be
-provided to \code{journey_touch_ofn}. Characters are automatically converted to
-datetimes, and are assumed to be given as Melbourne time.}
+\item{journey_touch_on, journey_touch_off}{POSIXct or Character. Optionally
+filter results to a journey time. Values to both must be provided.
+Characters are automatically converted to datetimes, and are assumed to be
+given as Melbourne time.}
 
 \item{journey_in_free_tram_zone}{Boolean. Defaults to \code{FALSE}.}
 
@@ -45,14 +40,47 @@ Transport Victoria. See section "Obtaining API authentication details".}
 Transport Victoria. See section "Obtaining API authentication details".}
 }
 \value{
-A tibble consisting of the following columns: \itemize{
-\item \code{direction_id}
-\item \code{direction_name},
-\item \code{route_id}
-\item \code{route_type}
-\item \code{route_direction_description}
+A data frame consisting of one row for each \code{passenger_type}, and the
+following columns: \itemize{
+\item \code{min_zone}
+\item \code{max_zone}
+\item \code{unique_zones}
+\item \code{early_bird}
+\item \code{free_tram_zone}
+\item \code{weekend_journey}
+\item \code{passenger_type}
+\item \code{fare_2_hour_peak}
+\item \code{fare_2_hour_off_peak}
+\item \code{fare_daily_peak}
+\item \code{fare_daily_off_peak}
+\item \code{pass_7_days}
+\item \code{pass_28_to_69_day_per_day}
+\item \code{pass_70_plus_day_per_day}
+\item \code{weekend_cap}
+\item \code{holiday_cap}
 }
 }
 \description{
 Calculate a fare estimate between zones.
+}
+\examples{
+\dontrun{
+fare_estimate(min_zone = 1, max_zone = 2)
+
+fare_estimate(min_zone = 1, max_zone = 1, journey_in_free_tram_zone = TRUE)
+
+fare_estimate(
+  min_zone = 1,
+  max_zone = 2,
+  travelled_route_types = c("Train", "Tram")
+)
+
+fare_estimate(
+  min_zone = 1,
+  max_zone = 2,
+  journey_touch_on = "2020-06-21 07:31:00",
+  journey_touch_off = "2020-06-21 08:45:00"
+ )
+}
+
 }

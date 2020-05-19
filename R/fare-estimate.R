@@ -1,15 +1,14 @@
-#' Calculate a fare estimate between zones.
+#' Calculate a fare estimate between zones
+#'
+#' Retrieve fare information for a journey through the given zones. Also
+#' supports journey touch on and off times, to accommodate for discounts.
 #'
 #' @param min_zone Integer. Minimum zone travelled through.
 #' @param max_zone Integer. Maximum zone travelled through.
-#' @param journey_touch_on POSIXct or Character. Optionally filter results to a
-#'   journey time. If providing a value to this variable, a value must also be
-#'   provided to `journey_touch_off`. Characters are automatically converted to
-#'   datetimes, and are assumed to be given as Melbourne time.
-#' @param journey_touch_off POSIXct or Character. Optionally filter results to a
-#'   journey time. If providing a value to this variable, a value must also be
-#'   provided to `journey_touch_ofn`. Characters are automatically converted to
-#'   datetimes, and are assumed to be given as Melbourne time.
+#' @param journey_touch_on,journey_touch_off POSIXct or Character. Optionally
+#'   filter results to a journey time. Values to both must be provided.
+#'   Characters are automatically converted to datetimes, and are assumed to be
+#'   given as Melbourne time.
 #' @param journey_in_free_tram_zone Boolean. Defaults to `FALSE`.
 #' @param travelled_route_types Integer or character vector. Optionally filter
 #'   by a vector of route types. A route type can be provided either as a
@@ -18,9 +17,28 @@
 #'   `route_types` function to extract a vector of all route types.
 #' @inheritParams PTVGET
 #'
-#' @inherit parse_directions_content return
+#' @inherit parse_fare_estimate_content return
 #'
 #' @export
+#'
+#' @examples \dontrun{
+#' fare_estimate(min_zone = 1, max_zone = 2)
+#'
+#' fare_estimate(min_zone = 1, max_zone = 1, journey_in_free_tram_zone = TRUE)
+#'
+#' fare_estimate(
+#'   min_zone = 1,
+#'   max_zone = 2,
+#'   travelled_route_types = c("Train", "Tram")
+#' )
+#'
+#' fare_estimate(
+#'   min_zone = 1,
+#'   max_zone = 2,
+#'   journey_touch_on = "2020-06-21 07:31:00",
+#'   journey_touch_off = "2020-06-21 08:45:00"
+#'  )
+#' }
 #'
 fare_estimate <- function(min_zone,
                           max_zone,
