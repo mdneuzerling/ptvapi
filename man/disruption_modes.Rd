@@ -2,7 +2,7 @@
 % Please edit documentation in R/disruptions.R
 \name{disruption_modes}
 \alias{disruption_modes}
-\title{Retrieve a translation from description mode number to description mode name.}
+\title{Retrieve a translation from description mode number to description mode name}
 \usage{
 disruption_modes(user_id = determine_user_id(), api_key = determine_api_key())
 }

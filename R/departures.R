@@ -27,7 +27,7 @@
 # instead. This is all performed with the `filter_departures()` function.
 
 
-#' Retrieve departures at a stop
+#' Departures from a given stop
 #'
 #' `departures` retrieves all upcoming departures for a given stop ID and route
 #' type.

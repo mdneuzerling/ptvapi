@@ -1,4 +1,4 @@
-#' Retrieve information on a particular disruption.
+#' Retrieve information on a particular disruption
 #'
 #' This function can be used when the integer disruption ID is already known.
 #' This can be searched for with either `disruptions()`,
@@ -29,7 +29,7 @@ disruption_information <- function(disruption_id,
 }
 
 
-#' Retrieve information for all disruptions.
+#' Retrieve information for all disruptions
 #'
 #' @param route_types Integer or character vector. Optionally filter by a vector
 #'   of route types. A route type can be provided either as a non-negative
@@ -177,7 +177,7 @@ disruptions_at_stop <- function(stop_id,
   new_ptvapi_tibble(response, parsed)
 }
 
-#' Retrieve a translation from description mode number to description mode name.
+#' Retrieve a translation from description mode number to description mode name
 #'
 #' Disruption mode types (eg. "metro_train", "metro_tram", "school_bus", "taxi")
 #' have corresponding integer IDs. This function retrieves a named vector in
@@ -215,7 +215,7 @@ disruption_modes <- function(user_id = determine_user_id(),
   )
 }
 
-#' Convert the contents of a disruptions API call to a single tibble.
+#' Convert the contents of a disruptions API call to a single tibble
 #'
 #' Disruptions API responses contain an element for every service type, eg.
 #' metro train, taxis, Skybus. Normally we would map-reduce the content of an
@@ -283,7 +283,7 @@ all_disruptions_to_tibble <- function(disruptions_content) {
                  colnames(dis)[colnames(dis) != "disruption_mode"])]
 }
 
-#' Convert a single disruptions to a tibble
+#' Convert a single disruption to a tibble
 #'
 #' This function is designed to parse the content returned by the interior
 #' steps of the `disruptions_on_route` and `disruptions_at_stop` functions.

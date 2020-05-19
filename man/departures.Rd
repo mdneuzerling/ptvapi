@@ -2,7 +2,7 @@
 % Please edit documentation in R/departures.R
 \name{departures}
 \alias{departures}
-\title{Retrieve departures at a stop}
+\title{Departures from a given stop}
 \usage{
 departures(
   stop_id,

@@ -38,7 +38,7 @@ directions <- function(direction_id,
   new_ptvapi_tibble(response, parsed)
 }
 
-#' Directions for a given route ID
+#' Directions on a given route
 #'
 #' @param route_id Integer. These can be listed and described with the `routes`
 #'   function.

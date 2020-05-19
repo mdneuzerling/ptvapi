@@ -2,7 +2,7 @@
 % Please edit documentation in R/disruptions.R
 \name{disruptions}
 \alias{disruptions}
-\title{Retrieve information for all disruptions.}
+\title{Retrieve information for all disruptions}
 \usage{
 disruptions(
   route_types = NULL,
@@ -59,5 +59,5 @@ A tibble with the following columns: \itemize{
 }
 }
 \description{
-Retrieve information for all disruptions.
+Retrieve information for all disruptions
 }

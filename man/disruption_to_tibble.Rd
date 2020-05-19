@@ -2,7 +2,7 @@
 % Please edit documentation in R/disruptions.R
 \name{disruption_to_tibble}
 \alias{disruption_to_tibble}
-\title{Convert a single disruptions to a tibble}
+\title{Convert a single disruption to a tibble}
 \usage{
 disruption_to_tibble(disruption)
 }

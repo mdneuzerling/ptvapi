@@ -2,7 +2,7 @@
 % Please edit documentation in R/disruptions.R
 \name{all_disruptions_to_tibble}
 \alias{all_disruptions_to_tibble}
-\title{Convert the contents of a disruptions API call to a single tibble.}
+\title{Convert the contents of a disruptions API call to a single tibble}
 \usage{
 all_disruptions_to_tibble(disruptions_content)
 }
