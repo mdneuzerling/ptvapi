@@ -41,11 +41,28 @@ If a `user_id` or `api_key` value is not provided to the functions within this p
 The code examples below assume that you've set environment variables for authentication.
 
 ```
-# list of all routes
+# tibble of all routes
 routes()
 # A tibble: 828 x 7
 #   route_id route_gtfs_id route_name route_type route_number service_status
 #      <int> <chr>         <chr>           <int> <chr>        <chr>    
+```
+
+```
+# Search for routes by name (case insensitive, partial matching supported)
+routes(route_name = "Frankston")
+# A tibble: 27 x 7
+#   route_id route_gtfs_id route_name route_type route_number service_status
+#      <int> <chr>         <chr>           <int> <chr>        <chr>    
+```
+
+```
+# All current disruptions
+disruptions(disruption_status = "current")
+# A tibble: 244 x 17
+   disruption_mode disruption_mode… disruption_id title url   description
+   <chr>           <chr>                    <int> <chr> <chr> <chr>       
+# … with 177 more rows, and 17 more variables …
 ```
 
 ```
@@ -58,6 +75,17 @@ stops_nearby(
 # # A tibble: 1 x 8
 #   stop_id stop_name stop_suburb route_type stop_sequence stop_latitude stop_longitude
 #     <int> <chr>     <chr>            <int>         <int>         <dbl>          <dbl>
+```
+
+```
+# Upcoming train departures from Flinders Street Station
+> departures(stop_id = 1071, route_type = "Train")
+# A tibble: 75 x 11
+   direction_id stop_id route_id run_id platform_number at_platform
+          <int>   <int>    <int>  <int> <chr>           <lgl>    
+# … with 65 more rows, and 4 more variables: departure_sequence <int>, 
+#   scheduled_departure <dttm>, estimated_departure <dttm>, flags <chr>,
+#   disruption_ids <list>
 ```
 
 ## A note about route types
