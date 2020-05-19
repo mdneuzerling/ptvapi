@@ -1,8 +1,9 @@
 #' Directions for a given direction ID
 #'
 #' This function returns all directions with a given ID. Directions that share
-#' an ID are not necessarily related. It's advised to use to the
-#' `directions_on_route` function to search for directions of interest.
+#' an ID are not necessarily related, especially if not filtering by route type.
+#' It's advised to use to the `directions_on_route` function to search for
+#' directions of interest.
 #'
 #' @param direction_id Integer.
 #' @param route_type Optionally filter results by a route type. A route type can
@@ -14,6 +15,12 @@
 #'
 #' @inherit parse_directions_content return
 #' @export
+#'
+#' @examples \dontrun{
+#' directions(direction_id = 5)
+#' directions(direction_id = 5, route_type = "Train")
+#' directions(direction_id = 5, route_type = 0)
+#' }
 #'
 directions <- function(direction_id,
                        route_type = NULL,
@@ -31,18 +38,22 @@ directions <- function(direction_id,
   new_ptvapi_tibble(response, parsed)
 }
 
-#' Directions for a given route_id
+#' Directions for a given route ID
 #'
 #' @param route_id Integer. These can be listed and described with the `routes`
 #'   function.
 #' @inheritParams PTVGET
 #'
 #' @inherit parse_directions_content return
+#'
 #' @export
 #'
+#' @examples \dontrun{
+#' directions_on_route(6)
+#' }
 directions_on_route <- function(route_id,
-                             user_id = determine_user_id(),
-                             api_key = determine_api_key()) {
+                                user_id = determine_user_id(),
+                                api_key = determine_api_key()) {
   route_id <- to_integer(route_id)
   request <- glue::glue("directions/route/{route_id}")
   response <- PTVGET(request, user_id = user_id, api_key = api_key)

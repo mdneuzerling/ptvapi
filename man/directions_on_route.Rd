@@ -2,7 +2,7 @@
 % Please edit documentation in R/directions.R
 \name{directions_on_route}
 \alias{directions_on_route}
-\title{Directions for a given route_id}
+\title{Directions for a given route ID}
 \usage{
 directions_on_route(
   route_id,
@@ -30,5 +30,10 @@ A tibble consisting of the following columns: \itemize{
 }
 }
 \description{
-Directions for a given route_id
+Directions for a given route ID
+}
+\examples{
+\dontrun{
+directions_on_route(6)
+}
 }

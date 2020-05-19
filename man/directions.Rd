@@ -37,6 +37,15 @@ A tibble consisting of the following columns: \itemize{
 }
 \description{
 This function returns all directions with a given ID. Directions that share
-an ID are not necessarily related. It's advised to use to the
-\code{directions_on_route} function to search for directions of interest.
+an ID are not necessarily related, especially if not filtering by route type.
+It's advised to use to the \code{directions_on_route} function to search for
+directions of interest.
+}
+\examples{
+\dontrun{
+directions(direction_id = 5)
+directions(direction_id = 5, route_type = "Train")
+directions(direction_id = 5, route_type = 0)
+}
+
 }
