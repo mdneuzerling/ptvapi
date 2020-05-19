@@ -53,20 +53,47 @@
 #' @inheritParams stops_on_route
 #' @param platform_numbers Character vector. Optionally filter results by
 #'   platform number. Despite the name, these are characters.
-#' @param departs POSIXct or Character. Optionally filter results to a datetime
-#'   Characters are automatically converted to datetimes, and are assumed to be
-#'   given as Melbourne time. Defaults to the current system time.
+#' @param departs POSIXct or Character. Optionally filter results to departures
+#'   on or after the given value, according to either scheduled or estimated
+#'   departure time. Characters are automatically converted to datetimes, and
+#'   are assumed to be given as Melbourne time. Defaults to the current system
+#'   time.
 #' @param look_backwards Boolean. Whether to look before `departs`. Use with
 #'   caution (see Details). Defaults to `FALSE`.
 #' @param max_results Integer. The maximum number of departures to return for
-#'   each route_id. When set to 0, all departures after the given `departs` for
-#'   the entire day are shown, and potentially some in the early hours of the
-#'   next morning. Defaults to 5.
+#'   each route_id. Departures are ordered by estimated departure time, when
+#'   available, and scheduled departure time otherwise. When set to 0, all
+#'   departures after the given `departs` for the entire day are shown, and
+#'   potentially some in the early hours of the next morning. Defaults to 5.
 #' @param include_cancelled Logical. Whether results should be returned if they
 #'   have been cancelled. Metropolitan train services only. Defaults to FALSE.
 #' @inheritParams PTVGET
 #'
 #' @export
+#'
+#' @examples \dontrun{
+#' departures(stop_id = 1071, route_type = "Train")
+#' departures(stop_id = 1071, route_type = 0)
+#'
+#' departures(
+#'   stop_id = 1071,
+#'   route_type = "Train",
+#'   platform_numbers = c(4, 5)
+#' )
+#'
+#' departures(
+#'   stop_id = 1071,
+#'   route_type = "Train",
+#'   route_id = 6
+#' )
+#'
+#' departures(
+#'   stop_id = 1071,
+#'   route_type = "Train",
+#'   departs = "2020-06-23 17:05:00"
+#' )
+#'
+#' }
 #'
 departures <- function(stop_id,
                        route_type,
@@ -136,7 +163,7 @@ departures <- function(stop_id,
 #'
 #' @param parsed A tibble of parsed departures content.
 #' @param departs POSIXct in the "Australia/Melbourne" time zone.
-#' @param route_id Integer route_id.
+#' @param route_id Integer.
 #' @param max_results Integer max results.
 #'
 #' @return A filtered tibble.

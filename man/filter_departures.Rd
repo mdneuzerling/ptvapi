@@ -11,7 +11,7 @@ filter_departures(parsed, departs = NULL, route_id = NULL, max_results = NULL)
 
 \item{departs}{POSIXct in the "Australia/Melbourne" time zone.}
 
-\item{route_id}{Integer route_id.}
+\item{route_id}{Integer.}
 
 \item{max_results}{Integer max results.}
 }

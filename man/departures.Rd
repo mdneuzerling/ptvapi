@@ -36,17 +36,20 @@ obtained with the \code{route_directions()} function.}
 \item{platform_numbers}{Character vector. Optionally filter results by
 platform number. Despite the name, these are characters.}
 
-\item{departs}{POSIXct or Character. Optionally filter results to a datetime
-Characters are automatically converted to datetimes, and are assumed to be
-given as Melbourne time. Defaults to the current system time.}
+\item{departs}{POSIXct or Character. Optionally filter results to departures
+on or after the given value, according to either scheduled or estimated
+departure time. Characters are automatically converted to datetimes, and
+are assumed to be given as Melbourne time. Defaults to the current system
+time.}
 
 \item{look_backwards}{Boolean. Whether to look before \code{departs}. Use with
 caution (see Details). Defaults to \code{FALSE}.}
 
 \item{max_results}{Integer. The maximum number of departures to return for
-each route_id. When set to 0, all departures after the given \code{departs} for
-the entire day are shown, and potentially some in the early hours of the
-next morning. Defaults to 5.}
+each route_id. Departures are ordered by estimated departure time, when
+available, and scheduled departure time otherwise. When set to 0, all
+departures after the given \code{departs} for the entire day are shown, and
+potentially some in the early hours of the next morning. Defaults to 5.}
 
 \item{include_cancelled}{Logical. Whether results should be returned if they
 have been cancelled. Metropolitan train services only. Defaults to FALSE.}
@@ -74,4 +77,30 @@ results are retrieved.
 It's not clear what functionality \code{look_backwards} has. It's included here
 regardless, and will disable the filtering on \code{departs} that would occur
 after the content is retrieved.
+}
+\examples{
+\dontrun{
+departures(stop_id = 1071, route_type = "Train")
+departures(stop_id = 1071, route_type = 0)
+
+departures(
+  stop_id = 1071,
+  route_type = "Train",
+  platform_numbers = c(4, 5)
+)
+
+departures(
+  stop_id = 1071,
+  route_type = "Train",
+  route_id = 6
+)
+
+departures(
+  stop_id = 1071,
+  route_type = "Train",
+  departs = "2020-06-23 17:05:00"
+)
+
+}
+
 }
