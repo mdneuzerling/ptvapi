@@ -1,20 +1,3 @@
-new_ptvapi_tibble <- function(response, parsed) {
-  assertthat::assert_that(is.data.frame(parsed))
-
-  ptvapi_tibble <- tibble::new_tibble(
-    parsed,
-    nrow = nrow(parsed),
-    class = "ptvapi",
-    request = response$request,
-    retrieved = response$retrieved,
-    status_code = response$status_code,
-    content = response$content
-  )
-
-  tibble::validate_tibble(ptvapi_tibble)
-  ptvapi_tibble
-}
-
 #' Convert a datetime returned by the PTV API into Melbourne time
 #'
 #' @param datetime A datetime returned by the PTV API
