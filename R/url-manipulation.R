@@ -29,6 +29,7 @@ sign_request <- function(request,
   # scenario with would accept an input of simply "path?param=value
 
   input_error <- paste(
+    "Cannot sign", request, ":",
     "This function signs a request without a domain, version number, URL,",
     "or devid/user_id. So if the request URL is",
     "'http://timetableapi.ptv.vic.gov.au/v3/path?param=1&devid=1234567'",
