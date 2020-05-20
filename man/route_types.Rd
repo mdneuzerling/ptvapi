@@ -14,15 +14,18 @@ Transport Victoria. See section "Obtaining API authentication details".}
 Transport Victoria. See section "Obtaining API authentication details".}
 }
 \value{
-A named vector in which the values are the route type descriptions,
-and the names of the vector are the route type numbers.
+A named integer vector in which the values are the route type
+descriptions, and the names of the vector are the route type numbers.
 }
 \description{
-Route types (tram, train, etc.) are provided to the PTV API by number. This
-function retrieves a named vector in which the values are the route type
-descriptions, and the names of the vector are the route type numbers. Note
-that "Night Bus" is a separate route type.
+Route types (tram, train, etc.) are provided to the PTV API as an integer
+code. This function retrieves a named vector in which the values are the
+route type descriptions, and the names of the vector are the route type
+numbers. Note that "Night Bus" is a separate route type.
 }
 \examples{
-\dontrun{route_types()}
+\dontrun{
+route_types()
+}
+
 }

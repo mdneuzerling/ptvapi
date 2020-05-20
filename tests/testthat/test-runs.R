@@ -15,7 +15,7 @@ if (!exists("frankston_route_id")) {
 # We need to be careful how we design this test. If there are planned works and
 # the trains aren't running, then we can expect that there will be no runs on
 # the Frankston line. In this case, the test should trivially pass. The
-# assertions within the `runs_on_route()` function will still be run, and these
+# assertions within the `runs_on_route` function will still be run, and these
 # act as tests of sorts.
 
 runs_on_frankston_route <- runs_on_route(

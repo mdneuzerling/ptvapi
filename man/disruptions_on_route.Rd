@@ -17,7 +17,7 @@ disruptions_on_route(
 function.}
 
 \item{stop_id}{Integer. Optionally filter results to a specific stop ID.
-These can be searched for with the \code{stops_on_route()} and \code{stops_nearby()}
+These can be searched for with the \code{stops_on_route} and \code{stops_nearby}
 functions.}
 
 \item{disruption_status}{Character. Can be used to filter to either "current"

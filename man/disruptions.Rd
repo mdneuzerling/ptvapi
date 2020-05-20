@@ -25,7 +25,7 @@ the disruptions returned to those with a mode corresponding to
 
 \item{disruption_modes}{Integer vector. Optionally filter by disruption
 modes. For a full list of modes and their corresponding descriptions, use
-the \code{description_modes()} function.}
+the \code{disruptions_modes} function.}
 
 \item{disruption_status}{Character. Can be used to filter to either "current"
 or "planned" disruptions. Defaults to NULL, in which case no filter is

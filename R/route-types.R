@@ -1,17 +1,21 @@
 #' Retrieve a translation from route type number to name
 #'
-#' Route types (tram, train, etc.) are provided to the PTV API by number. This
-#' function retrieves a named vector in which the values are the route type
-#' descriptions, and the names of the vector are the route type numbers. Note
-#' that "Night Bus" is a separate route type.
+#' Route types (tram, train, etc.) are provided to the PTV API as an integer
+#' code. This function retrieves a named vector in which the values are the
+#' route type descriptions, and the names of the vector are the route type
+#' numbers. Note that "Night Bus" is a separate route type.
 #'
 #' @inheritParams PTVGET
 #'
-#' @return A named vector in which the values are the route type descriptions,
-#' and the names of the vector are the route type numbers.
+#' @return A named integer vector in which the values are the route type
+#'   descriptions, and the names of the vector are the route type numbers.
+#'
 #' @export
 #'
-#' @examples \dontrun{route_types()}
+#' @examples \dontrun{
+#' route_types()
+#' }
+#'
 route_types <- function(user_id = determine_user_id(),
                         api_key = determine_api_key()) {
   response <- PTVGET(
@@ -35,9 +39,9 @@ route_types <- function(user_id = determine_user_id(),
 
 #' Retrieve a translation from route type number to name, cached if possible
 #'
-#' This function is equivalent to `route_types()`, but will attempt to use a
+#' This function is equivalent to `route_types(), but will attempt to use a
 #' cached copy of the results stored in options if it is available. If not
-#' available, `route_types()` will be called and the results cached. Since
+#' available, `route_types() will be called and the results cached. Since
 #' route types are commonly used in other API calls, this caching reduces the
 #' number of times the API is called.
 #'
@@ -60,7 +64,7 @@ route_types_cached <- function(user_id = determine_user_id(),
 #'
 #' Many API calls require a route type (eg. "Tram" or "Train"). These must be
 #' provided as integers, which are translated to route type descriptions with
-#' the `route_types()` function/API call. This function will: \itemize{
+#' the `route_types() function/API call. This function will: \itemize{
 #' \item Translate a case-insensitive description such as "Tram" or "Train" to
 #' the corresponding route type code
 #' \item Check a given integer to see if it is a valid route type code,

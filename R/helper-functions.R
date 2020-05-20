@@ -67,9 +67,9 @@ to_datetime <- function(datetime) {
 
 #' Map and rbind a list of data frames
 #'
-#' This function is a simple combination of `purrr::map()` and `purrr::reduce()`
-#' using `rbind`. This differs from `purrr::map_dfr()`, which uses
-#' `dplyr::map_dfr()` and therefore introduces `dplyr` as a dependency. If the
+#' This function is a simple combination of `purrr::map` and `purrr::reduce`
+#' using `rbind`. This differs from `purrr::map_dfr`, which uses
+#' `dplyr::map_dfr` and therefore introduces `dplyr` as a dependency. If the
 #' provided list is empty, then an empty tibble will be returned.
 #'
 #' @param .x A list of data frames or tibbles.
@@ -117,10 +117,10 @@ assert_correct_attributes <- function(received_attributes,
 }
 
 
-#' Strictly convert an object to an integer.
+#' Strictly convert an object to an integer
 #'
 #' R does not have a built-in function to determine if a value is an integer
-#' (`is.integer()` will check if the class of an object is "integer", but
+#' (`is.integer` will check if the class of an object is "integer", but
 #' `is.integer(3)` will return FALSE). This helper function fills that gap. It
 #' will attempt to convert the input to an integer, but will error on any input
 #' that cannot be confidently expressed as an integer. It serves as a stricter

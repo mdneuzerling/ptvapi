@@ -21,9 +21,7 @@ A named vector in which the values are the route type descriptions,
 and the names of the vector are the route type numbers.
 }
 \description{
-This function is equivalent to \code{route_types()}, but will attempt to use a
-cached copy of the results stored in options if it is available. If not
-available, \code{route_types()} will be called and the results cached. Since
+This function is equivalent to \verb{route_types(), but will attempt to use a cached copy of the results stored in options if it is available. If not available, }route_types() will be called and the results cached. Since
 route types are commonly used in other API calls, this caching reduces the
 number of times the API is called.
 }

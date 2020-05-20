@@ -1,10 +1,10 @@
 # There's only one API call here: search. It uses the given search term to find
 # routes, stops or outlets. I can't implement a function with the name "search"
 # because that's a pretty important base R function. I've decided here to split
-# it into three functions: `search_routes()`, `search_stops()`, and
-# `search_outlets()`. This way, the results will be predictable and consistent
+# it into three functions: `search_routes`, `search_stops`, and
+# `search_outlets`. This way, the results will be predictable and consistent
 # with other functions, and we don't pollute the namespace with the internal
-# `search()` function.
+# `search` function.
 
 #' Use a character term to search for routes, stops, and outlets.
 #'
@@ -78,12 +78,12 @@ ptv_search <- function(search_term,
   response
 }
 
-#' Use a character term to search for routes.
+#' Search for routes using text
 #'
 #' This function will search routes in which the search term can be found in
 #' one of many fields, such as `route_id`, `route_gtfs_id`, or `route_name`.
-#' The search is case-insensitive. Unlike `search_stops()` and
-#' `search_outlets()`, this function supports searching for numerics, and has
+#' The search is case-insensitive. Unlike `search_stops` and
+#' `search_outlets`, this function supports searching for numerics, and has
 #' no minimum character requirement for `search_term`.
 #'
 #' @inheritParams ptv_search
@@ -96,6 +96,20 @@ ptv_search <- function(search_term,
 #'
 #' @examples \dontrun{
 #' search_routes("Pakenham")
+#' search_routes("Pakenham", route_types = c("Train", "Tram"))
+#' search_routes("Pakenham", route_types = 1)
+#'
+#' search_routes(
+#'   "Pakenham",
+#'   latitude = -38.077877,
+#'   longitude = 145.484751
+#' )
+#' search_routes(
+#'   "Pakenham",
+#'   latitude = -38.077877,
+#'   longitude = 145.484751,
+#'   max_distance = 100
+#' )
 #' }
 search_routes <- function(search_term,
                           latitude = NULL,
@@ -120,7 +134,7 @@ search_routes <- function(search_term,
   new_ptvapi_tibble(response, parsed)
 }
 
-#' Use a character term to search for stops.
+#' Search for stops using text
 #'
 #' This function will search stops in which the search term can be found in
 #' either the stop name or the stop suburb. The search is case-insensitive.
@@ -136,6 +150,20 @@ search_routes <- function(search_term,
 #'
 #' @examples \dontrun{
 #' search_stops("Ascot Vale")
+#' search_stops("Ascot Vale", route_types = c("Train", "Tram"))
+#' search_stops("Ascot Vale", route_types = 1)
+#'
+#' search_stops(
+#'   "Ascot Vale",
+#'   latitude = -37.774240,
+#'   longitude = 144.915518
+#' )
+#' search_stops(
+#'   "Ascot Vale",
+#'   latitude = -37.774240,
+#'   longitude = 144.915518,
+#'   max_distance = 100
+#' )
 #' }
 search_stops <- function(search_term,
                          latitude = NULL,
@@ -164,7 +192,7 @@ search_stops <- function(search_term,
   new_ptvapi_tibble(response, parsed)
 }
 
-#' Use a character term to search for outlets.
+#' Search for outlets using text
 #'
 #' This function will search outlets in which the search term can be found in
 #' either the outlet name, outlet business or outlet suburb. The search is
@@ -181,6 +209,20 @@ search_stops <- function(search_term,
 #'
 #' @examples \dontrun{
 #' search_outlets("St Kilda")
+#' search_outlets("St Kilda", route_types = c("Train", "Tram"))
+#' search_outlets("St Kilda", route_types = 1)
+#'
+#' search_outlets(
+#'   "St Kilda",
+#'   latitude = -37.867647,
+#'   longitude = 144.976809
+#' )
+#' search_outlets(
+#'   "St Kilda",
+#'   latitude = -37.867647,
+#'   longitude = 144.976809,
+#'   max_distance = 100
+#' )
 #' }
 search_outlets <- function(search_term,
                            latitude = NULL,

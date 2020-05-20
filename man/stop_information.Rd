@@ -2,7 +2,7 @@
 % Please edit documentation in R/stops.R
 \name{stop_information}
 \alias{stop_information}
-\title{Stop information (metropolitan and V/Line stations only).}
+\title{Information for a given stop (metropolitan and V/Line stations only)}
 \usage{
 stop_information(
   stop_id,
@@ -50,8 +50,3 @@ A single-row tibble with the following columns: \itemize{
 This function can be used when integer stop ID is already known. This can be
 searched for with either the \code{stops_on_route} or \code{stops_nearby} functions.
 }
-\section{Swagger documentation}{
-
-\url{http://timetableapi.ptv.vic.gov.au/swagger/ui/index#/Stops}
-}
-

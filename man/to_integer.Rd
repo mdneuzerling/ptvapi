@@ -2,7 +2,7 @@
 % Please edit documentation in R/helper-functions.R
 \name{to_integer}
 \alias{to_integer}
-\title{Strictly convert an object to an integer.}
+\title{Strictly convert an object to an integer}
 \usage{
 to_integer(x)
 }
@@ -14,7 +14,7 @@ An integer interpretation of \code{x}, if possible.
 }
 \description{
 R does not have a built-in function to determine if a value is an integer
-(\code{is.integer()} will check if the class of an object is "integer", but
+(\code{is.integer} will check if the class of an object is "integer", but
 \code{is.integer(3)} will return FALSE). This helper function fills that gap. It
 will attempt to convert the input to an integer, but will error on any input
 that cannot be confidently expressed as an integer. It serves as a stricter

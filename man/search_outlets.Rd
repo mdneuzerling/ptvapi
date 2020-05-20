@@ -2,7 +2,7 @@
 % Please edit documentation in R/search.R
 \name{search_outlets}
 \alias{search_outlets}
-\title{Use a character term to search for outlets.}
+\title{Search for outlets using text}
 \usage{
 search_outlets(
   search_term,
@@ -66,5 +66,19 @@ cannot be numeric.
 \examples{
 \dontrun{
 search_outlets("St Kilda")
+search_outlets("St Kilda", route_types = c("Train", "Tram"))
+search_outlets("St Kilda", route_types = 1)
+
+search_outlets(
+  "St Kilda",
+  latitude = -37.867647,
+  longitude = 144.976809
+)
+search_outlets(
+  "St Kilda",
+  latitude = -37.867647,
+  longitude = 144.976809,
+  max_distance = 100
+)
 }
 }

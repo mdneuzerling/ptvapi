@@ -1,5 +1,5 @@
 # nolint start
-# This only works if I run `rcmdcheck::rcmdcheck()` from the console.
+# This only works if I run `rcmdcheck::rcmdcheck` from the console.
 # If I run this in the Build panel in RStudio, or through Github Actions, I get:
 #
 # invalid 'path' argument

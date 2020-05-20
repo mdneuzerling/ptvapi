@@ -1,8 +1,8 @@
 #' Information on a particular disruption
 #'
 #' This function can be used when the integer disruption ID is already known.
-#' This can be searched for with either `disruptions()`,
-#' `disruptions_on_route()`, or `disruptions_at_stop()` functions.
+#' This can be searched for with either `disruptions`,
+#' `disruptions_on_route`, or `disruptions_at_stop` functions.
 #'
 #' @param disruption_id Integer.
 #' @inheritParams translate_route_type
@@ -46,7 +46,7 @@ disruption_information <- function(disruption_id,
 #'   "metro_train".
 #' @param disruption_modes Integer vector. Optionally filter by disruption
 #'   modes. For a full list of modes and their corresponding descriptions, use
-#'   the `description_modes()` function.
+#'   the `disruptions_modes` function.
 #' @param disruption_status Character. Can be used to filter to either "current"
 #'   or "planned" disruptions. Defaults to NULL, in which case no filter is
 #'   applied.
@@ -106,7 +106,7 @@ disruptions <- function(route_types = NULL,
 #'
 #' @inheritParams directions_on_route
 #' @param stop_id Integer. Optionally filter results to a specific stop ID.
-#'   These can be searched for with the `stops_on_route()` and `stops_nearby()`
+#'   These can be searched for with the `stops_on_route` and `stops_nearby`
 #'   functions.
 #' @inheritParams disruptions
 #' @inheritParams PTVGET

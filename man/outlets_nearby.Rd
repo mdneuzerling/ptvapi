@@ -2,7 +2,7 @@
 % Please edit documentation in R/outlets.R
 \name{outlets_nearby}
 \alias{outlets_nearby}
-\title{Retrieve outlet information near a given location}
+\title{Information for outlets near a given location}
 \usage{
 outlets_nearby(
   latitude,
@@ -52,7 +52,7 @@ A tibble with the following columns: \itemize{
 }
 }
 \description{
-Retrieve outlet information near a given location
+Information for outlets near a given location
 }
 \details{
 The business hours are reported as characters. Usually they take on

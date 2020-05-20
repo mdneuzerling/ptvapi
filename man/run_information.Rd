@@ -2,7 +2,7 @@
 % Please edit documentation in R/runs.R
 \name{run_information}
 \alias{run_information}
-\title{Retrieve a tibble of all runs on a particular route}
+\title{Information for a given run}
 \usage{
 run_information(
   run_id,
@@ -12,8 +12,8 @@ run_information(
 )
 }
 \arguments{
-\item{run_id}{An integer run ID. This may retrieved from the \code{departures()}
-or \code{runs_on_route()} functions.}
+\item{run_id}{An integer run ID. This may retrieved from the \code{departures}
+or \code{runs_on_route} functions.}
 
 \item{route_type}{Optionally filter results by a route type. A route type can
 be provided either as a non-negative integer code, or as a character:
@@ -46,4 +46,10 @@ A tibble with the following columns: \itemize{
 Run IDs are not unique across the network. If you are interested in a
 specific run, consider supplying a value to the optional \code{route_type}
 argument.
+}
+\examples{
+\dontrun{
+run_information(100)
+}
+
 }

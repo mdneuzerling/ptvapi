@@ -2,7 +2,7 @@
 % Please edit documentation in R/outlets.R
 \name{outlets}
 \alias{outlets}
-\title{Retrieve outlet information}
+\title{Information for a all outlets}
 \usage{
 outlets(user_id = determine_user_id(), api_key = determine_api_key())
 }
@@ -33,7 +33,7 @@ A tibble with the following columns: \itemize{
 }
 }
 \description{
-Retrieve outlet information
+Information for a all outlets
 }
 \details{
 The business hours are reported as characters. Usually they take on
@@ -44,6 +44,8 @@ Some opening hours are "24 Hours". These fields are also filled with missing
 values and empty characters.
 }
 \examples{
-\dontrun{outlets()}
+\dontrun{
+outlets()
+}
 
 }

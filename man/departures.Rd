@@ -28,10 +28,10 @@ Bus". Character inputs are not case-sensitive. Use the \code{route_types}
 function to extract a vector of all route types.}
 
 \item{route_id}{Optionally filter by a route ID. These can be obtained with
-the \code{routes()} function.}
+the \code{routes} function.}
 
 \item{direction_id}{Optionally filter by a direction ID. These can be
-obtained with the \code{directions_on_route()} function.}
+obtained with the \code{directions_on_route} function.}
 
 \item{platform_numbers}{Character vector. Optionally filter results by
 platform number. Despite the name, these are characters.}

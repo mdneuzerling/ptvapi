@@ -17,9 +17,9 @@ map_and_rbind(.x, .f, ...)
 A data frame or tibble.
 }
 \description{
-This function is a simple combination of \code{purrr::map()} and \code{purrr::reduce()}
-using \code{rbind}. This differs from \code{purrr::map_dfr()}, which uses
-\code{dplyr::map_dfr()} and therefore introduces \code{dplyr} as a dependency. If the
+This function is a simple combination of \code{purrr::map} and \code{purrr::reduce}
+using \code{rbind}. This differs from \code{purrr::map_dfr}, which uses
+\code{dplyr::map_dfr} and therefore introduces \code{dplyr} as a dependency. If the
 provided list is empty, then an empty tibble will be returned.
 }
 \keyword{internal}

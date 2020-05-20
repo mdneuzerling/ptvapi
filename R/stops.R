@@ -1,10 +1,7 @@
-#' Stop information (metropolitan and V/Line stations only).
+#' Information for a given stop (metropolitan and V/Line stations only)
 #'
 #' This function can be used when integer stop ID is already known. This can be
 #' searched for with either the `stops_on_route` or `stops_nearby` functions.
-#'
-#' @section Swagger documentation:
-#'   \url{http://timetableapi.ptv.vic.gov.au/swagger/ui/index#/Stops}
 #'
 #' @param stop_id Integer stop ID.
 #' @inheritParams translate_route_type
@@ -94,19 +91,22 @@ stop_information <- function(stop_id,
   new_ptvapi_tibble(response, parsed)
 }
 
-#' Stop information with route_id and route_type
-#'
-#' @inheritSection stop_information Swagger documentation
+#' Stops on a given route and route type
 #'
 #' @inheritParams directions_on_route
 #' @param direction_id Optionally filter by a direction ID. These can be
-#'   obtained with the `directions_on_route()` function.
+#'   obtained with the `directions_on_route` function.
 #' @inheritParams translate_route_type
 #' @inheritParams PTVGET
 #'
 #' @inherit stop_to_tibble return
 #'
 #' @export
+#'
+#' @examples \dontrun{
+#' stops_on_route(6, route_type = "Train")
+#' stops_on_route(6, route_type = 0)
+#' }
 #'
 stops_on_route <- function(route_id,
                            route_type,
@@ -128,9 +128,7 @@ stops_on_route <- function(route_id,
   new_ptvapi_tibble(response, parsed)
 }
 
-#' Search for stops near a location
-#'
-#' @inheritSection stop_information Swagger documentation
+#' Stops near a given location
 #'
 #' @param latitude Numeric. Latitude in decimal degrees. For example, Flinders
 #'   Street Station is at approximately -37.8183 latitude.
@@ -151,6 +149,18 @@ stops_on_route <- function(route_id,
 #'
 #' @examples \dontrun{
 #' stops_nearby(latitude = -37.8183, longitude = 144.9671)
+#' stops_nearby(latitude = -37.8183, longitude = 144.9671, max_distance = 1000)
+#' stops_nearby(
+#'   latitude = -37.8183,
+#'   longitude = 144.9671,
+#'   route_types = c("Train", "Tram")
+#' )
+#'
+#' stops_nearby(
+#'   latitude = -37.8183,
+#'   longitude = 144.9671,
+#'   route_types = 0
+#'  )
 #' }
 stops_nearby <- function(latitude,
                          longitude,

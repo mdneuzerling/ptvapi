@@ -1,17 +1,21 @@
-#' Retrieve a tibble of all runs on a particular route
+#' Information for a given run
 #'
 #' Run IDs are not unique across the network. If you are interested in a
 #' specific run, consider supplying a value to the optional `route_type`
 #' argument.
 #'
-#' @param run_id An integer run ID. This may retrieved from the `departures()`
-#'   or `runs_on_route()` functions.
+#' @param run_id An integer run ID. This may retrieved from the `departures`
+#'   or `runs_on_route` functions.
 #' @inheritParams directions
 #' @inheritParams PTVGET
 #'
 #' @inherit run_to_tibble return
 #'
 #' @export
+#'
+#' @examples \dontrun{
+#' run_information(100)
+#' }
 #'
 run_information <- function(run_id,
                             route_type = NULL,
@@ -31,7 +35,7 @@ run_information <- function(run_id,
   new_ptvapi_tibble(response, parsed)
 }
 
-#' Retrieve a tibble of all runs on a particular route
+#' Runs on a given route
 #'
 #' @inheritParams directions_on_route
 #' @inheritParams directions
@@ -40,6 +44,12 @@ run_information <- function(run_id,
 #' @inherit run_to_tibble return
 #'
 #' @export
+#'
+#' @examples \dontrun{
+#' runs_on_route(6)
+#' runs_on_route(6, route_type = "Train")
+#' runs_on_route(6, route_type = 0)
+#' }
 #'
 runs_on_route <- function(route_id,
                           route_type = NULL,

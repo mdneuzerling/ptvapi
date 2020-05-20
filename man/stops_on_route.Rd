@@ -2,7 +2,7 @@
 % Please edit documentation in R/stops.R
 \name{stops_on_route}
 \alias{stops_on_route}
-\title{Stop information with route_id and route_type}
+\title{Stops on a given route and route type}
 \usage{
 stops_on_route(
   route_id,
@@ -22,7 +22,7 @@ Bus". Character inputs are not case-sensitive. Use the \code{route_types}
 function to extract a vector of all route types.}
 
 \item{direction_id}{Optionally filter by a direction ID. These can be
-obtained with the \code{directions_on_route()} function.}
+obtained with the \code{directions_on_route} function.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}
@@ -43,10 +43,12 @@ A tibble with the following columns: \itemize{
 }
 }
 \description{
-Stop information with route_id and route_type
+Stops on a given route and route type
 }
-\section{Swagger documentation}{
-
-\url{http://timetableapi.ptv.vic.gov.au/swagger/ui/index#/Stops}
+\examples{
+\dontrun{
+stops_on_route(6, route_type = "Train")
+stops_on_route(6, route_type = 0)
 }
 
+}

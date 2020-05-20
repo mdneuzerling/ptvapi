@@ -24,7 +24,7 @@
 # Instead, we apply a filter in R to the results to ensure that `departs` and
 # `max_results` are respected, and that `max_results` applies per route ID. We
 # also ignore the option to filter by route_id via the API, and filter in R
-# instead. This is all performed with the `filter_departures()` function.
+# instead. This is all performed with the `filter_departures` function.
 
 
 #' Departures from a given stop
@@ -49,7 +49,7 @@
 #'   `stops_nearby` functions.
 #' @inheritParams translate_route_type
 #' @param route_id Optionally filter by a route ID. These can be obtained with
-#'   the `routes()` function.
+#'   the `routes` function.
 #' @inheritParams stops_on_route
 #' @param platform_numbers Character vector. Optionally filter results by
 #'   platform number. Despite the name, these are characters.

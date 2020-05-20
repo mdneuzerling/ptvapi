@@ -2,7 +2,7 @@
 % Please edit documentation in R/search.R
 \name{search_routes}
 \alias{search_routes}
-\title{Use a character term to search for routes.}
+\title{Search for routes using text}
 \usage{
 search_routes(
   search_term,
@@ -53,12 +53,26 @@ A tibble of routes, with the following columns:
 \description{
 This function will search routes in which the search term can be found in
 one of many fields, such as \code{route_id}, \code{route_gtfs_id}, or \code{route_name}.
-The search is case-insensitive. Unlike \code{search_stops()} and
-\code{search_outlets()}, this function supports searching for numerics, and has
+The search is case-insensitive. Unlike \code{search_stops} and
+\code{search_outlets}, this function supports searching for numerics, and has
 no minimum character requirement for \code{search_term}.
 }
 \examples{
 \dontrun{
 search_routes("Pakenham")
+search_routes("Pakenham", route_types = c("Train", "Tram"))
+search_routes("Pakenham", route_types = 1)
+
+search_routes(
+  "Pakenham",
+  latitude = -38.077877,
+  longitude = 145.484751
+)
+search_routes(
+  "Pakenham",
+  latitude = -38.077877,
+  longitude = 145.484751,
+  max_distance = 100
+)
 }
 }

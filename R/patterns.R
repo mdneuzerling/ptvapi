@@ -2,7 +2,7 @@
 # the day on which departures are returned. However, only the earliest 7
 # departures are shown for the day corresponsing to date_utc.
 
-#' Retrieve the stopping pattern of a run
+#' Stopping pattern for a given run
 #'
 #' A pattern consists of all departures, stops, routes, runs, directions and
 #' disruptions associated with a particular run ID. This is returned as a list
@@ -16,7 +16,7 @@
 #' the PTV Timetable API supports filtering patterns by datetimes, the
 #' behaviour of this argument is not reliable --- it appears to filter by day
 #' only, returning the earliest 7 departures of a different day. It is
-#' recommended that departures are retrieved via the `departures()` function.
+#' recommended that departures are retrieved via the `departures` function.
 #'
 #' @inheritParams run_information
 #' @inheritParams translate_route_type

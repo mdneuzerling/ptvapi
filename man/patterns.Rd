@@ -2,7 +2,7 @@
 % Please edit documentation in R/patterns.R
 \name{patterns}
 \alias{patterns}
-\title{Retrieve the stopping pattern of a run}
+\title{Stopping pattern for a given run}
 \usage{
 patterns(
   run_id,
@@ -14,8 +14,8 @@ patterns(
 )
 }
 \arguments{
-\item{run_id}{An integer run ID. This may retrieved from the \code{departures()}
-or \code{runs_on_route()} functions.}
+\item{run_id}{An integer run ID. This may retrieved from the \code{departures}
+or \code{runs_on_route} functions.}
 
 \item{route_type}{Optionally filter results by a route type. A route type can
 be provided either as a non-negative integer code, or as a character:
@@ -24,7 +24,7 @@ case-sensitive. Use the \code{route_types} function to extract a vector of all
 route types.}
 
 \item{stop_id}{Integer. Optionally filter results to a specific stop ID.
-These can be searched for with the \code{stops_on_route()} and \code{stops_nearby()}
+These can be searched for with the \code{stops_on_route} and \code{stops_nearby}
 functions.}
 
 \item{departs}{POSIXct or character. Optionally filter by date. See Details.
@@ -57,7 +57,7 @@ Departures: The API seems to return the earliest 7 departures. While
 the PTV Timetable API supports filtering patterns by datetimes, the
 behaviour of this argument is not reliable --- it appears to filter by day
 only, returning the earliest 7 departures of a different day. It is
-recommended that departures are retrieved via the \code{departures()} function.
+recommended that departures are retrieved via the \code{departures} function.
 }
 \examples{
 \dontrun{

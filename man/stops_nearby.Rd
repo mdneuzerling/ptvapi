@@ -2,7 +2,7 @@
 % Please edit documentation in R/stops.R
 \name{stops_nearby}
 \alias{stops_nearby}
-\title{Search for stops near a location}
+\title{Stops near a given location}
 \usage{
 stops_nearby(
   latitude,
@@ -48,15 +48,22 @@ A tibble with the following columns: \itemize{
 }
 }
 \description{
-Search for stops near a location
+Stops near a given location
 }
-\section{Swagger documentation}{
-
-\url{http://timetableapi.ptv.vic.gov.au/swagger/ui/index#/Stops}
-}
-
 \examples{
 \dontrun{
 stops_nearby(latitude = -37.8183, longitude = 144.9671)
+stops_nearby(latitude = -37.8183, longitude = 144.9671, max_distance = 1000)
+stops_nearby(
+  latitude = -37.8183,
+  longitude = 144.9671,
+  route_types = c("Train", "Tram")
+)
+
+stops_nearby(
+  latitude = -37.8183,
+  longitude = 144.9671,
+  route_types = 0
+ )
 }
 }

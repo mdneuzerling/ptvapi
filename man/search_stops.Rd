@@ -2,7 +2,7 @@
 % Please edit documentation in R/search.R
 \name{search_stops}
 \alias{search_stops}
-\title{Use a character term to search for stops.}
+\title{Search for stops using text}
 \usage{
 search_stops(
   search_term,
@@ -58,5 +58,19 @@ The search term must contain at least 3 characters, and cannot be numeric.
 \examples{
 \dontrun{
 search_stops("Ascot Vale")
+search_stops("Ascot Vale", route_types = c("Train", "Tram"))
+search_stops("Ascot Vale", route_types = 1)
+
+search_stops(
+  "Ascot Vale",
+  latitude = -37.774240,
+  longitude = 144.915518
+)
+search_stops(
+  "Ascot Vale",
+  latitude = -37.774240,
+  longitude = 144.915518,
+  max_distance = 100
+)
 }
 }

@@ -42,8 +42,8 @@ A tibble with the following columns: \itemize{
 }
 \description{
 This function can be used when the integer disruption ID is already known.
-This can be searched for with either \code{disruptions()},
-\code{disruptions_on_route()}, or \code{disruptions_at_stop()} functions.
+This can be searched for with either \code{disruptions},
+\code{disruptions_on_route}, or \code{disruptions_at_stop} functions.
 }
 \examples{
 \dontrun{

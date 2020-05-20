@@ -2,7 +2,7 @@
 % Please edit documentation in R/runs.R
 \name{runs_on_route}
 \alias{runs_on_route}
-\title{Retrieve a tibble of all runs on a particular route}
+\title{Runs on a given route}
 \usage{
 runs_on_route(
   route_id,
@@ -43,5 +43,13 @@ A tibble with the following columns: \itemize{
 }
 }
 \description{
-Retrieve a tibble of all runs on a particular route
+Runs on a given route
+}
+\examples{
+\dontrun{
+runs_on_route(6)
+runs_on_route(6, route_type = "Train")
+runs_on_route(6, route_type = 0)
+}
+
 }

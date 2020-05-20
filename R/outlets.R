@@ -1,4 +1,4 @@
-#' Retrieve outlet information
+#' Information for a all outlets
 #'
 #' @details The business hours are reported as characters. Usually they take on
 #' a format of "8.00AM - 10.00PM", but there variants such as "7.30AM - 11.00AM
@@ -13,7 +13,9 @@
 #'
 #' @export
 #'
-#' @examples \dontrun{outlets()}
+#' @examples \dontrun{
+#' outlets()
+#' }
 #'
 outlets <- function(user_id = determine_user_id(),
                     api_key = determine_api_key()) {
@@ -21,7 +23,7 @@ outlets <- function(user_id = determine_user_id(),
   # This API call nominally supports an `max_results` parameter, which defaults
   # to 30. It seems to have no impact on the results, so it hasn't been
   # included here. It's possibly accidentally copied from the API call used in
-  # the `outlets_nearby()` function.
+  # the `outlets_nearby` function.
 
   request <- "outlets"
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
@@ -35,7 +37,7 @@ outlets <- function(user_id = determine_user_id(),
   new_ptvapi_tibble(response, parsed)
 }
 
-#' Retrieve outlet information near a given location
+#' Information for outlets near a given location
 #'
 #' @inherit outlets details
 #'

@@ -18,7 +18,7 @@ An integer route type code, or NULL if the input is NULL
 \description{
 Many API calls require a route type (eg. "Tram" or "Train"). These must be
 provided as integers, which are translated to route type descriptions with
-the \code{route_types()} function/API call. This function will: \itemize{
+the `route_types() function/API call. This function will: \itemize{
 \item Translate a case-insensitive description such as "Tram" or "Train" to
 the corresponding route type code
 \item Check a given integer to see if it is a valid route type code,
