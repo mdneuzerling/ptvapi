@@ -1,13 +1,14 @@
 Package: ptvapi
-Title: What the Package Does (One Line, Title Case)
+Title: A wrapper for the Public Transport Victoria Timetable API
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "David",
+           family = "Neuzerling",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "david@neuzerling.com")
+Description: Access the Public Transport Victoria Timetable API, with results
+passed as familiar R data structures. Retrieve information on stops, routes,
+disruptions, departures, and more.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
