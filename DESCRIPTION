@@ -1,5 +1,5 @@
 Package: ptvapi
-Title: A wrapper for the Public Transport Victoria Timetable API
+Title: A Wrapper for the Public Transport Victoria Timetable API
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "David",
