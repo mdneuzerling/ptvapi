@@ -146,13 +146,15 @@ departures <- function(stop_id,
   )
 
   parsed <- map_and_rbind(content$departures, departure_to_tibble)
-  parsed_filtered <- filter_departures(
-    parsed,
-    departs = departs,
-    route_id = route_id,
-    max_results = max_results
-  )
-  new_ptvapi_tibble(response, parsed_filtered)
+  if (validate_results) {
+    parsed <- filter_departures(
+      parsed,
+      departs = departs,
+      route_id = route_id,
+      max_results = max_results
+    )
+  }
+  new_ptvapi_tibble(response, parsed)
 }
 
 
