@@ -34,10 +34,10 @@ non-negative integer code, or as a character: "Tram", "Train", "Bus",
 \code{route_types} function to extract a vector of all route types.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
-Transport Victoria. See section "Obtaining API authentication details".}
+Transport Victoria. Refer to \code{?ptvapi} for more details.}
 
 \item{api_key}{Character. An API key, with dashes, provided by Public
-Transport Victoria. See section "Obtaining API authentication details".}
+Transport Victoria. Refer to \code{?ptvapi} for more details.}
 }
 \value{
 A data frame consisting of one row for each \code{passenger_type}, and the

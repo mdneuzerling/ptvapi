@@ -13,9 +13,9 @@
 #'
 #' @param request A request or path for the API, eg. "routes".
 #' @param user_id Integer or character. A user ID or devid provided by Public
-#'   Transport Victoria. See section "Obtaining API authentication details".
+#'   Transport Victoria. Refer to `?ptvapi` for more details.
 #' @param api_key Character. An API key, with dashes, provided by Public
-#'   Transport Victoria. See section "Obtaining API authentication details".
+#'   Transport Victoria. Refer to `?ptvapi` for more details.
 #' @param ... Additional arguments passed to `httr::GET`.
 #'
 #' @return A HTTP response. Content can be accessed with `httr::content`.

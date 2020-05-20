@@ -8,10 +8,10 @@ disruption_modes(user_id = determine_user_id(), api_key = determine_api_key())
 }
 \arguments{
 \item{user_id}{Integer or character. A user ID or devid provided by Public
-Transport Victoria. See section "Obtaining API authentication details".}
+Transport Victoria. Refer to \code{?ptvapi} for more details.}
 
 \item{api_key}{Character. An API key, with dashes, provided by Public
-Transport Victoria. See section "Obtaining API authentication details".}
+Transport Victoria. Refer to \code{?ptvapi} for more details.}
 }
 \value{
 A named vector in which the values are the disruption mode

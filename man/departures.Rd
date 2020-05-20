@@ -60,10 +60,10 @@ filters to ensure that the arguments to \code{departs}, \code{max_results}, and
 \code{route_id} are respected if given.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
-Transport Victoria. See section "Obtaining API authentication details".}
+Transport Victoria. Refer to \code{?ptvapi} for more details.}
 
 \item{api_key}{Character. An API key, with dashes, provided by Public
-Transport Victoria. See section "Obtaining API authentication details".}
+Transport Victoria. Refer to \code{?ptvapi} for more details.}
 }
 \description{
 \code{departures} retrieves all upcoming departures for a given stop ID and route
