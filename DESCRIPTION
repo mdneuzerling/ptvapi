@@ -7,8 +7,8 @@ Authors@R:
            role = c("aut", "cre"),
            email = "david@neuzerling.com")
 Description: Access the Public Transport Victoria Timetable API, with results
-passed as familiar R data structures. Retrieve information on stops, routes,
-disruptions, departures, and more.
+    passed as familiar R data structures. Retrieve information on stops, routes,
+    disruptions, departures, and more.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
