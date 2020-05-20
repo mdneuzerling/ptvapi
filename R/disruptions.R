@@ -346,7 +346,7 @@ disruption_to_tibble <- function(disruption) {
     last_updated = convert_to_melbourne_time(disruption$last_updated),
     from_date = convert_to_melbourne_time(disruption$from_date),
     to_date = convert_to_melbourne_time(disruption$to_date),
-    routes = map_and_rbind(disruption$routes, route_to_tibble),
+    routes = list(map_and_rbind(disruption$routes, route_to_tibble)),
     stops = list(disruption$stops),
     colour = disruption$colour,
     display_on_board = disruption$display_on_board,

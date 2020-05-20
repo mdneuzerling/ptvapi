@@ -9,9 +9,6 @@ This package provides a friendly interface to the Public Transport Victoria (PTV
 
 **This package is an unofficial wrapper of the Public Transport Victoria timetable API. The author of this package is not associated with Public Transport Victoria.**
 
-Implementation progress:
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬜ 90%
-
 ## Installing
 
 You can install this package with `remotes::install_github("mdneuzerling/ptvapi")`
@@ -92,11 +89,9 @@ stops_nearby(
 
 The API recognises five route types: "Train", "Tram", "Bus", "Vline", and "Night Bus". Many functions have arguments such as `route_type` and `route_types` that expect a non-negative integer code representing these route types. To simplify calling the API, these functions will also accept a character description like those above. Under the hood, the functions will translate these descriptions to the non-negative integer codes that the API expects.
 
-## Implementation progress
+## Available functions
 
-All API calls have been implemented. Some API calls have been combined into a single function with arguments, and some have been split into multiple functions. **Many optional arguments and filters still need to be implemented.**
-
-The following functions are available through this package:
+All API calls have been implemented. Some API calls have been combined into a single function with arguments, and some have been split into multiple functions. The following functions are available through this package:
 
 * `departures`
 * `directions`
