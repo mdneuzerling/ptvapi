@@ -126,9 +126,6 @@ disruptions_on_route <- function(route_id,
                                  disruption_status = NULL,
                                  user_id = determine_user_id(),
                                  api_key = determine_api_key()) {
-  # Covers the following API calls:
-  # get /v3/disruptions/route/{route_id}
-  # get /v3/disruptions/route/{route_id}/stop/{stop_id}
   route_id <- to_integer(route_id)
   request <- glue::glue("disruptions/route/{route_id}")
   if (!is.null(stop_id)) {

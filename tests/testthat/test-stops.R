@@ -122,7 +122,10 @@ test_that("stops_nearby() can be filtered with multiple route types", {
       latitude = -37.818229,
       longitude = 144.952404,
       route_types = c(0, 1)
-    ) %>% pull(route_type) %>% unique %>% sort,
+    ) %>%
+      pull(route_type) %>%
+      unique %>%
+      sort,
     c(0, 1)
   )
   expect_equal(
@@ -130,9 +133,11 @@ test_that("stops_nearby() can be filtered with multiple route types", {
       latitude = -37.818229,
       longitude = 144.952404,
       route_types = c(0, 3)
-    ) %>% pull(route_type) %>% unique %>% sort,
+    ) %>%
+      pull(route_type) %>%
+      unique %>%
+      sort,
     c(0, 3)
   )
 })
 }
-

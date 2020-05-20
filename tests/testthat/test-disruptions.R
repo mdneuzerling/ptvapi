@@ -71,11 +71,11 @@ test_that("Can filter by route_types", {
   train_route_type <- translate_route_type("Train")
   tram_route_type <- translate_route_type("Tram")
   two_route_types <- c(train_route_type, tram_route_type)
-  disruptions_with_two_route_types <- disruptions(
+  disruptions_2_route_types <- disruptions(
     route_types = two_route_types
   )
   expect_equal(
-    sort(unique(disruptions_with_two_route_types$disruption_mode_description)),
+    sort(unique(disruptions_2_route_types$disruption_mode_description)),
     c("metro_train", "metro_tram")
   )
 })

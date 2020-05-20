@@ -80,4 +80,3 @@ test_that("search_outlets filtered by max_distance", {
   expect_gt(nrow(difference), 0)
 })
 }
-

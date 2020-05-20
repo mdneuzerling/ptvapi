@@ -12,9 +12,9 @@
 convert_to_melbourne_time <- function(datetime) {
 
   if (is.null(datetime)) {
-    NA_datetime <- as.POSIXct(NA)
-    attr(NA_datetime, "tzone") <- "Australia/Melbourne"
-    return(NA_datetime)
+    na_datetime <- as.POSIXct(NA)
+    attr(na_datetime, "tzone") <- "Australia/Melbourne"
+    return(na_datetime)
   }
 
   converted <- as.POSIXct(
