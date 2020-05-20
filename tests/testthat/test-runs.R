@@ -1,3 +1,4 @@
+if (identical(Sys.getenv("NOT_CRAN"), "true")) {
 # ---------------------------------------------------------------------------- #
 # ---- Define values if they haven't already been defined by another test ---- #
 # ---------------------------------------------------------------------------- #
@@ -51,3 +52,4 @@ test_that("Run 1 exists, and is unique up to route type", {
   expect_gte(nrow(run_one), 1)
   expect_equal(anyDuplicated(run_one$route_type), 0)
 })
+}

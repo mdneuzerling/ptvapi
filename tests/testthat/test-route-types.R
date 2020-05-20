@@ -1,3 +1,4 @@
+if (identical(Sys.getenv("NOT_CRAN"), "true")) {
 
 route_types_results <- route_types()
 
@@ -25,3 +26,5 @@ test_that("Route translation are working", {
   expect_equal(translate_route_type("TRAIN"), train_route_code)
   expect_equal(translate_route_type("train"), train_route_code)
 })
+
+}

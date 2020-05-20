@@ -1,3 +1,4 @@
+if (identical(Sys.getenv("NOT_CRAN"), "true")) {
 # ---------------------------------------------------------------------------- #
 # ---- Define values if they haven't already been defined by another test ---- #
 # ---------------------------------------------------------------------------- #
@@ -133,3 +134,5 @@ test_that("stops_nearby() can be filtered with multiple route types", {
     c(0, 3)
   )
 })
+}
+

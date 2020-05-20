@@ -1,3 +1,5 @@
+if (identical(Sys.getenv("NOT_CRAN"), "true")) {
+
 all_outlets <- outlets()
 test_that("outlets result has class \"ptvapi\"", {
   expect_s3_class(all_outlets, "ptvapi")
@@ -47,3 +49,4 @@ test_that("outlets_nearby filtered by max_distance", {
   expect_true("Collins and Russell - Exhibition" %in% max_1000$outlet_name)
   expect_false("Collins and Russell - Exhibition" %in% max_100$outlet_name)
 })
+}

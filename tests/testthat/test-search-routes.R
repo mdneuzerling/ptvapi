@@ -1,3 +1,5 @@
+if (identical(Sys.getenv("NOT_CRAN"), "true")) {
+
 test_that("can find route number 11 with search_routes", {
   route_11 <- search_routes(11)
   expect_gte(
@@ -36,3 +38,4 @@ test_that("Errors when providing incomplete location arguments", {
     )
   )
 })
+}

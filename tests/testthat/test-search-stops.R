@@ -1,3 +1,5 @@
+if (identical(Sys.getenv("NOT_CRAN"), "true")) {
+
 ascot_vale <- search_stops("Ascot Vale")
 
 test_that("search_stops result has class \"ptvapi\"", {
@@ -56,3 +58,4 @@ test_that("search_stops can be filtered with multiple route types", {
     c(0, 2)
   )
 })
+}

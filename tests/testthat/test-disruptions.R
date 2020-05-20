@@ -2,6 +2,7 @@
 # tests here if possible, but it should be rare to have no disruptions across
 # the network, even if we require a variety of disruption modes.
 
+if (identical(Sys.getenv("NOT_CRAN"), "true")) {
 # ---------------------------------------------------------------------------- #
 # ---- Define values if they haven't already been defined by another test ---- #
 # ---------------------------------------------------------------------------- #
@@ -78,3 +79,4 @@ test_that("Can filter by route_types", {
     c("metro_train", "metro_tram")
   )
 })
+}

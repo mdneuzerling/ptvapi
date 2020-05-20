@@ -1,3 +1,5 @@
+if (identical(Sys.getenv("NOT_CRAN"), "true")) {
+
 pats <- patterns(
   run_id = 1,
   route_type = "Train",
@@ -19,3 +21,4 @@ test_that("patterns returns list with right names", {
 #     as.POSIXct(morning_test_time, tz = "Australia/Melbourne")
 #   )
 # })
+}

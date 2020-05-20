@@ -1,3 +1,4 @@
+if (identical(Sys.getenv("NOT_CRAN"), "true")) {
 # ---------------------------------------------------------------------------- #
 # ---- Define values if they haven't already been defined by another test ---- #
 # ---------------------------------------------------------------------------- #
@@ -71,3 +72,4 @@ test_that("Frankstain train directions are all train routes", {
     )
   )
 })
+}

@@ -1,3 +1,4 @@
+if (identical(Sys.getenv("NOT_CRAN"), "true")) {
 test_that("Disruption modes contain expected disruptions", {
   retrieved_disruption_modes <- disruption_modes()
   expect_true("metro_train" %in% retrieved_disruption_modes)
@@ -6,3 +7,4 @@ test_that("Disruption modes contain expected disruptions", {
   expect_true("taxi" %in% retrieved_disruption_modes)
   expect_true("general" %in% retrieved_disruption_modes)
 })
+}

@@ -1,3 +1,4 @@
+if (identical(Sys.getenv("NOT_CRAN"), "true")) {
 # ---------------------------------------------------------------------------- #
 # ---- Define values if they haven't already been defined by another test ---- #
 # ---------------------------------------------------------------------------- #
@@ -57,3 +58,5 @@ test_that("we can filter routes by multiple route types", {
     c(0, 1)
   )
 })
+
+}

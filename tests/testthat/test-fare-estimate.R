@@ -1,6 +1,8 @@
 # I'm unsure how to test for journey_route_types. It's not clear how it affects
 # the results.
 
+if (identical(Sys.getenv("NOT_CRAN"), "true")) {
+
 zone12 <- fare_estimate(1, 2)
 
 test_that("fare_estimate result has class \"ptvapi\"", {
@@ -32,3 +34,4 @@ test_that("fare_estimate accepts free tram zone", {
   ftz <- fare_estimate(1, 1, journey_in_free_tram_zone = TRUE)
   expect_true(all(ftz$free_tram_zone))
 })
+}
