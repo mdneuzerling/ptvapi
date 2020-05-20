@@ -37,13 +37,13 @@
 #'   unpredictable, returning departures around the given time, both before and
 #'   after. We apply an additional filter once the results are retrieved to
 #'   ensure that only departures at or after the given `departs` datetime are
-#'   shown. Moreover, we don't use the API's functionality to filter by route ID
-#'   or `max_results`, since they don't work. Instead, we filter these in after
-#'   results are retrieved.
+#'   shown.
 #'
 #'   It's not clear what functionality `look_backwards` has. It's included here
-#'   regardless, and will disable the filtering on `departs` that would occur
-#'   after the content is retrieved.
+#'   regardless. Moreover, it's not clear how the API treats `route_id` or
+#'   `max_results`. We filter the results after retrieval, to ensure that
+#'   `departs`, `max_results`, and `route_id` are respected. This additional
+#'   validation can be disabled by setting `validate_results = TRUE`.
 #'
 #' @param stop_id An integer stop ID returned by the `stops_on_route` or
 #'   `stops_nearby` functions.
@@ -67,6 +67,9 @@
 #'   potentially some in the early hours of the next morning. Defaults to 5.
 #' @param include_cancelled Logical. Whether results should be returned if they
 #'   have been cancelled. Metropolitan train services only. Defaults to FALSE.
+#' @param validate_results Boolean. If TRUE (the default), will apply additional
+#'   filters to ensure that the arguments to `departs`, `max_results`, and
+#'   `route_id` are respected if given.
 #' @inheritParams PTVGET
 #'
 #' @export
@@ -104,6 +107,7 @@ departures <- function(stop_id,
                        look_backwards = FALSE,
                        max_results = 5,
                        include_cancelled = FALSE,
+                       validate_results = TRUE,
                        user_id = determine_user_id(),
                        api_key = determine_api_key()) {
 
@@ -123,6 +127,8 @@ departures <- function(stop_id,
 
   request <- add_parameters(
     glue::glue("departures/route_type/{route_type}/stop/{stop_id}"),
+    route_type = route_type,
+    route_id = route_id,
     direction_id = direction_id,
     platform_numbers = platform_numbers,
     look_backwards = look_backwards,

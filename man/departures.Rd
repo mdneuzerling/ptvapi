@@ -14,6 +14,7 @@ departures(
   look_backwards = FALSE,
   max_results = 5,
   include_cancelled = FALSE,
+  validate_results = TRUE,
   user_id = determine_user_id(),
   api_key = determine_api_key()
 )
@@ -54,6 +55,10 @@ potentially some in the early hours of the next morning. Defaults to 5.}
 \item{include_cancelled}{Logical. Whether results should be returned if they
 have been cancelled. Metropolitan train services only. Defaults to FALSE.}
 
+\item{validate_results}{Boolean. If TRUE (the default), will apply additional
+filters to ensure that the arguments to \code{departs}, \code{max_results}, and
+\code{route_id} are respected if given.}
+
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. See section "Obtaining API authentication details".}
 
@@ -70,13 +75,13 @@ to show the departures after the given time. However, its behaviour is
 unpredictable, returning departures around the given time, both before and
 after. We apply an additional filter once the results are retrieved to
 ensure that only departures at or after the given \code{departs} datetime are
-shown. Moreover, we don't use the API's functionality to filter by route ID
-or \code{max_results}, since they don't work. Instead, we filter these in after
-results are retrieved.
+shown.
 
 It's not clear what functionality \code{look_backwards} has. It's included here
-regardless, and will disable the filtering on \code{departs} that would occur
-after the content is retrieved.
+regardless. Moreover, it's not clear how the API treats \code{route_id} or
+\code{max_results}. We filter the results after retrieval, to ensure that
+\code{departs}, \code{max_results}, and \code{route_id} are respected. This additional
+validation can be disabled by setting \code{validate_results = TRUE}.
 }
 \examples{
 \dontrun{
