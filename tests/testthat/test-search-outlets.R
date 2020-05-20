@@ -1,3 +1,5 @@
+if (identical(Sys.getenv("NOT_CRAN"), "true")) {
+
 st_kilda <- search_outlets("st kilda")
 
 test_that("search_outlets result has class \"ptvapi\"", {
@@ -77,3 +79,5 @@ test_that("search_outlets filtered by max_distance", {
   difference <- max_1000 %>% anti_join(max_500, by = "outlet_name")
   expect_gt(nrow(difference), 0)
 })
+}
+
