@@ -27,10 +27,10 @@ given location, in metres.}
 returned.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
-Transport Victoria. See section "Obtaining API authentication details".}
+Transport Victoria. Refer to \code{?ptvapi} for more details.}
 
 \item{api_key}{Character. An API key, with dashes, provided by Public
-Transport Victoria. See section "Obtaining API authentication details".}
+Transport Victoria. Refer to \code{?ptvapi} for more details.}
 }
 \value{
 A tibble with the following columns: \itemize{

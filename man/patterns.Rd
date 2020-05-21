@@ -33,10 +33,10 @@ given as Melbourne time. The behaviour of the API is unpredictable when
 using this argument --- see details. Defaults to the current system time.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
-Transport Victoria. See section "Obtaining API authentication details".}
+Transport Victoria. Refer to \code{?ptvapi} for more details.}
 
 \item{api_key}{Character. An API key, with dashes, provided by Public
-Transport Victoria. See section "Obtaining API authentication details".}
+Transport Victoria. Refer to \code{?ptvapi} for more details.}
 }
 \value{
 An object of class "ptvapi", which is effectively a list with the

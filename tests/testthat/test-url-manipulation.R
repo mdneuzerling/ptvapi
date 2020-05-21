@@ -37,9 +37,10 @@ test_that("Prefixing base URL and API version", {
 # the signature.
 fake_user_id <- 1234567
 fake_api_key <- "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
-request = "routes"
+request <- "routes"
 expected_signature <- "E6C7BA1C2C083866BEDD09A85AE01DC31E34B2B5"
-input_error <- paste0( # note the regex escaping here
+# note the regex escaping here
+input_error <- paste0(
   "This function signs a request without a domain, version number, URL, or ",
   "devid\\/user_id\\. So if the request URL is ",
   "'http\\:\\/\\/timetableapi\\.ptv\\.vic\\.gov\\.au\\/v3\\/path\\?param",

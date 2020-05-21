@@ -45,10 +45,10 @@ function to extract a vector of all route types.}
 \item{match_stop_by_gtfs_stop_id}{Boolean. Optional. Affects search results.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
-Transport Victoria. See section "Obtaining API authentication details".}
+Transport Victoria. Refer to \code{?ptvapi} for more details.}
 
 \item{api_key}{Character. An API key, with dashes, provided by Public
-Transport Victoria. See section "Obtaining API authentication details".}
+Transport Victoria. Refer to \code{?ptvapi} for more details.}
 }
 \value{
 The response of the \code{search} API call.

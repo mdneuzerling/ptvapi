@@ -49,12 +49,16 @@ test_that("all results in search_stops relate to search term somehow", {
 test_that("search_stops can be filtered with multiple route types", {
   expect_equal(
     search_stops("South Yarra", route_types = c(0, 1)) %>%
-      pull(route_type) %>% unique %>% sort,
+      pull(route_type) %>%
+      unique %>%
+      sort,
     c(0, 1)
   )
   expect_equal(
     search_stops("South Yarra", route_types = c(0, 2)) %>%
-      pull(route_type) %>% unique %>% sort,
+      pull(route_type) %>%
+      unique %>%
+      sort,
     c(0, 2)
   )
 })

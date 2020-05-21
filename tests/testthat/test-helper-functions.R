@@ -22,7 +22,7 @@ test_that("Can convert API-provided timestamp to Melbourne time", {
 })
 
 test_that("converting NULL datetime to NA", {
-  NA_datetime <- as.POSIXct(NA)
-  attr(NA_datetime, "tzone") <- "Australia/Melbourne"
-  expect_identical(convert_to_melbourne_time(NULL), NA_datetime)
+  na_datetime <- as.POSIXct(NA)
+  attr(na_datetime, "tzone") <- "Australia/Melbourne"
+  expect_identical(convert_to_melbourne_time(NULL), na_datetime)
 })
