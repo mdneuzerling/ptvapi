@@ -4,8 +4,11 @@
 <!-- badges: start -->
 
 [![CRAN status](https://www.r-pkg.org/badges/version/ptvapi)](https://cran.r-project.org/package=ptvapi)
+
 [![Last commit](https://img.shields.io/github/last-commit/mdneuzerling/ptvapi/master.svg)](https://github.com/mdneuzerling/ptvapi/tree/master)
+
 [![R build status](https://github.com/mdneuzerling/ptvapi/workflows/R-CMD-check/badge.svg)](https://github.com/mdneuzerling/ptvapi/actions)
+
 [![license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://choosealicense.com/licenses/mit/)
 
 <!-- badges: end -->
