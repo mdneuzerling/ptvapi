@@ -1,8 +1,13 @@
 
-# ptvapi
+# ptvapi <img src='https://raw.githubusercontent.com/mdneuzerling/logos/master/ptvapi/ptvapi.png' align="right" height="139" />
 
 <!-- badges: start -->
+
+[![CRAN status](https://www.r-pkg.org/badges/version/ptvapi)](https://cran.r-project.org/package=ptvapi)
+[![Last commit](https://img.shields.io/github/last-commit/mdneuzerling/ptvapi/master.svg)](https://github.com/mdneuzerling/ptvapi/tree/master)
 [![R build status](https://github.com/mdneuzerling/ptvapi/workflows/R-CMD-check/badge.svg)](https://github.com/mdneuzerling/ptvapi/actions)
+[![license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://choosealicense.com/licenses/mit/)
+
 <!-- badges: end -->
 
 This package provides a friendly interface to the Public Transport Victoria (PTV) timetable API. Results are returned as tibbles where possible, and authentication is handled under the hood.
@@ -116,3 +121,7 @@ All API calls have been implemented. Some API calls have been combined into a si
 * `stop_information`
 * `stops_nearby`
 * `stops_on_route`      
+
+---
+
+Hex logo by Phizz Leeder
