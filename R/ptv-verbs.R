@@ -22,13 +22,6 @@
 #'
 #' @keywords internal
 #'
-#' @examples \dontrun{
-#' PTVGET(
-#'   request = "routes",
-#'   user_id = 123456,
-#'   api_key = "4d840bc4-81e6-11ea-bc55-0242ac130003"
-#' )
-#' }
 PTVGET <- function(request,
                    user_id = determine_user_id(),
                    api_key = determine_api_key(),

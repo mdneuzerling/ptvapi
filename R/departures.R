@@ -72,6 +72,8 @@
 #'   `route_id` are respected if given.
 #' @inheritParams PTVGET
 #'
+#' @inherit departure_to_tibble return
+#'
 #' @export
 #'
 #' @examples \dontrun{

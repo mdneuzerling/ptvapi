@@ -65,6 +65,21 @@ Transport Victoria. Refer to \code{?ptvapi} for more details.}
 \item{api_key}{Character. An API key, with dashes, provided by Public
 Transport Victoria. Refer to \code{?ptvapi} for more details.}
 }
+\value{
+A tibble consisting of the following columns: \itemize{
+\item \code{stop_id}
+\item \code{route_id}
+\item \code{run_id}
+\item \code{direction_id}
+\item \code{disruption_ids}
+\item \code{scheduled_departure}
+\item \code{estimated_departure}
+\item \code{at_platform}
+\item \code{platform_number}
+\item \code{flags}
+\item \code{departure_sequence}
+}
+}
 \description{
 \code{departures} retrieves all upcoming departures for a given stop ID and route
 type.

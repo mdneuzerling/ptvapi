@@ -38,13 +38,4 @@ You may pass these two pieces of information directly to the function, or you
 can set the PTV_USER_ID and PTV_API_KEY environment variables.
 }
 
-\examples{
-\dontrun{
-PTVGET(
-  request = "routes",
-  user_id = 123456,
-  api_key = "4d840bc4-81e6-11ea-bc55-0242ac130003"
-)
-}
-}
 \keyword{internal}
