@@ -1,5 +1,5 @@
 Package: ptvapi
-Title: Access the 'Public Transport Victoria' Timetable API
+Title: Access the 'Public Transport Victoria Timetable API'
 Version: 1.1.0
 Authors@R: person(given = "David",
                   family = "Neuzerling",
@@ -7,7 +7,7 @@ Authors@R: person(given = "David",
                   email = "david@neuzerling.com")
 Description: Access the 'Public Transport Victoria Timetable API' 
     <https://www.ptv.vic.gov.au/footer/data-and-reporting/datasets/ptv-timetableapi/>,
-    with results passed as familiar R data structures. Retrieve information on
+    with results returned as familiar R data structures. Retrieve information on
     stops, routes, disruptions, departures, and more.
 License: MIT + file LICENSE
 Encoding: UTF-8
