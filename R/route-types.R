@@ -37,29 +37,6 @@ route_types <- function(user_id = determine_user_id(),
   route_type_names
 }
 
-#' Retrieve a translation from route type number to name, cached if possible
-#'
-#' This function is equivalent to `route_types(), but will attempt to use a
-#' cached copy of the results stored in options if it is available. If not
-#' available, `route_types() will be called and the results cached. Since
-#' route types are commonly used in other API calls, this caching reduces the
-#' number of times the API is called.
-#'
-#' @inheritParams PTVGET
-#'
-#' @return A named vector in which the values are the route type descriptions,
-#' and the names of the vector are the route type numbers.
-#'
-#' @keywords internal
-#'
-route_types_cached <- function(user_id = determine_user_id(),
-                               api_key = determine_api_key()) {
-  if (is.null(getOption("route_types"))) {
-    options("route_types" = route_types(user_id = user_id, api_key = api_key))
-  }
-  getOption("route_types")
-}
-
 #' Translate a route type input into a numerical route type
 #'
 #' Many API calls require a route type (eg. "Tram" or "Train"). These must be
@@ -83,7 +60,7 @@ route_types_cached <- function(user_id = determine_user_id(),
 #'
 translate_route_type <- function(route_type) {
 
-  route_type_vector <- route_types_cached()
+  route_type_vector <- route_types()
 
   if (is.numeric(route_type)) {
     if (as.character(route_type) %in% names(route_type_vector)) {
