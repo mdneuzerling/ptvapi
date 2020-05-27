@@ -1,5 +1,7 @@
 #' Generate a URL with devid and signature
 #'
+#' @param request Character. A path without base URL or version, such as
+#' "routes" or "stop/1071".
 #' @inheritParams PTVGET
 #'
 #' @return A complete URL character that can be queried with httr
@@ -62,51 +64,18 @@ sign_request <- function(request,
   toupper(signature)
 }
 
-#' Prefix a string with the API base URL
-#'
-#' A trailing `/` will be added to the base URL if the input string does not
-#' begin with a `/`.
-#'
-#' @inheritParams PTVGET
-#'
-#' @return character of form `{base_url}/{string}`
-#'
-#' @keywords internal
-#'
 prefix_base_url <- function(string) {
   base_url <- "http://timetableapi.ptv.vic.gov.au"
   if (substr(string, 1, 1) != "/") base_url <- paste0(base_url, "/")
   glue::glue("{base_url}{string}")
 }
 
-#' Prefix a string with the API version
-#'
-#' A trailing `/` will be added to the version if the input string does not
-#' begin with a `/`.
-#'
-#' @inheritParams PTVGET
-#'
-#' @return character of form `/{version}/{string}`
-#'
-#' @keywords internal
-#'
 prefix_version <- function(string) {
   version <- 3 # This function is untested on other versions
   if (substr(string, 1, 1) != "/") version <- paste0(version, "/")
   glue::glue("/v{version}{string}")
 }
 
-#' Prefix a string with the API base URL and version
-#'
-#' A trailing `/` will be added to the base URL and version if the input string
-#' does not begin with a `/`.
-#'
-#' @inheritParams PTVGET
-#'
-#' @return character of form `{base_url}/{version}/{string}`
-#'
-#' @keywords internal
-#'
 prefix_base_url_and_version <- function(string) {
   prefix_base_url(prefix_version(string))
 }
@@ -163,8 +132,8 @@ make_url_friendly <- function(input) {
 #' @keywords internal
 #'
 #' @examples \dontrun{
-#' add_parameter("www.example.com", "animal", "crocodile")
-#' add_parameter(
+#' ptvapi:::add_parameter("www.example.com", "animal", "crocodile")
+#' ptvapi:::add_parameter(
 #'   "www.example.com",
 #'   "numbers",
 #'   c(1, 2, 3),
@@ -220,9 +189,13 @@ add_parameter <- function(request,
 #' @keywords internal
 #'
 #' @examples \dontrun{
-#' add_parameters("www.example.com", animal = crocodile)
-#' add_parameters("www.example.com", animal = crocodile, food = "cherries")
-#' add_parameters(
+#' ptvapi:::add_parameters("www.example.com", animal = crocodile)
+#' ptvapi:::add_parameters(
+#'   "www.example.com",
+#'   animal = crocodile,
+#'   food = "cherries"
+#' )
+#' ptvapi:::add_parameters(
 #'   "www.example.com",
 #'   animal = crocodile,
 #'   numbers = c(1, 2, 3),
