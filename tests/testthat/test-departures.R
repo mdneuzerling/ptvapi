@@ -55,7 +55,7 @@ test_that("Departures filtered by platform_number", {
   expect_gt(nrow(platform_5_6_departures), 0) # must have some results
   expect_true(
     # disruptions may mean that platform 5 or 6 not active
-    platform_5_6_departures$platform_number %in% c("5", "6")
+    all(platform_5_6_departures$platform_number %in% c("5", "6"))
   )
 })
 
