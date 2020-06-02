@@ -53,9 +53,9 @@ test_that("Departures filtered by platform_number", {
     platform_numbers = c("5", "6"), # despite the name, they are characters
   )
   expect_gt(nrow(platform_5_6_departures), 0) # must have some results
-  expect_equal(
-    platform_5_6_departures %>% pull(platform_number) %>% unique %>% sort,
-    c("5", "6")
+  expect_true(
+    # disruptions may mean that platform 5 or 6 not active
+    all(platform_5_6_departures$platform_number %in% c("5", "6"))
   )
 })
 
