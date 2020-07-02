@@ -16,7 +16,17 @@ This package provides a friendly interface to the Public Transport Victoria (PTV
 
 ## Installing
 
-You can install this package with `remotes::install_github("mdneuzerling/ptvapi")`
+### CRAN version
+
+```
+install.packages("ptvapi")
+```
+
+### Development version
+
+```
+remotes::install_github("mdneuzerling/ptvapi")
+```
 
 ## Authentication
 
