@@ -55,7 +55,7 @@ route_types <- function(user_id = determine_user_id(),
 #'
 #' @inherit route_types return
 #'
-#' @keyword internal
+#' @keywords internal
 cached_route_types <- function(user_id = determine_user_id(),
                                api_key = determine_api_key())  {
   if (is.null(pkg.env$route_types)) {
