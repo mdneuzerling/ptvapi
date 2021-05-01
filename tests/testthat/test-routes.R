@@ -59,4 +59,19 @@ test_that("we can filter routes by multiple route types", {
   )
 })
 
+test_that("we can download geopath data with specific route", {
+  frankston_with_geo <- route_information(
+    frankston_route_id,
+    include_geopath = TRUE,
+    geopath_utc =
+  )
+  geopaths <- frankston_with_geo$geopath[[1]]
+  # One path for each of the two directions
+  expect_equal(nrow(geopaths), 2)
+  expect_identical(
+    names(geopaths),
+    c("direction_id", "valid_from", "valid_to", "paths")
+  )
+})
+
 }
