@@ -24,7 +24,7 @@ A tibble with the following columns: \itemize{
 }
 \description{
 This function is designed to parse the content returned by the interior
-steps of the \code{\link{stops_on_route}} and \code{\link{stop_nearby}}
+steps of the \code{\link{stops_on_route}} and \code{\link{stops_nearby}}
 functions.
 }
 \keyword{internal}

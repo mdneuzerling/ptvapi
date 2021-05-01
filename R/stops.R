@@ -222,7 +222,7 @@ stops_nearby <- function(latitude,
 #' Convert a single stop to a tibble
 #'
 #' This function is designed to parse the content returned by the interior
-#' steps of the \code{\link{stops_on_route}} and \code{\link{stop_nearby}}
+#' steps of the \code{\link{stops_on_route}} and \code{\link{stops_nearby}}
 #' functions.
 #'
 #' @param stop A stop, as a list, returned by a stops API call.
