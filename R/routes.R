@@ -20,8 +20,8 @@ route_information <- function(route_id,
   route_id <- to_integer(route_id)
   request <- add_parameters(
     glue::glue("routes/{route_id}"),
-    route_types = route_types,
-    route_name = route_name
+    include_geopath = include_geopath,
+    geopath_utc = geopath_utc
   )
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
