@@ -25,7 +25,7 @@ sign_request <- function(request,
                          api_key = determine_api_key()) {
   # The object to be signed is the request URL, including the version, but
   # not the base URL. So if the request is
-  # http://timetableapi.ptv.vic.gov.au/v3/path?param=value&devid=1234567
+  # https://timetableapi.ptv.vic.gov.au/v3/path?param=value&devid=1234567
   # then the signature is calculated on /v3/path?param=value&devid=1234567
   # This function will prefix the version and suffix the devid, so in this
   # scenario with would accept an input of simply "path?param=value
@@ -34,7 +34,7 @@ sign_request <- function(request,
     "Cannot sign", request, ":",
     "This function signs a request without a domain, version number, URL,",
     "or devid/user_id. So if the request URL is",
-    "'http://timetableapi.ptv.vic.gov.au/v3/path?param=1&devid=1234567'",
+    "'https://timetableapi.ptv.vic.gov.au/v3/path?param=1&devid=1234567'",
     "then this function will take as input 'path?param=1'."
   )
 
@@ -65,7 +65,11 @@ sign_request <- function(request,
 }
 
 prefix_base_url <- function(string) {
-  base_url <- "http://timetableapi.ptv.vic.gov.au"
+  if (getOption("use_insecure_ptv_connection", FALSE)) {
+    base_url <- "http://timetableapi.ptv.vic.gov.au"
+  } else {
+    base_url <- "https://timetableapi.ptv.vic.gov.au"
+  }
   if (substr(string, 1, 1) != "/") base_url <- paste0(base_url, "/")
   glue::glue("{base_url}{string}")
 }

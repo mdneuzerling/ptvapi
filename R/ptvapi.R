@@ -11,6 +11,12 @@
 #' Alternatively, all functions will pick up on the PTV_USER_ID and API_KEY
 #' environment variables, if defined.
 #'
+#' All API requests use SSL by default. To disable this, and to use the `http`
+#' API endpoints rather than the `https` API endpoints, set the option:
+#' ```
+#' options(use_insecure_ptv_connection = TRUE)
+#' ```
+#'
 #' @details
 #' This is an unofficial wrapper of the Public Transport Victoria Timetable API.
 #' The author(s) of this package are unaffiliated with Public Transport

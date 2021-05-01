@@ -12,27 +12,27 @@ test_that("Prefixing API version", {
 test_that("Prefixing base URL", {
   expect_equal(
     prefix_base_url("v3/routes"),
-    "http://timetableapi.ptv.vic.gov.au/v3/routes"
+    "https://timetableapi.ptv.vic.gov.au/v3/routes"
   )
   expect_equal(
     prefix_base_url("/v3/routes"),
-    "http://timetableapi.ptv.vic.gov.au/v3/routes"
+    "https://timetableapi.ptv.vic.gov.au/v3/routes"
   )
 })
 
 test_that("Prefixing base URL and API version", {
   expect_equal(
     prefix_base_url_and_version("routes"),
-    "http://timetableapi.ptv.vic.gov.au/v3/routes"
+    "https://timetableapi.ptv.vic.gov.au/v3/routes"
   )
   expect_equal(
     prefix_base_url_and_version("/routes"),
-    "http://timetableapi.ptv.vic.gov.au/v3/routes"
+    "https://timetableapi.ptv.vic.gov.au/v3/routes"
   )
 })
 
 # The signature below was calculated user the tools at
-# http://timetableapi.ptv.vic.gov.au/swagger/ui/index#!/Routes/
+# https://timetableapi.ptv.vic.gov.au/swagger/ui/index#!/Routes/
 # While the user_id and api_key are fake, we should still be able to work out
 # the signature.
 fake_user_id <- 1234567
@@ -43,7 +43,7 @@ expected_signature <- "E6C7BA1C2C083866BEDD09A85AE01DC31E34B2B5"
 input_error <- paste0(
   "This function signs a request without a domain, version number, URL, or ",
   "devid\\/user_id\\. So if the request URL is ",
-  "'http\\:\\/\\/timetableapi\\.ptv\\.vic\\.gov\\.au\\/v3\\/path\\?param",
+  "'https\\:\\/\\/timetableapi\\.ptv\\.vic\\.gov\\.au\\/v3\\/path\\?param",
   "\\=1&devid\\=1234567' ",
   "then this function will take as input 'path\\?param\\=1'\\."
 )
@@ -61,7 +61,7 @@ test_that("Signature is calculated correctly on good input", {
 
 test_that("Signing function rejects bad input", {
   for (bad_input in c(
-    "http://www.example.com/path",
+    "https://www.example.com/path",
     "www.example.vic.gov.au/path",
     "path?devid=1234567",
     "v3/path"
