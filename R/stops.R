@@ -11,6 +11,7 @@
 #' \item{`stop_id`}
 #' \item{`stop_name`}
 #' \item{`route_type`}
+#' \item{`route_type_description`}
 #' \item{`station_details_id`}
 #' \item{`station_type`}
 #' \item{`station_description`}
@@ -64,6 +65,12 @@ stop_information <- function(stop_id,
     stop_id = stop$stop_id,
     stop_name = trimws(stop$stop_name),
     route_type = stop$route_type,
+    route_type_description = purrr::map_chr(
+      stop$route_type,
+      describe_route_type,
+      user_id = user_id,
+      api_key = api_key
+    ),
     station_details_id = stop$station_details_id,
     station_type = stop$station_type,
     station_description = stop$station_description,
@@ -133,6 +140,12 @@ stops_on_route <- function(route_id,
   content <- response$content
 
   parsed <- map_and_rbind(content$stops, stop_to_tibble)
+  parsed$route_type_description <- purrr::map_chr(
+    parsed$route_type,
+    describe_route_type,
+    user_id = user_id,
+    api_key = api_key
+  )
   new_ptvapi_tibble(response, parsed)
 }
 
@@ -196,6 +209,12 @@ stops_nearby <- function(latitude,
   content <- response$content
 
   parsed <- map_and_rbind(content$stops, stop_to_tibble)
+  parsed$route_type_description <- purrr::map_chr(
+    parsed$route_type,
+    describe_route_type,
+    user_id = user_id,
+    api_key = api_key
+  )
   new_ptvapi_tibble(response, parsed)
 }
 
@@ -211,6 +230,7 @@ stops_nearby <- function(latitude,
 #' \item{`stop_name`}
 #' \item{`stop_suburb`}
 #' \item{`route_type`}
+#' \item{`route_type_description`}
 #' \item{`stop_sequence`}
 #' \item{`stop_latitude`}
 #' \item{`stop_longitude`}
@@ -225,6 +245,7 @@ stop_to_tibble <- function(stop) {
     stop_name = trimws(stop$stop_name),
     stop_suburb = stop$stop_suburb,
     route_type = stop$route_type,
+    route_type_description = NA_character_,
     stop_sequence = ifelse(
       stop$stop_sequence == 0, NA_integer_, stop$stop_sequence
     ),

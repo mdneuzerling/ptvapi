@@ -18,8 +18,8 @@ function.}
 
 \item{route_type}{A route type which can be provided either as a non-negative
 integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
-Bus". Character inputs are not case-sensitive. Use the \code{route_types}
-function to extract a vector of all route types.}
+Bus". Character inputs are not case-sensitive. Use the
+\code{\link{route_type}} function to extract a vector of all route types.}
 
 \item{direction_id}{Optionally filter by a direction ID. These can be
 obtained with the \code{directions_on_route} function.}
@@ -36,6 +36,7 @@ A tibble with the following columns: \itemize{
 \item{\code{stop_name}}
 \item{\code{stop_suburb}}
 \item{\code{route_type}}
+\item{\code{route_type_description}}
 \item{\code{stop_sequence}}
 \item{\code{stop_latitude}}
 \item{\code{stop_longitude}}

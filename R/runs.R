@@ -39,6 +39,12 @@ run_information <- function(run_ref,
   assert_correct_attributes(names(content), c("runs", "status"))
 
   parsed <- map_and_rbind(content$runs, run_to_tibble)
+  parsed$route_type_description <- purrr::map_chr(
+    parsed$route_type,
+    describe_route_type,
+    user_id = user_id,
+    api_key = api_key
+  )
   new_ptvapi_tibble(response, parsed)
 }
 
@@ -76,6 +82,12 @@ runs_on_route <- function(route_id,
   content <- response$content
 
   parsed <- map_and_rbind(content$runs, run_to_tibble)
+  parsed$route_type_description <- purrr::map_chr(
+    parsed$route_type,
+    describe_route_type,
+    user_id = user_id,
+    api_key = api_key
+  )
   new_ptvapi_tibble(response, parsed)
 }
 
@@ -91,6 +103,7 @@ runs_on_route <- function(route_id,
 #' \item `run_ref`
 #' \item `route_id`
 #' \item `route_type`
+#' \item `route_type_description`
 #' \item `direction_id`
 #' \item `run_sequence`
 #' \item `final_stop_id`
@@ -109,6 +122,7 @@ run_to_tibble <- function(run) {
     run_ref = run$run_ref,
     route_id = run$route_id,
     route_type = run$route_type,
+    route_type_description = NA_character_,
     direction_id = run$direction_id,
     run_sequence = run$run_sequence,
     final_stop_id = run$final_stop_id,

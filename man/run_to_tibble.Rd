@@ -15,6 +15,7 @@ A tibble with the following columns: \itemize{
 \item \code{run_ref}
 \item \code{route_id}
 \item \code{route_type}
+\item \code{route_type_description}
 \item \code{direction_id}
 \item \code{run_sequence}
 \item \code{final_stop_id}

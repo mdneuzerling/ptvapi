@@ -15,6 +15,7 @@ A tibble with the following columns: \itemize{
 \item{\code{stop_name}}
 \item{\code{stop_suburb}}
 \item{\code{route_type}}
+\item{\code{route_type_description}}
 \item{\code{stop_sequence}}
 \item{\code{stop_latitude}}
 \item{\code{stop_longitude}}

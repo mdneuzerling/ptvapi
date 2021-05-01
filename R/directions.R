@@ -39,6 +39,12 @@ directions <- function(direction_id,
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
   parsed <- parse_directions_content(content)
+  parsed$route_type_description <- purrr::map_chr(
+    parsed$route_type,
+    describe_route_type,
+    user_id = user_id,
+    api_key = api_key
+  )
   new_ptvapi_tibble(response, parsed)
 }
 
@@ -63,6 +69,12 @@ directions_on_route <- function(route_id,
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
   parsed <- parse_directions_content(content)
+  parsed$route_type_description <- purrr::map_chr(
+    parsed$route_type,
+    describe_route_type,
+    user_id = user_id,
+    api_key = api_key
+  )
   new_ptvapi_tibble(response, parsed)
 }
 
@@ -79,6 +91,7 @@ directions_on_route <- function(route_id,
 #' \item `direction_name`,
 #' \item `route_id`
 #' \item `route_type`
+#' \item `route_type_description`
 #' \item `route_direction_description`
 #' }
 #'
@@ -97,6 +110,8 @@ parse_directions_content <- function(directions_content) {
       "route_id", "route_type")
   )
 
+  parsed$route_type_description <- NA_character_
+
   parsed[c("direction_id", "direction_name", "route_id", "route_type",
-           "route_direction_description")]
+           "route_type_description", "route_direction_description")]
 }
