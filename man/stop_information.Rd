@@ -17,7 +17,7 @@ stop_information(
 \item{route_type}{A route type which can be provided either as a non-negative
 integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
 Bus". Character inputs are not case-sensitive. Use the
-\code{\link{route_type}} function to extract a vector of all route types.}
+\code{\link{route_types}} function to extract a vector of all route types.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. Refer to \code{?ptvapi} for more details.}

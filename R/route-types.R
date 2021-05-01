@@ -81,7 +81,7 @@ cached_route_types <- function(user_id = determine_user_id(),
 #' @param route_type A route type which can be provided either as a non-negative
 #'   integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
 #'   Bus". Character inputs are not case-sensitive. Use the
-#'   \code{\link{route_type}} function to extract a vector of all route types.
+#'   \code{\link{route_types}} function to extract a vector of all route types.
 #'
 #' @return An integer route type code, or NULL if the input is NULL
 #'
@@ -130,7 +130,7 @@ translate_route_type <- function(route_type,
 
 #' Convert a numeric route type to a human-friendly description
 #'
-#' This function effectively wraps the results of \code{\link{route_type}} to
+#' This function effectively wraps the results of \code{\link{route_types}} to
 #' translate a route type to a human-readable form, such as translating `0` to
 #' `"Train"`. This function is _not_ vectorised.
 #'

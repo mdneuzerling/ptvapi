@@ -23,7 +23,7 @@ Transport Victoria. Refer to \code{?ptvapi} for more details.}
 character
 }
 \description{
-This function effectively wraps the results of \code{\link{route_type}} to
+This function effectively wraps the results of \code{\link{route_types}} to
 translate a route type to a human-readable form, such as translating \code{0} to
 \code{"Train"}. This function is \emph{not} vectorised.
 }

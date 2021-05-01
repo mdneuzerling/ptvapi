@@ -26,7 +26,7 @@ departures(
 \item{route_type}{A route type which can be provided either as a non-negative
 integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
 Bus". Character inputs are not case-sensitive. Use the
-\code{\link{route_type}} function to extract a vector of all route types.}
+\code{\link{route_types}} function to extract a vector of all route types.}
 
 \item{route_id}{Optionally filter by a route ID. These can be obtained with
 the \code{routes} function.}
