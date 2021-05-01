@@ -1,7 +1,8 @@
 #' Information for a given stop (metropolitan and V/Line stations only)
 #'
 #' This function can be used when integer stop ID is already known. This can be
-#' searched for with either the `stops_on_route` or `stops_nearby` functions.
+#' searched for with either the \code{\link{stops_on_route}} or
+#' \code{\link{`stops_nearby`}} functions.
 #'
 #' @param stop_id Integer stop ID.
 #' @inheritParams translate_route_type
@@ -106,7 +107,7 @@ stop_information <- function(stop_id,
 #'
 #' @inheritParams directions_on_route
 #' @param direction_id Optionally filter by a direction ID. These can be
-#'   obtained with the `directions_on_route` function.
+#'   obtained with the \code{\link{directions_on_route}} function.
 #' @inheritParams translate_route_type
 #' @inheritParams PTVGET
 #'
@@ -160,8 +161,8 @@ stops_on_route <- function(route_id,
 #' @param route_types Integer or character vector. Optionally filter by a vector
 #'   of route types. A route type can be provided either as a non-negative
 #'   integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
-#'   Bus". Character inputs are not case-sensitive. Use the `route_types`
-#'   function to extract a vector of all route types.
+#'   Bus". Character inputs are not case-sensitive. Use the
+#'   \code{\link{route_types}} function to extract a vector of all route types.
 #' @inheritParams PTVGET
 #'
 #' @inherit stop_to_tibble return
@@ -221,9 +222,10 @@ stops_nearby <- function(latitude,
 #' Convert a single stop to a tibble
 #'
 #' This function is designed to parse the content returned by the interior
-#' steps of the `stops_on_route` and `stop_nearby` functions.
+#' steps of the \code{\link{stops_on_rout}} and \code{\link{stop_nearby}}
+#' functions.
 #'
-#' @param stop A stop, as a list, returned by the `stops` API call.
+#' @param stop A stop, as a list, returned by the \code{\link{stops}} API call.
 #'
 #' @return A tibble with the following columns: \itemize{
 #' \item{`stop_id`}

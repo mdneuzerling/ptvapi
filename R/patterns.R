@@ -1,6 +1,6 @@
 # This function ostensibly supports a date_utc function. It appears to change
 # the day on which departures are returned. However, only the earliest 7
-# departures are shown for the day corresponsing to date_utc.
+# departures are shown for the day corresponding to date_utc.
 
 #' Stopping pattern for a given run
 #'
@@ -9,14 +9,15 @@
 #' of tibbles, with output corresponding to their respective API calls.
 #'
 #' The `stops` tibble has an output similar to that returned by
-#' `stops_on_route`. The `routes` tibble does not contain service status
-#' information.
+#' \code{\link{stops_on_route}}. The `routes` tibble does not contain service
+#' status information.
 #'
 #' @details Departures: The API seems to return the earliest 7 departures. While
 #' the PTV Timetable API supports filtering patterns by datetimes, the
 #' behaviour of this argument is not reliable --- it appears to filter by day
 #' only, returning the earliest 7 departures of a different day. It is
-#' recommended that departures are retrieved via the `departures` function.
+#' recommended that departures are retrieved via the \code{\link{departures}}
+#' function.
 #'
 #' @inheritParams run_information
 #' @inheritParams translate_route_type

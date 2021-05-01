@@ -32,7 +32,7 @@ Bus". Character inputs are not case-sensitive. Use the
 the \code{routes} function.}
 
 \item{direction_id}{Optionally filter by a direction ID. These can be
-obtained with the \code{directions_on_route} function.}
+obtained with the \code{\link{directions_on_route}} function.}
 
 \item{platform_numbers}{Character vector. Optionally filter results by
 platform number. Despite the name, these are characters.}

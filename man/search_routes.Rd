@@ -29,8 +29,8 @@ given location, in metres.}
 \item{route_types}{Integer or character vector. Optionally filter by a vector
 of route types. A route type can be provided either as a non-negative
 integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
-Bus". Character inputs are not case-sensitive. Use the \code{route_types}
-function to extract a vector of all route types.}
+Bus". Character inputs are not case-sensitive. Use the
+\code{\link{route_types}} function to extract a vector of all route types.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. Refer to \code{?ptvapi} for more details.}
@@ -55,9 +55,9 @@ A tibble of routes, with the following columns:
 \description{
 This function will search routes in which the search term can be found in
 one of many fields, such as \code{route_id}, \code{route_gtfs_id}, or \code{route_name}.
-The search is case-insensitive. Unlike \code{search_stops} and
-\code{search_outlets}, this function supports searching for numerics, and has
-no minimum character requirement for \code{search_term}.
+The search is case-insensitive. Unlike \code{\link{search_stops}} and
+\code{\link{search_outlets}}, this function supports searching for numerics,
+and has no minimum character requirement for \code{search_term}.
 }
 \examples{
 \dontrun{

@@ -15,8 +15,8 @@ routes(
 \item{route_types}{Integer or character vector. Optionally filter by a vector
 of route types. A route type can be provided either as a non-negative
 integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
-Bus". Character inputs are not case-sensitive. Use the \code{route_types}
-function to extract a vector of all route types.}
+Bus". Character inputs are not case-sensitive. Use the
+\code{\link{route_types}} function to extract a vector of all route types.}
 
 \item{route_name}{Character. Optionally filter by route name. Partial matches
 are accepted, and the matches are not case sensitive.}

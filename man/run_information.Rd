@@ -18,14 +18,14 @@ run_information(
 \item{run_ref}{A character run reference. This supersedes the integer
 \code{run_id}. For backwards compatibility and since most run references are
 integers, this function will attempt to convert an the argument to a
-character. Run references may be retrieved from the \code{departures} or
-\code{runs_on_route} functions.}
+character. Run references may be retrieved from the
+\code{\link{departures}} or \code{\link{runs_on_route}} functions.}
 
 \item{route_type}{Optionally filter results by a route type. A route type can
 be provided either as a non-negative integer code, or as a character:
 "Tram", "Train", "Bus", "Vline" or "Night Bus". Character inputs are not
-case-sensitive. Use the \code{route_types} function to extract a vector of all
-route types.}
+case-sensitive. Use the \code{\link{route_types}} function to extract a
+vector of all route types.}
 
 \item{include_geopath}{Logical. Whether to populate the \code{geopath} column.
 Defaults to FALSE.}

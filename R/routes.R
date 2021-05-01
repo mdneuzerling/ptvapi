@@ -105,11 +105,12 @@ routes <- function(route_types = NULL,
 
 #' Convert a single route to a tibble
 #'
-#' This function is designed to parse the content returned by the interior
-#' steps of the `routes` function. Service status information may be `NA`,
+#' This function is designed to parse the content returned by the interior steps
+#' of the \code{\link{routes}} function. Service status information may be `NA`,
 #' depending on the API call that was used to populate the information.
 #'
-#' @param route A route, as a list, returned by the `routes` API call.
+#' @param route A route, as a list, returned by the \code{\link{routes}} API
+#'   call.
 #'
 #' @return A tibble of routes, with the following columns:
 #' \itemize{

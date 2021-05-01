@@ -22,6 +22,6 @@ A tibble consisting of the following columns: \itemize{
 }
 \description{
 This function is designed to parse the content returned by the interior
-steps of the \code{directions} function.
+steps of the \code{\link{directions}} function.
 }
 \keyword{internal}

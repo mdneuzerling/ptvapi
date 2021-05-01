@@ -17,14 +17,14 @@ patterns(
 \item{run_ref}{A character run reference. This supersedes the integer
 \code{run_id}. For backwards compatibility and since most run references are
 integers, this function will attempt to convert an the argument to a
-character. Run references may be retrieved from the \code{departures} or
-\code{runs_on_route} functions.}
+character. Run references may be retrieved from the
+\code{\link{departures}} or \code{\link{runs_on_route}} functions.}
 
 \item{route_type}{Optionally filter results by a route type. A route type can
 be provided either as a non-negative integer code, or as a character:
 "Tram", "Train", "Bus", "Vline" or "Night Bus". Character inputs are not
-case-sensitive. Use the \code{route_types} function to extract a vector of all
-route types.}
+case-sensitive. Use the \code{\link{route_types}} function to extract a
+vector of all route types.}
 
 \item{stop_id}{Integer. Optionally filter results to a specific stop ID.
 These can be searched for with the \code{stops_on_route} and \code{stops_nearby}
@@ -53,14 +53,15 @@ of tibbles, with output corresponding to their respective API calls.
 }
 \details{
 The \code{stops} tibble has an output similar to that returned by
-\code{stops_on_route}. The \code{routes} tibble does not contain service status
-information.
+\code{\link{stops_on_route}}. The \code{routes} tibble does not contain service
+status information.
 
 Departures: The API seems to return the earliest 7 departures. While
 the PTV Timetable API supports filtering patterns by datetimes, the
 behaviour of this argument is not reliable --- it appears to filter by day
 only, returning the earliest 7 departures of a different day. It is
-recommended that departures are retrieved via the \code{departures} function.
+recommended that departures are retrieved via the \code{\link{departures}}
+function.
 }
 \examples{
 \dontrun{

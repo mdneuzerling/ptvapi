@@ -90,9 +90,11 @@ outlets_nearby <- function(latitude,
 #' Convert a single outlet to a tibble
 #'
 #' This function is designed to parse the content returned by the interior
-#' steps of the `outlets` and `outlets_nearby` functions.
+#' steps of the \code{\link{outlets}} and \code{\link{outlets_nearby}}
+#' functions.
 #'
-#' @param outlet An outlet, as a list, returned by the `outlets` API call.
+#' @param outlet An outlet, as a list, returned by the \code{\link{outlets}} API
+#'   call.
 #'
 #' @return A tibble with the following columns: \itemize{
 #' \item {`outlet_slid_spid`}

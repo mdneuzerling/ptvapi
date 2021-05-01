@@ -7,8 +7,8 @@
 #' @param run_ref A character run reference. This supersedes the integer
 #'   `run_id`. For backwards compatibility and since most run references are
 #'   integers, this function will attempt to convert an the argument to a
-#'   character. Run references may be retrieved from the `departures` or
-#'   `runs_on_route` functions.
+#'   character. Run references may be retrieved from the
+#'   \code{\link{departures}} or \code{\link{runs_on_route}} functions.
 #' @param date_utc Date, or character that can be converted to a date. The
 #'   UTC date for which the results are effective. Defaults to the current date.
 #'   It's uncertain how much historical or future-dated data is available. This
@@ -131,8 +131,9 @@ runs_on_route <- function(route_id,
 
 #' Convert a single run to a tibble
 #'
-#' This function is designed to parse the content returned by the interior
-#' steps of the `runs_on_route` and `run_information` functions.
+#' This function is designed to parse the content returned by the interior steps
+#' of the \code{\link{runs_on_route}} and \code{\link{run_information}}
+#' functions.
 #'
 #' @param route A run, as a list, returned by the `runs` API call.
 #'

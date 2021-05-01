@@ -11,8 +11,8 @@ directions_on_route(
 )
 }
 \arguments{
-\item{route_id}{Integer. These can be listed and described with the \code{routes}
-function.}
+\item{route_id}{Integer. These can be listed and described with the
+\code{\link{routes}} function.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. Refer to \code{?ptvapi} for more details.}

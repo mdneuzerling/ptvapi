@@ -7,7 +7,8 @@
 route_to_tibble(route)
 }
 \arguments{
-\item{route}{A route, as a list, returned by the \code{routes} API call.}
+\item{route}{A route, as a list, returned by the \code{\link{routes}} API
+call.}
 }
 \value{
 A tibble of routes, with the following columns:
@@ -24,8 +25,8 @@ A tibble of routes, with the following columns:
 }
 }
 \description{
-This function is designed to parse the content returned by the interior
-steps of the \code{routes} function. Service status information may be \code{NA},
+This function is designed to parse the content returned by the interior steps
+of the \code{\link{routes}} function. Service status information may be \code{NA},
 depending on the API call that was used to populate the information.
 }
 \keyword{internal}

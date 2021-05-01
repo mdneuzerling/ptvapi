@@ -28,7 +28,8 @@ A tibble with the following columns: \itemize{
 }
 }
 \description{
-This function is designed to parse the content returned by the interior
-steps of the \code{runs_on_route} and \code{run_information} functions.
+This function is designed to parse the content returned by the interior steps
+of the \code{\link{runs_on_route}} and \code{\link{run_information}}
+functions.
 }
 \keyword{internal}

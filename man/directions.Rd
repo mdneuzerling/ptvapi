@@ -17,8 +17,8 @@ directions(
 \item{route_type}{Optionally filter results by a route type. A route type can
 be provided either as a non-negative integer code, or as a character:
 "Tram", "Train", "Bus", "Vline" or "Night Bus". Character inputs are not
-case-sensitive. Use the \code{route_types} function to extract a vector of all
-route types.}
+case-sensitive. Use the \code{\link{route_types}} function to extract a
+vector of all route types.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. Refer to \code{?ptvapi} for more details.}
@@ -39,8 +39,8 @@ A tibble consisting of the following columns: \itemize{
 \description{
 This function returns all directions with a given ID. Directions that share
 an ID are not necessarily related, especially if not filtering by route type.
-It's advised to use to the \code{directions_on_route} function to search for
-directions of interest.
+It's advised to use to the \code{\link{directions_on_route}} function to
+search for directions of interest.
 }
 \examples{
 \dontrun{

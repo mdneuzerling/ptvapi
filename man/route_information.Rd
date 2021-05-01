@@ -13,8 +13,8 @@ route_information(
 )
 }
 \arguments{
-\item{route_id}{Integer. These can be listed and described with the \code{routes}
-function.}
+\item{route_id}{Integer. These can be listed and described with the
+\code{\link{routes}} function.}
 
 \item{include_geopath}{Logical. Whether to populate the \code{geopath} column.
 Defaults to FALSE.}

@@ -13,14 +13,14 @@ runs_on_route(
 )
 }
 \arguments{
-\item{route_id}{Integer. These can be listed and described with the \code{routes}
-function.}
+\item{route_id}{Integer. These can be listed and described with the
+\code{\link{routes}} function.}
 
 \item{route_type}{Optionally filter results by a route type. A route type can
 be provided either as a non-negative integer code, or as a character:
 "Tram", "Train", "Bus", "Vline" or "Night Bus". Character inputs are not
-case-sensitive. Use the \code{route_types} function to extract a vector of all
-route types.}
+case-sensitive. Use the \code{\link{route_types}} function to extract a
+vector of all route types.}
 
 \item{date_utc}{Date, or character that can be converted to a date. The
 UTC date for which the results are effective. Defaults to the current date.
