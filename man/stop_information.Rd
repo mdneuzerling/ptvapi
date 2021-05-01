@@ -50,5 +50,5 @@ A single-row tibble with the following columns: \itemize{
 \description{
 This function can be used when integer stop ID is already known. This can be
 searched for with either the \code{\link{stops_on_route}} or
-\code{\link{`stops_nearby`}} functions.
+\code{\link{stops_nearby}} functions.
 }
