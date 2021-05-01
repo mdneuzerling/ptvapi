@@ -9,6 +9,10 @@
 #'   integers, this function will attempt to convert an the argument to a
 #'   character. Run references may be retrieved from the `departures` or
 #'   `runs_on_route` functions.
+#' @param date_utc Date, or character that can be converted to a date. The
+#'   UTC date for which the results are effective. Defaults to the current date.
+#'   It's uncertain how much historical or future-dated data is available. This
+#'   argument is experimental and seems to not be functioning.
 #' @inheritParams directions
 #' @inheritParams PTVGET
 #' @inheritParams route_information
@@ -21,15 +25,18 @@
 #' run_information("100")
 #' run_information("100", include_geopath = TRUE)
 #' run_information("100", include_geopath = TRUE, geopath_utc = "2020-07-01")
+#' run_information("100", date_utc = "2020-07-01")
 #' }
 #'
 run_information <- function(run_ref,
                             route_type = NULL,
                             include_geopath = FALSE,
                             geopath_utc = NULL,
+                            date_utc = NULL,
                             user_id = determine_user_id(),
                             api_key = determine_api_key()) {
   run_ref <- as.character(run_ref)
+  if (!is.null(date_utc)) date_utc <- as.character(as.Date(date_utc))
   if (!include_geopath && !is.null(geopath_utc)) {
     warning("`geopath_utc` is ignored when `include_geopath` is `TRUE`")
     geopath_utc <- NULL
@@ -50,7 +57,8 @@ run_information <- function(run_ref,
   request <- add_parameters(
     request,
     include_geopath = include_geopath,
-    geopath_utc = geopath_utc
+    geopath_utc = geopath_utc,
+    date_utc = date_utc
   )
 
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
@@ -79,6 +87,7 @@ run_information <- function(run_ref,
 #' @inheritParams directions_on_route
 #' @inheritParams directions
 #' @inheritParams PTVGET
+#' @inheritParams run_information
 #'
 #' @inherit run_to_tibble return
 #'
@@ -92,9 +101,11 @@ run_information <- function(run_ref,
 #'
 runs_on_route <- function(route_id,
                           route_type = NULL,
+                          date_utc = NULL,
                           user_id = determine_user_id(),
                           api_key = determine_api_key()) {
   route_id <- to_integer(route_id)
+  if (!is.null(date_utc)) date_utc <- as.character(as.Date(date_utc))
   request <- glue::glue("runs/route/{route_id}")
   if (!is.null(route_type)) {
     route_type <- translate_route_type(
@@ -104,6 +115,7 @@ runs_on_route <- function(route_id,
     )
     request <- glue::glue("{request}/route_type/{route_type}")
   }
+  request <- add_parameters(request, date_utc = date_utc)
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
 
