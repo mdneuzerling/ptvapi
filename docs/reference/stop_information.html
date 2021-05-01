@@ -41,7 +41,8 @@
 
 <meta property="og:title" content="Information for a given stop (metropolitan and V/Line stations only) — stop_information" />
 <meta property="og:description" content="This function can be used when integer stop ID is already known. This can be
-searched for with either the stops_on_route or stops_nearby functions." />
+searched for with either the stops_on_route or
+stops_nearby functions." />
 
 
 
@@ -73,7 +74,7 @@ searched for with either the stops_on_route or stops_nearby functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ptvapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -81,18 +82,21 @@ searched for with either the stops_on_route or stops_nearby functions." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/mdneuzerling/ptvapi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -116,15 +120,16 @@ searched for with either the stops_on_route or stops_nearby functions." />
 
     <div class="ref-description">
     <p>This function can be used when integer stop ID is already known. This can be
-searched for with either the <code>stops_on_route</code> or <code>stops_nearby</code> functions.</p>
+searched for with either the <code><a href='stops_on_route.html'>stops_on_route</a></code> or
+<code><a href='stops_nearby.html'>stops_nearby</a></code> functions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stop_information</span>(
-  <span class='no'>stop_id</span>,
-  <span class='no'>route_type</span>,
-  <span class='kw'>user_id</span> <span class='kw'>=</span> <span class='fu'>determine_user_id</span>(),
-  <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='fu'>determine_api_key</span>()
-)</pre>
+    <pre class="usage"><span class='fu'>stop_information</span><span class='op'>(</span>
+  <span class='va'>stop_id</span>,
+  <span class='va'>route_type</span>,
+  user_id <span class='op'>=</span> <span class='fu'>determine_user_id</span><span class='op'>(</span><span class='op'>)</span>,
+  api_key <span class='op'>=</span> <span class='fu'>determine_api_key</span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,8 +142,8 @@ searched for with either the <code>stops_on_route</code> or <code>stops_nearby</
       <th>route_type</th>
       <td><p>A route type which can be provided either as a non-negative
 integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
-Bus". Character inputs are not case-sensitive. Use the <code>route_types</code>
-function to extract a vector of all route types.</p></td>
+Bus". Character inputs are not case-sensitive. Use the
+<code><a href='route_types.html'>route_types</a></code> function to extract a vector of all route types.</p></td>
     </tr>
     <tr>
       <th>user_id</th>
@@ -158,6 +163,7 @@ Transport Victoria. Refer to <code><a href='ptvapi.html'>?ptvapi</a></code> for 
 <li><p><code>stop_id</code></p></li>
 <li><p><code>stop_name</code></p></li>
 <li><p><code>route_type</code></p></li>
+<li><p><code>route_type_description</code></p></li>
 <li><p><code>station_details_id</code></p></li>
 <li><p><code>station_type</code></p></li>
 <li><p><code>station_description</code></p></li>
@@ -190,7 +196,7 @@ Transport Victoria. Refer to <code><a href='ptvapi.html'>?ptvapi</a></code> for 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

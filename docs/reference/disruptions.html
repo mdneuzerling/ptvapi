@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ptvapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -80,18 +80,21 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/mdneuzerling/ptvapi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -117,13 +120,13 @@
     <p>Information for all disruptions</p>
     </div>
 
-    <pre class="usage"><span class='fu'>disruptions</span>(
-  <span class='kw'>route_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>disruption_modes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>disruption_status</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>user_id</span> <span class='kw'>=</span> <span class='fu'>determine_user_id</span>(),
-  <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='fu'>determine_api_key</span>()
-)</pre>
+    <pre class="usage"><span class='fu'>disruptions</span><span class='op'>(</span>
+  route_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  disruption_modes <span class='op'>=</span> <span class='cn'>NULL</span>,
+  disruption_status <span class='op'>=</span> <span class='cn'>NULL</span>,
+  user_id <span class='op'>=</span> <span class='fu'>determine_user_id</span><span class='op'>(</span><span class='op'>)</span>,
+  api_key <span class='op'>=</span> <span class='fu'>determine_api_key</span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -133,12 +136,12 @@
       <td><p>Integer or character vector. Optionally filter by a vector
 of route types. A route type can be provided either as a non-negative
 integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
-Bus". Character inputs are not case-sensitive. Use the <code>route_types</code>
-function to extract a vector of all route types. The filter is applied to
-the disruption mode, rather than the routes that are affected by the
-disruption. For example, filtering by the "train" route type will restrict
-the disruptions returned to those with a mode corresponding to
-"metro_train".</p></td>
+Bus". Character inputs are not case-sensitive. Use the
+<code><a href='route_types.html'>route_types</a></code> function to extract a vector of all route types.
+The filter is applied to the disruption mode, rather than the routes that
+are affected by the disruption. For example, filtering by the "train" route
+type will restrict the disruptions returned to those with a mode
+corresponding to "metro_train".</p></td>
     </tr>
     <tr>
       <th>disruption_modes</th>
@@ -188,12 +191,14 @@ Transport Victoria. Refer to <code><a href='ptvapi.html'>?ptvapi</a></code> for 
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>disruptions</span>()
-<span class='fu'>disruptions</span>(<span class='kw'>route_types</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Train"</span>, <span class='st'>"Tram"</span>))
-<span class='fu'>disruptions</span>(<span class='kw'>disruption_modes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>))
-<span class='fu'>disruptions</span>(<span class='kw'>disruption_status</span> <span class='kw'>=</span> <span class='st'>"current"</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>disruptions</span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>disruptions</span><span class='op'>(</span>route_types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Train"</span>, <span class='st'>"Tram"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>disruptions</span><span class='op'>(</span>disruption_modes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>disruptions</span><span class='op'>(</span>disruption_status <span class='op'>=</span> <span class='st'>"current"</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -209,7 +214,7 @@ Transport Victoria. Refer to <code><a href='ptvapi.html'>?ptvapi</a></code> for 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

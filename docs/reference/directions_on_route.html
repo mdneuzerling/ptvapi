@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ptvapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -80,18 +80,21 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/mdneuzerling/ptvapi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -117,19 +120,19 @@
     <p>Directions on a given route</p>
     </div>
 
-    <pre class="usage"><span class='fu'>directions_on_route</span>(
-  <span class='no'>route_id</span>,
-  <span class='kw'>user_id</span> <span class='kw'>=</span> <span class='fu'>determine_user_id</span>(),
-  <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='fu'>determine_api_key</span>()
-)</pre>
+    <pre class="usage"><span class='fu'>directions_on_route</span><span class='op'>(</span>
+  <span class='va'>route_id</span>,
+  user_id <span class='op'>=</span> <span class='fu'>determine_user_id</span><span class='op'>(</span><span class='op'>)</span>,
+  api_key <span class='op'>=</span> <span class='fu'>determine_api_key</span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>route_id</th>
-      <td><p>Integer. These can be listed and described with the <code>routes</code>
-function.</p></td>
+      <td><p>Integer. These can be listed and described with the
+<code><a href='routes.html'>routes</a></code> function.</p></td>
     </tr>
     <tr>
       <th>user_id</th>
@@ -150,14 +153,16 @@ Transport Victoria. Refer to <code><a href='ptvapi.html'>?ptvapi</a></code> for 
 <li><p><code>direction_name</code>,</p></li>
 <li><p><code>route_id</code></p></li>
 <li><p><code>route_type</code></p></li>
+<li><p><code>route_type_description</code></p></li>
 <li><p><code>route_direction_description</code></p></li>
 </ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>directions_on_route</span>(<span class='fl'>6</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>directions_on_route</span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -173,7 +178,7 @@ Transport Victoria. Refer to <code><a href='ptvapi.html'>?ptvapi</a></code> for 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

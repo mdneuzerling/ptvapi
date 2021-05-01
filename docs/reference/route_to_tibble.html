@@ -40,8 +40,8 @@
 
 
 <meta property="og:title" content="Convert a single route to a tibble — route_to_tibble" />
-<meta property="og:description" content="This function is designed to parse the content returned by the interior
-steps of the routes function. Service status information may be NA,
+<meta property="og:description" content="This function is designed to parse the content returned by the interior steps
+of the routes function. Service status information may be NA,
 depending on the API call that was used to populate the information." />
 
 
@@ -74,7 +74,7 @@ depending on the API call that was used to populate the information." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ptvapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -82,18 +82,21 @@ depending on the API call that was used to populate the information." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/mdneuzerling/ptvapi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -116,32 +119,35 @@ depending on the API call that was used to populate the information." />
     </div>
 
     <div class="ref-description">
-    <p>This function is designed to parse the content returned by the interior
-steps of the <code>routes</code> function. Service status information may be <code>NA</code>,
+    <p>This function is designed to parse the content returned by the interior steps
+of the <code><a href='routes.html'>routes</a></code> function. Service status information may be <code>NA</code>,
 depending on the API call that was used to populate the information.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>route_to_tibble</span>(<span class='no'>route</span>)</pre>
+    <pre class="usage"><span class='fu'>route_to_tibble</span><span class='op'>(</span><span class='va'>route</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>route</th>
-      <td><p>A route, as a list, returned by the <code>routes</code> API call.</p></td>
+      <td><p>A route, as a list, returned by the <code><a href='routes.html'>routes</a></code> API
+call.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A tibble of routes, with the following columns:</p><ul>
-<li><p>route_id</p></li>
-<li><p>route_gtfs_id</p></li>
-<li><p>route_name</p></li>
-<li><p>route_type</p></li>
-<li><p>route_number</p></li>
-<li><p>service_status</p></li>
-<li><p>service_status_timestamp</p></li>
+<li><p><code>route_id</code></p></li>
+<li><p><code>route_gtfs_id</code></p></li>
+<li><p><code>route_name</code></p></li>
+<li><p><code>route_type</code></p></li>
+<li><p><code>route_type_description</code></p></li>
+<li><p><code>route_number</code></p></li>
+<li><p><code>geopath</code></p></li>
+<li><p><code>service_status</code></p></li>
+<li><p><code>service_status_timestamp</code></p></li>
 </ul>
 
 
@@ -160,7 +166,7 @@ depending on the API call that was used to populate the information.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

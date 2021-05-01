@@ -40,8 +40,9 @@
 
 
 <meta property="og:title" content="Convert a single run to a tibble — run_to_tibble" />
-<meta property="og:description" content="This function is designed to parse the content returned by the interior
-steps of the runs_on_route and run_information functions." />
+<meta property="og:description" content="This function is designed to parse the content returned by the interior steps
+of the runs_on_route and run_information
+functions." />
 
 
 
@@ -73,7 +74,7 @@ steps of the runs_on_route and run_information functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ptvapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -81,18 +82,21 @@ steps of the runs_on_route and run_information functions." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/mdneuzerling/ptvapi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -115,11 +119,12 @@ steps of the runs_on_route and run_information functions." />
     </div>
 
     <div class="ref-description">
-    <p>This function is designed to parse the content returned by the interior
-steps of the <code>runs_on_route</code> and <code>run_information</code> functions.</p>
+    <p>This function is designed to parse the content returned by the interior steps
+of the <code><a href='runs_on_route.html'>runs_on_route</a></code> and <code><a href='run_information.html'>run_information</a></code>
+functions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>run_to_tibble</span>(<span class='no'>run</span>)</pre>
+    <pre class="usage"><span class='fu'>run_to_tibble</span><span class='op'>(</span><span class='va'>run</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -133,9 +138,11 @@ steps of the <code>runs_on_route</code> and <code>run_information</code> functio
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A tibble with the following columns:</p><ul>
-<li><p><code>run_id</code></p></li>
+<li><p><code>run_id</code> (deprecated, use <code>run_ref</code> instead)</p></li>
+<li><p><code>run_ref</code></p></li>
 <li><p><code>route_id</code></p></li>
 <li><p><code>route_type</code></p></li>
+<li><p><code>route_type_description</code></p></li>
 <li><p><code>direction_id</code></p></li>
 <li><p><code>run_sequence</code></p></li>
 <li><p><code>final_stop_id</code></p></li>
@@ -144,6 +151,7 @@ steps of the <code>runs_on_route</code> and <code>run_information</code> functio
 <li><p><code>express_stop_count</code></p></li>
 <li><p><code>vehicle_position</code></p></li>
 <li><p><code>vehicle_descriptor</code></p></li>
+<li><p><code>geopath</code></p></li>
 </ul>
 
 
@@ -162,7 +170,7 @@ steps of the <code>runs_on_route</code> and <code>run_information</code> functio
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

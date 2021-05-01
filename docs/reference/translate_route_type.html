@@ -48,8 +48,7 @@ the corresponding route type code
 Check a given integer to see if it is a valid route type code,
 returning it if so and erroring otherwise
 Return NULL on NULL input
-
-" />
+This function is not vectorised." />
 
 
 
@@ -81,7 +80,7 @@ Return NULL on NULL input
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ptvapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -89,18 +88,21 @@ Return NULL on NULL input
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/mdneuzerling/ptvapi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -131,11 +133,14 @@ the corresponding route type code</p></li>
 <li><p>Check a given integer to see if it is a valid route type code,
 returning it if so and erroring otherwise</p></li>
 <li><p>Return NULL on NULL input</p></li>
-</ul>
-
+</ul><p>This function is <em>not</em> vectorised.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>translate_route_type</span>(<span class='no'>route_type</span>)</pre>
+    <pre class="usage"><span class='fu'>translate_route_type</span><span class='op'>(</span>
+  <span class='va'>route_type</span>,
+  user_id <span class='op'>=</span> <span class='fu'>determine_user_id</span><span class='op'>(</span><span class='op'>)</span>,
+  api_key <span class='op'>=</span> <span class='fu'>determine_api_key</span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -144,8 +149,18 @@ returning it if so and erroring otherwise</p></li>
       <th>route_type</th>
       <td><p>A route type which can be provided either as a non-negative
 integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
-Bus". Character inputs are not case-sensitive. Use the <code>route_types</code>
-function to extract a vector of all route types.</p></td>
+Bus". Character inputs are not case-sensitive. Use the
+<code><a href='route_types.html'>route_types</a></code> function to extract a vector of all route types.</p></td>
+    </tr>
+    <tr>
+      <th>user_id</th>
+      <td><p>Integer or character. A user ID or devid provided by Public
+Transport Victoria. Refer to <code><a href='ptvapi.html'>?ptvapi</a></code> for more details.</p></td>
+    </tr>
+    <tr>
+      <th>api_key</th>
+      <td><p>Character. An API key, with dashes, provided by Public
+Transport Victoria. Refer to <code><a href='ptvapi.html'>?ptvapi</a></code> for more details.</p></td>
     </tr>
     </table>
 
@@ -168,7 +183,7 @@ function to extract a vector of all route types.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -46,7 +46,11 @@ Public Transport Victoria. See
 https://www.ptv.vic.gov.au/footer/data-and-reporting/datasets/ptv-timetable-api/
 The user ID and API key can be entered directly into all functions.
 Alternatively, all functions will pick up on the PTV_USER_ID and API_KEY
-environment variables, if defined." />
+environment variables, if defined.
+All API requests use SSL by default. To disable this, and to use the http
+API endpoints rather than the https API endpoints, set the option:options(use_insecure_ptv_connection = TRUE)
+
+" />
 
 
 
@@ -78,7 +82,7 @@ environment variables, if defined." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ptvapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -86,18 +90,21 @@ environment variables, if defined." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/mdneuzerling/ptvapi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -127,6 +134,10 @@ Public Transport Victoria. See
 <p>The user ID and API key can be entered directly into all functions.
 Alternatively, all functions will pick up on the PTV_USER_ID and API_KEY
 environment variables, if defined.</p>
+<p>All API requests use SSL by default. To disable this, and to use the <code>http</code>
+API endpoints rather than the <code>https</code> API endpoints, set the option:</p><pre><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>use_insecure_ptv_connection <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</pre>
+
     </div>
 
 
@@ -138,26 +149,28 @@ The author(s) of this package are unaffiliated with Public Transport
 Victoria.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># tibble of all routes</span>
-<span class='fu'><a href='routes.html'>routes</a></span>()
+<span class='fu'><a href='routes.html'>routes</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># Search for routes by name (case insensitive, partial matching supported)</span>
-<span class='fu'><a href='routes.html'>routes</a></span>(<span class='kw'>route_name</span> <span class='kw'>=</span> <span class='st'>"Frankston"</span>)
+<span class='fu'><a href='routes.html'>routes</a></span><span class='op'>(</span>route_name <span class='op'>=</span> <span class='st'>"Frankston"</span><span class='op'>)</span>
 
 <span class='co'># All current disruptions</span>
-<span class='fu'><a href='disruptions.html'>disruptions</a></span>(<span class='kw'>disruption_status</span> <span class='kw'>=</span> <span class='st'>"current"</span>)
+<span class='fu'><a href='disruptions.html'>disruptions</a></span><span class='op'>(</span>disruption_status <span class='op'>=</span> <span class='st'>"current"</span><span class='op'>)</span>
 
 <span class='co'># Train stops near Flinders Street Station</span>
-<span class='fu'><a href='stops_nearby.html'>stops_nearby</a></span>(
-  <span class='kw'>latitude</span> <span class='kw'>=</span> -<span class='fl'>37.8183</span>,
-  <span class='kw'>longitude</span> <span class='kw'>=</span> <span class='fl'>144.9671</span>,
-  <span class='kw'>route_types</span> <span class='kw'>=</span> <span class='st'>"Train"</span>
-)
+<span class='fu'><a href='stops_nearby.html'>stops_nearby</a></span><span class='op'>(</span>
+  latitude <span class='op'>=</span> <span class='op'>-</span><span class='fl'>37.8183</span>,
+  longitude <span class='op'>=</span> <span class='fl'>144.9671</span>,
+  route_types <span class='op'>=</span> <span class='st'>"Train"</span>
+<span class='op'>)</span>
 
 <span class='co'># Upcoming train departures from Flinders Street Station</span>
-<span class='fu'><a href='departures.html'>departures</a></span>(<span class='kw'>stop_id</span> <span class='kw'>=</span> <span class='fl'>1071</span>, <span class='kw'>route_type</span> <span class='kw'>=</span> <span class='st'>"Train"</span>)
-}</div></pre>
+<span class='fu'><a href='departures.html'>departures</a></span><span class='op'>(</span>stop_id <span class='op'>=</span> <span class='fl'>1071</span>, route_type <span class='op'>=</span> <span class='st'>"Train"</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -173,7 +186,7 @@ Victoria.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

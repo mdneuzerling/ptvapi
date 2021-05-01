@@ -74,7 +74,7 @@ of tibbles, with output corresponding to their respective API calls." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ptvapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -82,18 +82,21 @@ of tibbles, with output corresponding to their respective API calls." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/mdneuzerling/ptvapi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -121,30 +124,33 @@ disruptions associated with a particular run ID. This is returned as a list
 of tibbles, with output corresponding to their respective API calls.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>patterns</span>(
-  <span class='no'>run_id</span>,
-  <span class='no'>route_type</span>,
-  <span class='kw'>stop_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>departs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span>(),
-  <span class='kw'>user_id</span> <span class='kw'>=</span> <span class='fu'>determine_user_id</span>(),
-  <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='fu'>determine_api_key</span>()
-)</pre>
+    <pre class="usage"><span class='fu'>patterns</span><span class='op'>(</span>
+  <span class='va'>run_ref</span>,
+  <span class='va'>route_type</span>,
+  stop_id <span class='op'>=</span> <span class='cn'>NULL</span>,
+  departs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span><span class='op'>(</span><span class='op'>)</span>,
+  user_id <span class='op'>=</span> <span class='fu'>determine_user_id</span><span class='op'>(</span><span class='op'>)</span>,
+  api_key <span class='op'>=</span> <span class='fu'>determine_api_key</span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>run_id</th>
-      <td><p>An integer run ID. This may retrieved from the <code>departures</code>
-or <code>runs_on_route</code> functions.</p></td>
+      <th>run_ref</th>
+      <td><p>A character run reference. This supersedes the integer
+<code>run_id</code>. For backwards compatibility and since most run references are
+integers, this function will attempt to convert an the argument to a
+character. Run references may be retrieved from the
+<code><a href='departures.html'>departures</a></code> or <code><a href='runs_on_route.html'>runs_on_route</a></code> functions.</p></td>
     </tr>
     <tr>
       <th>route_type</th>
       <td><p>Optionally filter results by a route type. A route type can
 be provided either as a non-negative integer code, or as a character:
 "Tram", "Train", "Bus", "Vline" or "Night Bus". Character inputs are not
-case-sensitive. Use the <code>route_types</code> function to extract a vector of all
-route types.</p></td>
+case-sensitive. Use the <code><a href='route_types.html'>route_types</a></code> function to extract a
+vector of all route types.</p></td>
     </tr>
     <tr>
       <th>stop_id</th>
@@ -186,19 +192,22 @@ following names:</p><ul>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The <code>stops</code> tibble has an output similar to that returned by
-<code>stops_on_route</code>. The <code>routes</code> tibble does not contain service status
-information.</p>
+<code><a href='stops_on_route.html'>stops_on_route</a></code>. The <code>routes</code> tibble does not contain service
+status information.</p>
 <p>Departures: The API seems to return the earliest 7 departures. While
 the PTV Timetable API supports filtering patterns by datetimes, the
 behaviour of this argument is not reliable --- it appears to filter by day
 only, returning the earliest 7 departures of a different day. It is
-recommended that departures are retrieved via the <code>departures</code> function.</p>
+recommended that departures are retrieved via the <code><a href='departures.html'>departures</a></code>
+function.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>patterns</span>(<span class='kw'>run_id</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>route_type</span> <span class='kw'>=</span> <span class='fl'>0</span>)
-<span class='fu'>patterns</span>(<span class='kw'>run_id</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>route_type</span> <span class='kw'>=</span> <span class='st'>"Train"</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>patterns</span><span class='op'>(</span>run_ref <span class='op'>=</span> <span class='st'>"1"</span>, route_type <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+<span class='fu'>patterns</span><span class='op'>(</span>run_ref <span class='op'>=</span> <span class='st'>"1"</span>, route_type <span class='op'>=</span> <span class='st'>"Train"</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -214,7 +223,7 @@ recommended that departures are retrieved via the <code>departures</code> functi
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Information for a all outlets — outlets • ptvapi</title>
+<title>Retrieve route types, using cached values if possible and caching values otherwise — cached_route_types • ptvapi</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,16 @@
 
 
 
-<meta property="og:title" content="Information for a all outlets — outlets" />
-<meta property="og:description" content="Information for a all outlets" />
+<meta property="og:title" content="Retrieve route types, using cached values if possible and caching values otherwise — cached_route_types" />
+<meta property="og:description" content="Route types will change extraordinarily rarely --- this would require PTV to
+add a new route type akin to &quot;train&quot; or &quot;bus&quot;. To avoid querying the API too
+much, we prefer to use cached values for route type translation wherever
+possible. This function effectively wraps route_types, returning cached
+results if possible or caching results otherwise. Note that if a user
+specifically calls route_types then we do not return cached results.
+We use the pkg.env as a cache, which is an environment created on package
+load. This is not truly private --- users could still access this as an
+internal value. But it's effectively &quot;out of the way&quot;." />
 
 
 
@@ -111,16 +119,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Information for a all outlets</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mdneuzerling/ptvapi/blob/master/R/outlets.R'><code>R/outlets.R</code></a></small>
-    <div class="hidden name"><code>outlets.Rd</code></div>
+    <h1>Retrieve route types, using cached values if possible and caching values otherwise</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mdneuzerling/ptvapi/blob/master/R/route-types.R'><code>R/route-types.R</code></a></small>
+    <div class="hidden name"><code>cached_route_types.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Information for a all outlets</p>
+    <p>Route types will change extraordinarily rarely --- this would require PTV to
+add a new route type akin to "train" or "bus". To avoid querying the API too
+much, we prefer to use cached values for route type translation wherever
+possible. This function effectively wraps <code>route_types</code>, returning cached
+results if possible or caching results otherwise. Note that if a user
+specifically calls <code>route_types</code> then we do <em>not</em> return cached results.</p>
+<p>We use the <code>pkg.env</code> as a cache, which is an environment created on package
+load. This is not truly private --- users could still access this as an
+internal value. But it's effectively "out of the way".</p>
     </div>
 
-    <pre class="usage"><span class='fu'>outlets</span><span class='op'>(</span>user_id <span class='op'>=</span> <span class='fu'>determine_user_id</span><span class='op'>(</span><span class='op'>)</span>, api_key <span class='op'>=</span> <span class='fu'>determine_api_key</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>cached_route_types</span><span class='op'>(</span>
+  user_id <span class='op'>=</span> <span class='fu'>determine_user_id</span><span class='op'>(</span><span class='op'>)</span>,
+  api_key <span class='op'>=</span> <span class='fu'>determine_api_key</span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,42 +158,9 @@ Transport Victoria. Refer to <code><a href='ptvapi.html'>?ptvapi</a></code> for 
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A tibble with the following columns:</p><ul>
-<li><p><code>outlet_slid_spid</code></p></li>
-<li><p><code>outlet_name</code></p></li>
-<li><p><code>outlet_business</code></p></li>
-<li><p><code>outlet_latitude</code></p></li>
-<li><p><code>outlet_longitude</code></p></li>
-<li><p><code>outlet_suburb</code></p></li>
-<li><p><code>outlet_postcode</code></p></li>
-<li><p><code>outlet_business_hour_mon</code></p></li>
-<li><p><code>outlet_business_hour_tue</code></p></li>
-<li><p><code>outlet_business_hour_wed</code></p></li>
-<li><p><code>outlet_business_hour_thu</code></p></li>
-<li><p><code>outlet_business_hour_fri</code></p></li>
-<li><p><code>outlet_business_hour_sat</code></p></li>
-<li><p><code>outlet_business_hour_sun</code></p></li>
-<li><p><code>outlet_notes</code></p></li>
-</ul>
+    <p>A named integer vector in which the values are the route type
+descriptions, and the names of the vector are the route type numbers.</p>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The <code>outlet_name</code> reported here is more accurately described as an outlet
-<em>address</em>. We keep the <code>outlet_name</code> column name as this is how the PTV API
-describes it.</p>
-<p>The business hours are reported as characters. Usually they take on
-a format of "8.00AM - 10.00PM", but there variants such as "7.30AM - 11.00AM
-and 1.30PM - 6.00PM". For days on which an outlet is closed, the opening
-hours are usually reported as "CLOSED", but can also be an empty character.
-Some opening hours are "24 Hours". These fields are also filled with missing
-values and empty characters.</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>outlets</span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

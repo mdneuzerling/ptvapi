@@ -75,7 +75,7 @@ suffix based on the presence of &quot;&amp;amp;&quot; in the request." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ptvapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -83,18 +83,21 @@ suffix based on the presence of &quot;&amp;amp;&quot; in the request." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/mdneuzerling/ptvapi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -123,7 +126,7 @@ and all others after that "&amp;". This function will determine the correct
 suffix based on the presence of "&amp;" in the request.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_parameters</span>(<span class='no'>request</span>, <span class='no'>...</span>, <span class='kw'>.combine</span> <span class='kw'>=</span> <span class='st'>"repeat_name"</span>)</pre>
+    <pre class="usage"><span class='fu'>add_parameters</span><span class='op'>(</span><span class='va'>request</span>, <span class='va'>...</span>, .combine <span class='op'>=</span> <span class='st'>"repeat_name"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,19 +171,21 @@ example, <code>("request", "para", c(1, 2))</code> will return "request?para=1%2
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw pkg'>ptvapi</span><span class='kw ns'>:::</span><span class='fu'>add_parameters</span>(<span class='st'>"www.example.com"</span>, <span class='kw'>animal</span> <span class='kw'>=</span> <span class='no'>crocodile</span>)
-<span class='kw pkg'>ptvapi</span><span class='kw ns'>:::</span><span class='fu'>add_parameters</span>(
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>ptvapi</span><span class='fu'>:::</span><span class='fu'>add_parameters</span><span class='op'>(</span><span class='st'>"www.example.com"</span>, animal <span class='op'>=</span> <span class='va'>crocodile</span><span class='op'>)</span>
+<span class='fu'>ptvapi</span><span class='fu'>:::</span><span class='fu'>add_parameters</span><span class='op'>(</span>
   <span class='st'>"www.example.com"</span>,
-  <span class='kw'>animal</span> <span class='kw'>=</span> <span class='no'>crocodile</span>,
-  <span class='kw'>food</span> <span class='kw'>=</span> <span class='st'>"cherries"</span>
-)
-<span class='kw pkg'>ptvapi</span><span class='kw ns'>:::</span><span class='fu'>add_parameters</span>(
+  animal <span class='op'>=</span> <span class='va'>crocodile</span>,
+  food <span class='op'>=</span> <span class='st'>"cherries"</span>
+<span class='op'>)</span>
+<span class='fu'>ptvapi</span><span class='fu'>:::</span><span class='fu'>add_parameters</span><span class='op'>(</span>
   <span class='st'>"www.example.com"</span>,
-  <span class='kw'>animal</span> <span class='kw'>=</span> <span class='no'>crocodile</span>,
-  <span class='kw'>numbers</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>),
-  <span class='kw'>.combine</span> <span class='kw'>=</span> <span class='st'>"repeat_names"</span>
-)}</div></pre>
+  animal <span class='op'>=</span> <span class='va'>crocodile</span>,
+  numbers <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>,
+  .combine <span class='op'>=</span> <span class='st'>"repeat_names"</span>
+<span class='op'>)</span><span class='op'>}</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -196,7 +201,7 @@ example, <code>("request", "para", c(1, 2))</code> will return "request?para=1%2
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
