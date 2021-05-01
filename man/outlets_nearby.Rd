@@ -55,6 +55,10 @@ A tibble with the following columns: \itemize{
 Information for outlets near a given location
 }
 \details{
+The \code{outlet_name} reported here is more accurately described as an outlet
+\emph{address}. We keep the \code{outlet_name} column name as this is how the PTV API
+describes it.
+
 The business hours are reported as characters. Usually they take on
 a format of "8.00AM - 10.00PM", but there variants such as "7.30AM - 11.00AM
 and 1.30PM - 6.00PM". For days on which an outlet is closed, the opening

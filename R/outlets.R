@@ -1,6 +1,11 @@
 #' Information for a all outlets
 #'
-#' @details The business hours are reported as characters. Usually they take on
+#' @details
+#' The `outlet_name` reported here is more accurately described as an outlet
+#' _address_. We keep the `outlet_name` column name as this is how the PTV API
+#' describes it.
+#'
+#' The business hours are reported as characters. Usually they take on
 #' a format of "8.00AM - 10.00PM", but there variants such as "7.30AM - 11.00AM
 #' and 1.30PM - 6.00PM". For days on which an outlet is closed, the opening
 #' hours are usually reported as "CLOSED", but can also be an empty character.
