@@ -1,5 +1,7 @@
 if (identical(Sys.getenv("NOT_CRAN"), "true")) {
 
+teardown(pkg.env$route_types <- NULL)
+
 route_types_results <- route_types()
 
 test_that("All 5 route types present", {
@@ -31,6 +33,12 @@ test_that("Route type description is working", {
   # This test has an alternative use --- if a new route type is added, the tests
   # will start failing, and I can be notified by a CICD pipeline
   expect_error(describe_route_type(5), "Route type 5 doesn't exist")
+})
+
+test_that("route types are being cached", {
+  cached_route_types()
+  pkg.env$route_types <- c("0" = "fish")
+  expect_equal(describe_route_type(0), "fish")
 })
 
 }
