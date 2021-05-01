@@ -1,6 +1,9 @@
 if (identical(Sys.getenv("NOT_CRAN"), "true")) {
 
+# Recall that "outlet_name" is more accurately outlet address
+
 st_kilda <- search_outlets("st kilda")
+seven_eleven <- search_outlets("7-Eleven")
 
 test_that("search_outlets result has class \"ptvapi\"", {
   expect_s3_class(st_kilda, "ptvapi")
@@ -21,17 +24,7 @@ test_that("results in search_outlets can relate to outlet name alone", {
 })
 
 test_that("results in search_outlets can relate to outlet business alone", {
-  expect_gte(
-    nrow(
-      dplyr::filter(
-        st_kilda,
-        !grepl("st kilda", outlet_name, ignore.case = TRUE),
-        grepl("st kilda", outlet_business, ignore.case = TRUE),
-        !grepl("st kilda", outlet_suburb, ignore.case = TRUE)
-      )
-    ),
-    1
-  )
+  expect_gte(nrow(seven_eleven), 1)
 })
 
 test_that("results in search_outlets can relate to outlet suburb alone", {
