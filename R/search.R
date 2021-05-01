@@ -134,8 +134,15 @@ search_routes <- function(search_term,
     match_route_by_suburb = TRUE
   )
   content <- response$content
+  browser()
 
   parsed <- map_and_rbind(content$routes, route_to_tibble)
+  parsed$route_type_description <- purrr::map_chr(
+    parsed$route_type,
+    describe_route_type,
+    user_id = user_id,
+    api_key = api_key
+  )
   new_ptvapi_tibble(response, parsed)
 }
 

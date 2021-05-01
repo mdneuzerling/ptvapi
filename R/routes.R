@@ -153,7 +153,7 @@ route_to_tibble <- function(route) {
       route$route_number == "", NA_character_, route$route_number
     ),
     geopath = if (is.null(route$geopath)) {
-      list()
+      list(geopath_to_tibble(NULL))
     } else {
       list(purrr::map_dfr(route$geopath, geopath_to_tibble))
     },
