@@ -13,10 +13,16 @@
 #' }
 #'
 route_information <- function(route_id,
+                              include_geopath = FALSE,
+                              geopath_utc = NULL,
                               user_id = determine_user_id(),
                               api_key = determine_api_key()) {
   route_id <- to_integer(route_id)
-  request <- glue::glue("routes/{route_id}")
+  request <- add_parameters(
+    glue::glue("routes/{route_id}"),
+    route_types = route_types,
+    route_name = route_name
+  )
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
 
@@ -96,7 +102,7 @@ route_to_tibble <- function(route) {
         route_type = integer(),
         route_number = character(),
         service_status = character(),
-        service_status_timestampe = as.POSIXct(NA)
+        service_status_timestamp = as.POSIXct(NA)
       )
     )
   } else {
@@ -114,7 +120,7 @@ route_to_tibble <- function(route) {
         NA_character_,
         route$route_service_status$description
       ),
-      service_status_timestampe = convert_to_melbourne_time(
+      service_status_timestamp = convert_to_melbourne_time(
         route$route_service_status$timestamp
       )
     )
