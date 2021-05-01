@@ -134,7 +134,6 @@ search_routes <- function(search_term,
     match_route_by_suburb = TRUE
   )
   content <- response$content
-  browser()
 
   parsed <- map_and_rbind(content$routes, route_to_tibble)
   parsed$route_type_description <- purrr::map_chr(
