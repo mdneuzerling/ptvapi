@@ -34,24 +34,24 @@
 #' @export
 #'
 #' @examples \dontrun{
-#' patterns(run_id = 1, route_type = 0)
-#' patterns(run_id = 1, route_type = "Train")
+#' patterns(run_ref = "1", route_type = 0)
+#' patterns(run_ref = "1", route_type = "Train")
 #' }
 #'
-patterns <- function(run_id,
+patterns <- function(run_ref,
                      route_type,
                      stop_id = NULL,
                      departs = Sys.time(),
                      user_id = determine_user_id(),
                      api_key = determine_api_key()) {
-  run_id <- to_integer(run_id)
+  run_ref <- as.character(run_ref)
   route_type <- translate_route_type(route_type)
   if (!is.null(stop_id)) stop_id <- to_integer(stop_id)
   departs <- to_datetime(departs)
   url_departs <- format(departs, format = "%Y-%m-%dT%H:%M:%OS", tz = "UTC")
 
   request <- add_parameters(
-    glue::glue("pattern/run/{run_id}/route_type/{route_type}"),
+    glue::glue("pattern/run/{run_ref}/route_type/{route_type}"),
     expand = "all",
     stop_id = stop_id,
     date_utc = url_departs

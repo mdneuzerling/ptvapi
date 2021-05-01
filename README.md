@@ -92,10 +92,10 @@ stops_nearby(
 ```
 # Upcoming train departures from Flinders Street Station
 > departures(stop_id = 1071, route_type = "Train")
-# A tibble: 75 x 11
-   direction_id stop_id route_id run_id platform_number at_platform
-          <int>   <int>    <int>  <int> <chr>           <lgl>    
-# … with 65 more rows, and 4 more variables: departure_sequence <int>, 
+# A tibble: 75 x 12
+   direction_id stop_id route_id run_id run_ref platform_number at_platform
+          <int>   <int>    <int>  <int> <chr>   <chr>           <lgl> 
+# … with 65 more rows, and 5 more variables: departure_sequence <int>,
 #   scheduled_departure <dttm>, estimated_departure <dttm>, flags <chr>,
 #   disruption_ids <list>
 ```

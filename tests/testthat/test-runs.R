@@ -42,7 +42,7 @@ test_that("Runs on the Frankston route end at stops on the Frankston route", {
   }
 })
 
-run_one <- run_information(run_id = 1)
+run_one <- run_information(run_ref = "1")
 
 test_that("run_information() result has class \"ptvapi\"", {
   expect_s3_class(run_one, "ptvapi")

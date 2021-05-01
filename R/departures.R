@@ -236,7 +236,8 @@ filter_departures <- function(parsed,
 #' @return A tibble consisting of the following columns: \itemize{
 #' \item `stop_id`
 #' \item `route_id`
-#' \item `run_id`
+#' \item `run_id` (deprecated, use `run_ref` instead)
+#' \item `run_ref`
 #' \item `direction_id`
 #' \item `disruption_ids`
 #' \item `scheduled_departure`
@@ -255,6 +256,7 @@ departure_to_tibble <- function(departure) {
     stop_id = departure$stop_id,
     route_id = departure$route_id,
     run_id = departure$run_id,
+    run_ref = departure$run_ref,
     platform_number = ifelse(
       is.null(departure$platform_number),
       NA_character_,

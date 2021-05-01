@@ -4,8 +4,11 @@
 #' specific run, consider supplying a value to the optional `route_type`
 #' argument.
 #'
-#' @param run_id An integer run ID. This may retrieved from the `departures`
-#'   or `runs_on_route` functions.
+#' @param run_ref A character run reference. This supersedes the integer
+#'   `run_id`. For backwards compatibility and since most run references are
+#'   integers, this function will attempt to convert an the argument to a
+#'   character. Run references may be retrieved from the `departures` or
+#'   `runs_on_route` functions.
 #' @inheritParams directions
 #' @inheritParams PTVGET
 #'
@@ -14,15 +17,15 @@
 #' @export
 #'
 #' @examples \dontrun{
-#' run_information(100)
+#' run_information("100")
 #' }
 #'
-run_information <- function(run_id,
+run_information <- function(run_ref,
                             route_type = NULL,
                             user_id = determine_user_id(),
                             api_key = determine_api_key()) {
-  run_id <- to_integer(run_id)
-  request <- glue::glue("runs/{run_id}")
+  run_ref <- as.character(run_ref)
+  request <- glue::glue("runs/{run_ref}")
   if (!is.null(route_type)) {
     route_type <- translate_route_type(route_type)
     request <- glue::glue("{request}/route_type/{route_type}")
@@ -76,7 +79,8 @@ runs_on_route <- function(route_id,
 #' @param route A run, as a list, returned by the `runs` API call.
 #'
 #' @return A tibble with the following columns: \itemize{
-#' \item `run_id`
+#' \item `run_id` (deprecated, use `run_ref` instead)
+#' \item `run_ref`
 #' \item `route_id`
 #' \item `route_type`
 #' \item `direction_id`
@@ -94,6 +98,7 @@ runs_on_route <- function(route_id,
 run_to_tibble <- function(run) {
   tibble::tibble(
     run_id = run$run_id,
+    run_ref = run$run_ref,
     route_id = run$route_id,
     route_type = run$route_type,
     direction_id = run$direction_id,
