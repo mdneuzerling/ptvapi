@@ -75,12 +75,13 @@ cached_route_types <- function(user_id = determine_user_id(),
 #' returning it if so and erroring otherwise
 #' \item Return NULL on NULL input
 #' }
+#' This function is _not_ vectorised.
 #'
 #' @inheritParams PTVGET
 #' @param route_type A route type which can be provided either as a non-negative
 #'   integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
-#'   Bus". Character inputs are not case-sensitive. Use the `route_types`
-#'   function to extract a vector of all route types.
+#'   Bus". Character inputs are not case-sensitive. Use the
+#'   \code{\link{route_type}} function to extract a vector of all route types.
 #'
 #' @return An integer route type code, or NULL if the input is NULL
 #'
@@ -125,4 +126,26 @@ translate_route_type <- function(route_type,
   }
 
   as.integer(translation)
+}
+
+#' Convert a numeric route type to a human-friendly description
+#'
+#' This function effectively wraps the results of \code{\link{route_type}} to
+#' translate a route type to a human-readable form, such as translating `0` to
+#' `"Train"`. This function is _not_ vectorised.
+#'
+#' @param route_type Atomic integer or character.
+#' @inheritParams PTVGET
+#'
+#' @return character
+#' @keywords Internal
+describe_route_type <- function(route_type,
+                                user_id = determine_user_id(),
+                                api_key = determine_api_key()) {
+  route_type <- to_integer(route_type)
+  route_type_vector <- cached_route_types(user_id = user_id, api_key = api_key)
+  if (!(as.character(route_type) %in% names(route_type_vector))) {
+    stop(glue::glue("Route type {route_type} doesn't exist"))
+  }
+  unname(route_type_vector[as.character(route_type)])
 }
