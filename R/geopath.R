@@ -22,8 +22,8 @@ geopath_to_tibble <- function(geopath) {
     return(
       tibble::tibble(
         direction_id = integer(),
-        valid_from = as.Date(NULL),
-        valid_to = as.Date(NULL),
+        valid_from = as.Date(NA),
+        valid_to = as.Date(NA),
         paths = list()
       )
     )
