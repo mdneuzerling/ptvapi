@@ -33,7 +33,11 @@ stop_information <- function(stop_id,
                              user_id = determine_user_id(),
                              api_key = determine_api_key()) {
   stop_id <- to_integer(stop_id)
-  route_type <- translate_route_type(route_type)
+  route_type <- translate_route_type(
+    route_type,
+    user_id = user_id,
+    api_key = api_key
+  )
   request <- add_parameters(
     glue::glue("stops/{stop_id}/route_type/{route_type}"),
     stop_location = TRUE,
@@ -114,7 +118,11 @@ stops_on_route <- function(route_id,
                            user_id = determine_user_id(),
                            api_key = determine_api_key()) {
   route_id <- to_integer(route_id)
-  route_type <- translate_route_type(route_type)
+  route_type <- translate_route_type(
+    route_type,
+    user_id = user_id,
+    api_key = api_key
+  )
   if (!is.null(direction_id)) direction_id <- to_integer(direction_id)
   request <- add_parameters(
     glue::glue("stops/route/{route_id}/route_type/{route_type}"),

@@ -55,7 +55,12 @@ ptv_search <- function(search_term,
   }
   if (!is.null(max_distance)) max_distance <- to_integer(max_distance)
   if (!is.null(route_types)) {
-    route_types <- purrr::map_int(route_types, translate_route_type)
+    route_types <- purrr::map_int(
+      route_types,
+      translate_route_type,
+      user_id = user_id,
+      api_key = api_key
+    )
   }
 
   request <- add_parameters(

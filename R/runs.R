@@ -27,7 +27,11 @@ run_information <- function(run_ref,
   run_ref <- as.character(run_ref)
   request <- glue::glue("runs/{run_ref}")
   if (!is.null(route_type)) {
-    route_type <- translate_route_type(route_type)
+    route_type <- translate_route_type(
+      route_type,
+      user_id = user_id,
+      api_key = api_key
+    )
     request <- glue::glue("{request}/route_type/{route_type}")
   }
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
@@ -61,7 +65,11 @@ runs_on_route <- function(route_id,
   route_id <- to_integer(route_id)
   request <- glue::glue("runs/route/{route_id}")
   if (!is.null(route_type)) {
-    route_type <- translate_route_type(route_type)
+    route_type <- translate_route_type(
+      route_type,
+      user_id = user_id,
+      api_key = api_key
+    )
     request <- glue::glue("{request}/route_type/{route_type}")
   }
   response <- PTVGET(request, user_id = user_id, api_key = api_key)

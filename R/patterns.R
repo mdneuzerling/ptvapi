@@ -45,7 +45,11 @@ patterns <- function(run_ref,
                      user_id = determine_user_id(),
                      api_key = determine_api_key()) {
   run_ref <- as.character(run_ref)
-  route_type <- translate_route_type(route_type)
+  route_type <- translate_route_type(
+    route_type,
+    user_id = user_id,
+    api_key = api_key
+  )
   if (!is.null(stop_id)) stop_id <- to_integer(stop_id)
   departs <- to_datetime(departs)
   url_departs <- format(departs, format = "%Y-%m-%dT%H:%M:%OS", tz = "UTC")

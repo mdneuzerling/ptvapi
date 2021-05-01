@@ -70,7 +70,10 @@ fare_estimate <- function(min_zone,
 
   if (!is.null(travelled_route_types)) {
     travelled_route_types <- purrr::map_int(
-      travelled_route_types, translate_route_type
+      travelled_route_types,
+      translate_route_type,
+      user_id = user_id,
+      api_key = api_key
     )
   }
 

@@ -56,7 +56,12 @@ routes <- function(route_types = NULL,
                    user_id = determine_user_id(),
                    api_key = determine_api_key()) {
   if (!is.null(route_types)) {
-    route_types <- purrr::map_int(route_types, translate_route_type)
+    route_types <- purrr::map_int(
+      route_types,
+      translate_route_type,
+      user_id = user_id,
+      api_key = api_key
+    )
   }
   if (!is.null(route_name)) assertthat::assert_that(is.character(route_name))
 
