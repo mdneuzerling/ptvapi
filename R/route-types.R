@@ -37,6 +37,33 @@ route_types <- function(user_id = determine_user_id(),
   route_type_names
 }
 
+#' Retrieve route types, using cached values if possible and caching values otherwise
+#'
+#' @inheritParams PTVGET
+#'
+#' @description
+#' Route types will change extraordinarily rarely --- this would require PTV to
+#' add a new route type akin to "train" or "bus". To avoid querying the API too
+#' much, we prefer to use cached values for route type translation wherever
+#' possible. This function effectively wraps `route_types`, returning cached
+#' results if possible or caching results otherwise. Note that if a user
+#' specifically calls `route_types` then we do _not_ return cached results.
+#'
+#' We use the `pkg.env` as a cache, which is an environment created on package
+#' load. This is not truly private --- users could still access this as an
+#' internal value. But it's effectively "out of the way".
+#'
+#' @inherit route_types return
+#'
+#' @keyword internal
+cached_route_types <- function(user_id = determine_user_id(),
+                               api_key = determine_api_key())  {
+  if (is.null(pkg.env$route_types)) {
+    pkg.env$route_types <- route_types(user_id = user_id, api_key = api_key)
+  }
+  pkg.env$route_types
+}
+
 #' Translate a route type input into a numerical route type
 #'
 #' Many API calls require a route type (eg. "Tram" or "Train"). These must be
@@ -49,6 +76,7 @@ route_types <- function(user_id = determine_user_id(),
 #' \item Return NULL on NULL input
 #' }
 #'
+#' @inheritParams PTVGET
 #' @param route_type A route type which can be provided either as a non-negative
 #'   integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
 #'   Bus". Character inputs are not case-sensitive. Use the `route_types`
@@ -58,9 +86,11 @@ route_types <- function(user_id = determine_user_id(),
 #'
 #' @keywords internal
 #'
-translate_route_type <- function(route_type) {
+translate_route_type <- function(route_type,
+                                 user_id = determine_user_id(),
+                                 api_key = determine_api_key()) {
 
-  route_type_vector <- route_types()
+  route_type_vector <- cached_route_types(user_id = user_id, api_key = api_key)
 
   if (is.numeric(route_type)) {
     if (as.character(route_type) %in% names(route_type_vector)) {
