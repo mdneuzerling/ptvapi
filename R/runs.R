@@ -36,9 +36,17 @@ run_information <- function(run_ref,
   }
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
-  assert_correct_attributes(names(content), c("runs", "status"))
+  # Internally, the API response has a "run" attribute if a route type is
+  # specified (as runs are unique up to route type) and "runs" otherwise
+  if (!is.null(route_type)) {
+    assert_correct_attributes(names(content), c("run", "status"))
+    parsed <- run_to_tibble(content$run)
+  } else {
+    assert_correct_attributes(names(content), c("runs", "status"))
+    parsed <- map_and_rbind(content$runs, run_to_tibble)
+  }
 
-  parsed <- map_and_rbind(content$runs, run_to_tibble)
+
   parsed$route_type_description <- purrr::map_chr(
     parsed$route_type,
     describe_route_type,
