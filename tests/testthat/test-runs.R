@@ -63,4 +63,26 @@ test_that("run_information returns exactly one rowwhen route_type is specified",
   expect_equal(nrow(run_one_train), 1)
 })
 
+test_that("run_information can return geopath data", {
+  run_one_with_geo <- run_information("1", include_geopath = TRUE)
+  geopaths <- run_one_with_geo$geopath[[1]]
+  expect_gte(nrow(geopaths), 1)
+  expect_identical(
+    names(geopaths),
+    c("direction_id", "valid_from", "valid_to", "paths")
+  )
+
+  run_one_train_with_geo <- run_information(
+    "1",
+    route_type = "Train",
+    include_geopath = TRUE
+  )
+  geopaths <- run_one_train_with_geo$geopath[[1]]
+  expect_gte(nrow(geopaths), 1)
+  expect_identical(
+    names(geopaths),
+    c("direction_id", "valid_from", "valid_to", "paths")
+  )
+})
+
 }

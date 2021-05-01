@@ -11,6 +11,7 @@
 #'   `runs_on_route` functions.
 #' @inheritParams directions
 #' @inheritParams PTVGET
+#' @inheritParams route_information
 #'
 #' @inherit run_to_tibble return
 #'
@@ -18,13 +19,25 @@
 #'
 #' @examples \dontrun{
 #' run_information("100")
+#' run_information("100", include_geopath = TRUE)
+#' run_information("100", include_geopath = TRUE, geopath_utc = "2020-07-01")
 #' }
 #'
 run_information <- function(run_ref,
                             route_type = NULL,
+                            include_geopath = FALSE,
+                            geopath_utc = NULL,
                             user_id = determine_user_id(),
                             api_key = determine_api_key()) {
   run_ref <- as.character(run_ref)
+  if (!include_geopath && !is.null(geopath_utc)) {
+    warning("`geopath_utc` is ignored when `include_geopath` is `TRUE`")
+    geopath_utc <- NULL
+  }
+  if (!is.null(geopath_utc)) {
+    geopath_utc <- as.Date(geopath_utc)
+  }
+
   request <- glue::glue("runs/{run_ref}")
   if (!is.null(route_type)) {
     route_type <- translate_route_type(
@@ -34,6 +47,12 @@ run_information <- function(run_ref,
     )
     request <- glue::glue("{request}/route_type/{route_type}")
   }
+  request <- add_parameters(
+    request,
+    include_geopath = include_geopath,
+    geopath_utc = geopath_utc
+  )
+
   response <- PTVGET(request, user_id = user_id, api_key = api_key)
   content <- response$content
   # Internally, the API response has a "run" attribute if a route type is
@@ -45,7 +64,6 @@ run_information <- function(run_ref,
     assert_correct_attributes(names(content), c("runs", "status"))
     parsed <- map_and_rbind(content$runs, run_to_tibble)
   }
-
 
   parsed$route_type_description <- purrr::map_chr(
     parsed$route_type,
@@ -120,6 +138,7 @@ runs_on_route <- function(route_id,
 #' \item `express_stop_count`
 #' \item `vehicle_position`
 #' \item `vehicle_descriptor`
+#' \item `geopath`
 #' }
 #'
 #' @keywords internal
@@ -138,6 +157,11 @@ run_to_tibble <- function(run) {
     status = run$status,
     express_stop_count = run$express_stop_count,
     vehicle_position = list(run$vehicle_position),
-    vehicle_descriptor = list(run$vehicle_descriptor)
+    vehicle_descriptor = list(run$vehicle_descriptor),
+    geopath = if (is.null(run$geopath)) {
+      list()
+    } else {
+      list(purrr::map_dfr(run$geopath, geopath_to_tibble))
+    },
   )
 }
