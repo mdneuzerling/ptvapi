@@ -16,6 +16,14 @@ route_information(
 \item{route_id}{Integer. These can be listed and described with the \code{routes}
 function.}
 
+\item{include_geopath}{Logical. Whether to populate the \code{geopath} column.
+Defaults to FALSE.}
+
+\item{geopath_utc}{Date, or character that can be converted to a date. The
+UTC date for which the geopaths are effective. Defaults to the current
+date. Has no effect if \code{include_geopath = FALSE}. It's uncertain how much
+historical or future-dated data is available.}
+
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. Refer to \code{?ptvapi} for more details.}
 
@@ -25,13 +33,15 @@ Transport Victoria. Refer to \code{?ptvapi} for more details.}
 \value{
 A tibble of routes, with the following columns:
 \itemize{
-\item route_id
-\item route_gtfs_id
-\item route_name
-\item route_type
-\item route_number
-\item service_status
-\item service_status_timestamp
+\item \code{route_id}
+\item \code{route_gtfs_id}
+\item \code{route_name}
+\item \code{route_type}
+\item \code{route_type_description}
+\item \code{route_number}
+\item \code{geopath}
+\item \code{service_status}
+\item \code{service_status_timestamp}
 }
 }
 \description{
@@ -40,6 +50,8 @@ Information for a given route
 \examples{
 \dontrun{
 route_information(6)
+route_information(6, include_geopath = TRUE)
+route_information(6, include_geopath = TRUE, geopath_utc = "2020-07-01")
 }
 
 }

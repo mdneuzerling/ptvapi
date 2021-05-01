@@ -7,6 +7,9 @@
 run_information(
   run_ref,
   route_type = NULL,
+  include_geopath = FALSE,
+  geopath_utc = NULL,
+  date_utc = NULL,
   user_id = determine_user_id(),
   api_key = determine_api_key()
 )
@@ -23,6 +26,19 @@ be provided either as a non-negative integer code, or as a character:
 "Tram", "Train", "Bus", "Vline" or "Night Bus". Character inputs are not
 case-sensitive. Use the \code{route_types} function to extract a vector of all
 route types.}
+
+\item{include_geopath}{Logical. Whether to populate the \code{geopath} column.
+Defaults to FALSE.}
+
+\item{geopath_utc}{Date, or character that can be converted to a date. The
+UTC date for which the geopaths are effective. Defaults to the current
+date. Has no effect if \code{include_geopath = FALSE}. It's uncertain how much
+historical or future-dated data is available.}
+
+\item{date_utc}{Date, or character that can be converted to a date. The
+UTC date for which the results are effective. Defaults to the current date.
+It's uncertain how much historical or future-dated data is available. This
+argument is experimental and seems to not be functioning.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. Refer to \code{?ptvapi} for more details.}
@@ -45,6 +61,7 @@ A tibble with the following columns: \itemize{
 \item \code{express_stop_count}
 \item \code{vehicle_position}
 \item \code{vehicle_descriptor}
+\item \code{geopath}
 }
 }
 \description{
@@ -55,6 +72,9 @@ argument.
 \examples{
 \dontrun{
 run_information("100")
+run_information("100", include_geopath = TRUE)
+run_information("100", include_geopath = TRUE, geopath_utc = "2020-07-01")
+run_information("100", date_utc = "2020-07-01")
 }
 
 }

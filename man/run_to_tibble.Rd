@@ -24,6 +24,7 @@ A tibble with the following columns: \itemize{
 \item \code{express_stop_count}
 \item \code{vehicle_position}
 \item \code{vehicle_descriptor}
+\item \code{geopath}
 }
 }
 \description{
