@@ -5,15 +5,18 @@
 \title{Information for a given run}
 \usage{
 run_information(
-  run_id,
+  run_ref,
   route_type = NULL,
   user_id = determine_user_id(),
   api_key = determine_api_key()
 )
 }
 \arguments{
-\item{run_id}{An integer run ID. This may retrieved from the \code{departures}
-or \code{runs_on_route} functions.}
+\item{run_ref}{A character run reference. This supersedes the integer
+\code{run_id}. For backwards compatibility and since most run references are
+integers, this function will attempt to convert an the argument to a
+character. Run references may be retrieved from the \code{departures} or
+\code{runs_on_route} functions.}
 
 \item{route_type}{Optionally filter results by a route type. A route type can
 be provided either as a non-negative integer code, or as a character:
@@ -29,7 +32,8 @@ Transport Victoria. Refer to \code{?ptvapi} for more details.}
 }
 \value{
 A tibble with the following columns: \itemize{
-\item \code{run_id}
+\item \code{run_id} (deprecated, use \code{run_ref} instead)
+\item \code{run_ref}
 \item \code{route_id}
 \item \code{route_type}
 \item \code{direction_id}
@@ -49,7 +53,7 @@ argument.
 }
 \examples{
 \dontrun{
-run_information(100)
+run_information("100")
 }
 
 }

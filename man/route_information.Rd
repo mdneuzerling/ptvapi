@@ -6,6 +6,8 @@
 \usage{
 route_information(
   route_id,
+  include_geopath = FALSE,
+  geopath_utc = NULL,
   user_id = determine_user_id(),
   api_key = determine_api_key()
 )

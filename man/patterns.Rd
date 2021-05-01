@@ -5,7 +5,7 @@
 \title{Stopping pattern for a given run}
 \usage{
 patterns(
-  run_id,
+  run_ref,
   route_type,
   stop_id = NULL,
   departs = Sys.time(),
@@ -14,8 +14,11 @@ patterns(
 )
 }
 \arguments{
-\item{run_id}{An integer run ID. This may retrieved from the \code{departures}
-or \code{runs_on_route} functions.}
+\item{run_ref}{A character run reference. This supersedes the integer
+\code{run_id}. For backwards compatibility and since most run references are
+integers, this function will attempt to convert an the argument to a
+character. Run references may be retrieved from the \code{departures} or
+\code{runs_on_route} functions.}
 
 \item{route_type}{Optionally filter results by a route type. A route type can
 be provided either as a non-negative integer code, or as a character:
@@ -61,8 +64,8 @@ recommended that departures are retrieved via the \code{departures} function.
 }
 \examples{
 \dontrun{
-patterns(run_id = 1, route_type = 0)
-patterns(run_id = 1, route_type = "Train")
+patterns(run_ref = "1", route_type = 0)
+patterns(run_ref = "1", route_type = "Train")
 }
 
 }

@@ -32,3 +32,4 @@ We use the \code{pkg.env} as a cache, which is an environment created on package
 load. This is not truly private --- users could still access this as an
 internal value. But it's effectively "out of the way".
 }
+\keyword{internal}

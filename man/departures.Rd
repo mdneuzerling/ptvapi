@@ -69,7 +69,8 @@ Transport Victoria. Refer to \code{?ptvapi} for more details.}
 A tibble consisting of the following columns: \itemize{
 \item \code{stop_id}
 \item \code{route_id}
-\item \code{run_id}
+\item \code{run_id} (deprecated, use \code{run_ref} instead)
+\item \code{run_ref}
 \item \code{direction_id}
 \item \code{disruption_ids}
 \item \code{scheduled_departure}

@@ -11,7 +11,8 @@ run_to_tibble(run)
 }
 \value{
 A tibble with the following columns: \itemize{
-\item \code{run_id}
+\item \code{run_id} (deprecated, use \code{run_ref} instead)
+\item \code{run_ref}
 \item \code{route_id}
 \item \code{route_type}
 \item \code{direction_id}
