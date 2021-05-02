@@ -1,3 +1,7 @@
+# ptvapi 2.0.1
+
+* Remove `lazyload` in DESCRIPTION to meet new CRAN policy (this package has no data)
+
 # ptvapi 2.0.0
 
 * All API request now use SSL by default. To force connections without SSL, set the option `use_insecure_ptv_connection` to `TRUE`.
