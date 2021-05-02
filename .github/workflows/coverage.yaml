@@ -12,6 +12,9 @@ jobs:
   test-coverage:
     runs-on: macOS-latest
     env:
+      NOT_CRAN: true
+      PTV_USER_ID: ${{ secrets.PTV_USER_ID }}
+      PTV_API_KEY: ${{ secrets.PTV_API_KEY }}
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -37,13 +40,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          install.packages(c("remotes", "devtools"))
+          install.packages(c("remotes"))
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("covr")
         shell: Rscript {0}
 
       - name: Test coverage
         run: |
-          devtools::build()
           covr::codecov()
         shell: Rscript {0}
