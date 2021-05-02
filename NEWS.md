@@ -1,4 +1,4 @@
-# 2.0.0
+# ptvapi 2.0.0
 
 * All API request now use SSL by default. To force connections without SSL, set the option `use_insecure_ptv_connection` to `TRUE`.
 * In response to changes to the PTV API, `run_information` now requires a character `run_ref` instead of an integer `run_id`. Functions will attempt to convert the argument to a character, and so integer arguments will still work for runs that are not bus or nightrider runs.
@@ -8,21 +8,21 @@
 * Fixed failing assertion that was causing `run_information` to fail when specifying a route type.
 * The column `service_status_timestampe` in data returned by route functions has been changed to `service_status_timestamp` .
 
-# 1.1.3
+# ptvapi 1.1.3
 
 * Changed unit tests to use lubridate instead of base for time zone declarations. The lubridate package better supports adding time zones to NA datetimes, as this was causing issues with R-devel (4.0.3).
 
-# 1.1.2
+# ptvapi 1.1.2
 
 This release was the first to be accepted to CRAN.
 
 * Fixed misquoted metadata in package DESCRIPTION
 
-# 1.1.1
+# ptvapi 1.1.1
 
 * Fixed invalid URL in package DESCRIPTION
 
-# 1.1.0
+# ptvapi 1.1.0
 
 * Adjustments to package DESCRIPTION to meet CRAN standards
 * Removed internal function need_api_details, as it depended on changing the user's options. This function has been incorporated into the error messages in `determine_user_id` and `determine_api_key`.

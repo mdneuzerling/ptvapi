@@ -74,7 +74,7 @@
   <div class="contents col-md-9">
 <div id="ptvapi-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#ptvapi-" class="anchor"></a>ptvapi <img src="https://raw.githubusercontent.com/mdneuzerling/logos/master/ptvapi/ptvapi.png" align="right" height="139">
+<a href="#ptvapi-" class="anchor"></a>ptvapi <img src="reference/figures/ptvapi.png" align="right" height="139">
 </h1></div>
 <!-- badges: start -->
 
@@ -113,44 +113,47 @@ Sys.setenv("PTV_API_KEY" = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")</a></code></p
 <h2 class="hasAnchor">
 <a href="#example-usage" class="anchor"></a>Example usage</h2>
 <p>The code examples below assume that you’ve set environment variables for authentication.</p>
-<pre><code><a href="reference/routes.html"># tibble of all routes
-routes()
-# A tibble: 828 x 7
-#   route_id route_gtfs_id route_name route_type route_number service_status
-#      &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;    </a></code></pre>
-<pre><code><a href="reference/routes.html"># Search for routes by name (case insensitive, partial matching supported)
-routes(route_name = "Frankston")
-# A tibble: 27 x 7
-#   route_id route_gtfs_id route_name route_type route_number service_status
-#      &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;    </a></code></pre>
-<pre><code># All current disruptions
-disruptions(disruption_status = "current")
-# A tibble: 244 x 17
-   disruption_mode disruption_mode… disruption_id title url   description
-   &lt;chr&gt;           &lt;chr&gt;                    &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       
-# … with 177 more rows, and 17 more variables …</code></pre>
-<pre><code><a href="reference/stops_nearby.html"># Train stops near Flinders Street Station
-stops_nearby(
-    latitude = -37.8183,
-    longitude = 144.9671,
-    route_types = "Train"
-  )
-# # A tibble: 1 x 8
-#   stop_id stop_name stop_suburb route_type stop_sequence stop_latitude stop_longitude
-#     &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;            &lt;int&gt;         &lt;int&gt;         &lt;dbl&gt;          &lt;dbl&gt;</a></code></pre>
-<pre><code># Upcoming train departures from Flinders Street Station
-&gt; departures(stop_id = 1071, route_type = "Train")
-# A tibble: 75 x 12
-   direction_id stop_id route_id run_id run_ref platform_number at_platform
-          &lt;int&gt;   &lt;int&gt;    &lt;int&gt;  &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;           &lt;lgl&gt; 
-# … with 65 more rows, and 5 more variables: departure_sequence &lt;int&gt;,
-#   scheduled_departure &lt;dttm&gt;, estimated_departure &lt;dttm&gt;, flags &lt;chr&gt;,
-#   disruption_ids &lt;list&gt;</code></pre>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># tibble of all routes</span>
+<span class="fu"><a href="reference/routes.html">routes</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co"># A tibble: 828 x 7</span>
+<span class="co">#   route_id route_gtfs_id route_name route_type route_number service_status</span>
+<span class="co">#      &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;    </span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Search for routes by name (case insensitive, partial matching supported)</span>
+<span class="fu"><a href="reference/routes.html">routes</a></span><span class="op">(</span>route_name <span class="op">=</span> <span class="st">"Frankston"</span><span class="op">)</span>
+<span class="co"># A tibble: 27 x 7</span>
+<span class="co">#   route_id route_gtfs_id route_name route_type route_number service_status</span>
+<span class="co">#      &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;    </span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># All current disruptions</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">disruptions</span>(<span class="at">disruption_status =</span> <span class="st">"current"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 244 x 17</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>   disruption_mode disruption_mode… disruption_id title url   description</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>           <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                    <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>       </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># … with 177 more rows, and 17 more variables …</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Train stops near Flinders Street Station</span>
+<span class="fu"><a href="reference/stops_nearby.html">stops_nearby</a></span><span class="op">(</span>
+    latitude <span class="op">=</span> <span class="op">-</span><span class="fl">37.8183</span>,
+    longitude <span class="op">=</span> <span class="fl">144.9671</span>,
+    route_types <span class="op">=</span> <span class="st">"Train"</span>
+  <span class="op">)</span>
+<span class="co"># # A tibble: 1 x 8</span>
+<span class="co">#   stop_id stop_name stop_suburb route_type stop_sequence stop_latitude stop_longitude</span>
+<span class="co">#     &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;            &lt;int&gt;         &lt;int&gt;         &lt;dbl&gt;          &lt;dbl&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Upcoming train departures from Flinders Street Station</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">departures</span>(<span class="at">stop_id =</span> <span class="dv">1071</span>, <span class="at">route_type =</span> <span class="st">"Train"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 75 x 12</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>   direction_id stop_id route_id run_id run_ref platform_number at_platform</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>          <span class="sc">&lt;</span>int<span class="sc">&gt;</span>   <span class="er">&lt;</span>int<span class="sc">&gt;</span>    <span class="er">&lt;</span>int<span class="sc">&gt;</span>  <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>   <span class="er">&lt;</span>chr<span class="sc">&gt;</span>           <span class="er">&lt;</span>lgl<span class="sc">&gt;</span> </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># … with 65 more rows, and 5 more variables: departure_sequence &lt;int&gt;,</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   scheduled_departure &lt;dttm&gt;, estimated_departure &lt;dttm&gt;, flags &lt;chr&gt;,</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   disruption_ids &lt;list&gt;</span></span></code></pre></div>
 </div>
 <div id="a-note-about-route-types" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-note-about-route-types" class="anchor"></a>A note about route types</h2>
-<p>The API recognises five route types: “Train”, “Tram”, “Bus”, “Vline”, and “Night Bus”. Many functions have arguments such as <code>route_type</code> and <code>route_types</code> that expect a non-negative integer code representing these route types. To simplify calling the API, these functions will also accept a character description like those above. Under the hood, the functions will translate these descriptions to the non-negative integer codes that the API expects.</p>
+<p>The API recognises five route types: “Train”, “Tram”, “Bus”, “Vline”, and “Night Bus”. Many functions have arguments such as <code>route_type</code> and <code>route_types</code> that expect a non-negative integer code representing these route types. To simplify calling the API, these functions will also accept a character description like those above. Under the hood, the functions will translate these descriptions to the non-negative integer codes that the API expects. For example, <code><a href="reference/routes.html">routes(route_type = "Train")</a></code> is automatically translated to <code><a href="reference/routes.html">routes(route_type = 0)</a></code>.</p>
 </div>
 <div id="available-functions" class="section level2">
 <h2 class="hasAnchor">

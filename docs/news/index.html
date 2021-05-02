@@ -114,6 +114,62 @@
       <small>Source: <a href='https://github.com/mdneuzerling/ptvapi/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="ptvapi-200" class="section level1">
+<h1 class="page-header" data-toc-text="2.0.0">
+<a href="#ptvapi-200" class="anchor"></a>ptvapi 2.0.0<small> Unreleased </small>
+</h1>
+<ul>
+<li>All API request now use SSL by default. To force connections without SSL, set the option <code>use_insecure_ptv_connection</code> to <code>TRUE</code>.</li>
+<li>In response to changes to the PTV API, <code>run_information</code> now requires a character <code>run_ref</code> instead of an integer <code>run_id</code>. Functions will attempt to convert the argument to a character, and so integer arguments will still work for runs that are not bus or nightrider runs.</li>
+<li>Functions that return <code>route_type</code> will now also return <code>route_type_description</code>, which is a human-readable interpretation of the route type. For example, when <code>route_type</code> is 0, <code>route_type_description</code> is “Train”.</li>
+<li>In response to changes to the PTV API, run functions now support a <code>date_utc</code> argument for returning results as of a given date. This is experimental, and possibly non-functional.</li>
+<li>Functions that internally convert between a route type and a human-readable description of a route type will use a cached version of <code>route_types</code>, in order to reduce the number of queries of the API.</li>
+<li>Fixed failing assertion that was causing <code>run_information</code> to fail when specifying a route type.</li>
+<li>The column <code>service_status_timestampe</code> in data returned by route functions has been changed to <code>service_status_timestamp</code> .</li>
+</ul>
+</div>
+    <div id="ptvapi-113" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.3">
+<a href="#ptvapi-113" class="anchor"></a>ptvapi 1.1.3<small> 2020-08-27 </small>
+</h1>
+<ul>
+<li>Changed unit tests to use lubridate instead of base for time zone declarations. The lubridate package better supports adding time zones to NA datetimes, as this was causing issues with R-devel (4.0.3).</li>
+</ul>
+</div>
+    <div id="ptvapi-112" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.2">
+<a href="#ptvapi-112" class="anchor"></a>ptvapi 1.1.2<small> 2020-06-03 </small>
+</h1>
+<p>This release was the first to be accepted to CRAN.</p>
+<ul>
+<li>Fixed misquoted metadata in package DESCRIPTION</li>
+</ul>
+</div>
+    <div id="ptvapi-111" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.1">
+<a href="#ptvapi-111" class="anchor"></a>ptvapi 1.1.1<small> Unreleased </small>
+</h1>
+<ul>
+<li>Fixed invalid URL in package DESCRIPTION</li>
+</ul>
+</div>
+    <div id="ptvapi-110" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.0">
+<a href="#ptvapi-110" class="anchor"></a>ptvapi 1.1.0<small> Unreleased </small>
+</h1>
+<ul>
+<li>Adjustments to package DESCRIPTION to meet CRAN standards</li>
+<li>Removed internal function need_api_details, as it depended on changing the user’s options. This function has been incorporated into the error messages in <code>determine_user_id</code> and <code>determine_api_key</code>.</li>
+<li>Removed documentation for the following internal functions, which should resolve the issue of missing argument values in the respective .Rd files: <code>determine_user_id</code>, <code>determine_api_key</code>, <code>prefix_base_url</code>, <code>prefix_version</code>, <code>prefix_base_url_and_version</code>
+</li>
+<li>Created <code>value</code> Rd-tag for <code>departures</code> function</li>
+<li>Removed examples for the following internal functions: <code>convert_to_melbourne_time</code>, <code>PTVGET</code>
+</li>
+<li>Added <code>ptvapi:::</code> to examples in the following internal functions: <code>add_parameter</code>, <code>add_parameters</code>
+</li>
+<li>Removed internal function <code>route_types_cached</code>, and replaced all uses with <code>route_types</code>. With these changes, there are no references to user options remaining in the package.</li>
+</ul>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

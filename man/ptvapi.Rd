@@ -5,6 +5,8 @@
 \alias{ptvapi}
 \title{ptvapi: A package for accessing the Public Transport Victoria Timetable API}
 \description{
+\if{html}{\figure{ptvapi.png}{options: align='right' alt='logo' width='120'}}
+
 Accessing the Public Transport Victoria Timetable API reqiures a user ID
 (also called a \code{devid}) and an API key. These can be accessed by contacting
 Public Transport Victoria. See
