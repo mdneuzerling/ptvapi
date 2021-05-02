@@ -7,7 +7,7 @@
 stop_to_tibble(stop)
 }
 \arguments{
-\item{stop}{A stop, as a list, returned by the \code{stops} API call.}
+\item{stop}{A stop, as a list, returned by a stops API call.}
 }
 \value{
 A tibble with the following columns: \itemize{
@@ -15,6 +15,7 @@ A tibble with the following columns: \itemize{
 \item{\code{stop_name}}
 \item{\code{stop_suburb}}
 \item{\code{route_type}}
+\item{\code{route_type_description}}
 \item{\code{stop_sequence}}
 \item{\code{stop_latitude}}
 \item{\code{stop_longitude}}
@@ -23,6 +24,7 @@ A tibble with the following columns: \itemize{
 }
 \description{
 This function is designed to parse the content returned by the interior
-steps of the \code{stops_on_route} and \code{stop_nearby} functions.
+steps of the \code{\link{stops_on_route}} and \code{\link{stops_nearby}}
+functions.
 }
 \keyword{internal}

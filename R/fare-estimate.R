@@ -14,7 +14,7 @@
 #'   by a vector of route types. A route type can be provided either as a
 #'   non-negative integer code, or as a character: "Tram", "Train", "Bus",
 #'   "Vline" or "Night Bus". Character inputs are not case-sensitive. Use the
-#'   `route_types` function to extract a vector of all route types.
+#'   \code{\link{route_types}} function to extract a vector of all route types.
 #' @inheritParams PTVGET
 #'
 #' @inherit parse_fare_estimate_content return
@@ -70,7 +70,10 @@ fare_estimate <- function(min_zone,
 
   if (!is.null(travelled_route_types)) {
     travelled_route_types <- purrr::map_int(
-      travelled_route_types, translate_route_type
+      travelled_route_types,
+      translate_route_type,
+      user_id = user_id,
+      api_key = api_key
     )
   }
 
@@ -96,10 +99,10 @@ fare_estimate <- function(min_zone,
 #' Parse content of fare estimates API call
 #'
 #' This function is designed to parse the content returned by the interior
-#' steps of the `fare_estimate` function.
+#' steps of the \code{\link{fare_estimate}} function.
 #'
 #' @param fare_estimate_content A direction, as a list, returned by the
-#'   `fare_estimate` API call.
+#'   \code{\link{fare_estimate}} API call.
 #'
 #' @return A data frame consisting of one row for each `passenger_type`, and the
 #' following columns: \itemize{

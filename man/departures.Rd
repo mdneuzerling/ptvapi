@@ -25,14 +25,14 @@ departures(
 
 \item{route_type}{A route type which can be provided either as a non-negative
 integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
-Bus". Character inputs are not case-sensitive. Use the \code{route_types}
-function to extract a vector of all route types.}
+Bus". Character inputs are not case-sensitive. Use the
+\code{\link{route_types}} function to extract a vector of all route types.}
 
 \item{route_id}{Optionally filter by a route ID. These can be obtained with
 the \code{routes} function.}
 
 \item{direction_id}{Optionally filter by a direction ID. These can be
-obtained with the \code{directions_on_route} function.}
+obtained with the \code{\link{directions_on_route}} function.}
 
 \item{platform_numbers}{Character vector. Optionally filter results by
 platform number. Despite the name, these are characters.}
@@ -69,7 +69,8 @@ Transport Victoria. Refer to \code{?ptvapi} for more details.}
 A tibble consisting of the following columns: \itemize{
 \item \code{stop_id}
 \item \code{route_id}
-\item \code{run_id}
+\item \code{run_id} (deprecated, use \code{run_ref} instead)
+\item \code{run_ref}
 \item \code{direction_id}
 \item \code{disruption_ids}
 \item \code{scheduled_departure}

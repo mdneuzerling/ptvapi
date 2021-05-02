@@ -8,7 +8,7 @@ parse_fare_estimate_content(fare_estimate_content)
 }
 \arguments{
 \item{fare_estimate_content}{A direction, as a list, returned by the
-\code{fare_estimate} API call.}
+\code{\link{fare_estimate}} API call.}
 }
 \value{
 A data frame consisting of one row for each \code{passenger_type}, and the
@@ -33,6 +33,6 @@ following columns: \itemize{
 }
 \description{
 This function is designed to parse the content returned by the interior
-steps of the \code{fare_estimate} function.
+steps of the \code{\link{fare_estimate}} function.
 }
 \keyword{internal}

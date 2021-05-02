@@ -11,9 +11,11 @@ run_to_tibble(run)
 }
 \value{
 A tibble with the following columns: \itemize{
-\item \code{run_id}
+\item \code{run_id} (deprecated, use \code{run_ref} instead)
+\item \code{run_ref}
 \item \code{route_id}
 \item \code{route_type}
+\item \code{route_type_description}
 \item \code{direction_id}
 \item \code{run_sequence}
 \item \code{final_stop_id}
@@ -22,10 +24,12 @@ A tibble with the following columns: \itemize{
 \item \code{express_stop_count}
 \item \code{vehicle_position}
 \item \code{vehicle_descriptor}
+\item \code{geopath}
 }
 }
 \description{
-This function is designed to parse the content returned by the interior
-steps of the \code{runs_on_route} and \code{run_information} functions.
+This function is designed to parse the content returned by the interior steps
+of the \code{\link{runs_on_route}} and \code{\link{run_information}}
+functions.
 }
 \keyword{internal}

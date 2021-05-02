@@ -7,7 +7,8 @@
 outlet_to_tibble(outlet)
 }
 \arguments{
-\item{outlet}{An outlet, as a list, returned by the \code{outlets} API call.}
+\item{outlet}{An outlet, as a list, returned by the \code{\link{outlets}} API
+call.}
 }
 \value{
 A tibble with the following columns: \itemize{
@@ -30,6 +31,7 @@ A tibble with the following columns: \itemize{
 }
 \description{
 This function is designed to parse the content returned by the interior
-steps of the \code{outlets} and \code{outlets_nearby} functions.
+steps of the \code{\link{outlets}} and \code{\link{outlets_nearby}}
+functions.
 }
 \keyword{internal}

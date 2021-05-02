@@ -1,7 +1,7 @@
 if (identical(Sys.getenv("NOT_CRAN"), "true")) {
 
 pats <- patterns(
-  run_id = 1,
+  run_ref = "1",
   route_type = "Train",
   departs = morning_test_time
 )

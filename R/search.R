@@ -55,7 +55,12 @@ ptv_search <- function(search_term,
   }
   if (!is.null(max_distance)) max_distance <- to_integer(max_distance)
   if (!is.null(route_types)) {
-    route_types <- purrr::map_int(route_types, translate_route_type)
+    route_types <- purrr::map_int(
+      route_types,
+      translate_route_type,
+      user_id = user_id,
+      api_key = api_key
+    )
   }
 
   request <- add_parameters(
@@ -82,9 +87,9 @@ ptv_search <- function(search_term,
 #'
 #' This function will search routes in which the search term can be found in
 #' one of many fields, such as `route_id`, `route_gtfs_id`, or `route_name`.
-#' The search is case-insensitive. Unlike `search_stops` and
-#' `search_outlets`, this function supports searching for numerics, and has
-#' no minimum character requirement for `search_term`.
+#' The search is case-insensitive. Unlike \code{\link{search_stops}} and
+#' \code{\link{search_outlets}}, this function supports searching for numerics,
+#' and has no minimum character requirement for `search_term`.
 #'
 #' @inheritParams ptv_search
 #' @inheritParams stops_nearby
@@ -131,6 +136,12 @@ search_routes <- function(search_term,
   content <- response$content
 
   parsed <- map_and_rbind(content$routes, route_to_tibble)
+  parsed$route_type_description <- purrr::map_chr(
+    parsed$route_type,
+    describe_route_type,
+    user_id = user_id,
+    api_key = api_key
+  )
   new_ptvapi_tibble(response, parsed)
 }
 

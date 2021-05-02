@@ -42,7 +42,7 @@ test_that("Runs on the Frankston route end at stops on the Frankston route", {
   }
 })
 
-run_one <- run_information(run_id = 1)
+run_one <- run_information(run_ref = "1")
 
 test_that("run_information() result has class \"ptvapi\"", {
   expect_s3_class(run_one, "ptvapi")
@@ -52,4 +52,37 @@ test_that("Run 1 exists, and is unique up to route type", {
   expect_gte(nrow(run_one), 1)
   expect_equal(anyDuplicated(run_one$route_type), 0)
 })
+
+run_one_train <- run_information(run_ref = "1", route_type = 0)
+
+test_that("run_information() with route type result has class \"ptvapi\"", {
+  expect_s3_class(run_one_train, "ptvapi")
+})
+
+test_that("run_information() with route type returns exactly one row", {
+  expect_equal(nrow(run_one_train), 1)
+})
+
+test_that("run_information can return geopath data", {
+  run_one_with_geo <- run_information("1", include_geopath = TRUE)
+  geopaths <- run_one_with_geo$geopath[[1]]
+  expect_gte(nrow(geopaths), 1)
+  expect_identical(
+    names(geopaths),
+    c("direction_id", "valid_from", "valid_to", "paths")
+  )
+
+  run_one_train_with_geo <- run_information(
+    "1",
+    route_type = "Train",
+    include_geopath = TRUE
+  )
+  geopaths <- run_one_train_with_geo$geopath[[1]]
+  expect_gte(nrow(geopaths), 1)
+  expect_identical(
+    names(geopaths),
+    c("direction_id", "valid_from", "valid_to", "paths")
+  )
+})
+
 }

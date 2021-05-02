@@ -1,11 +1,13 @@
 
-# ptvapi <img src='https://raw.githubusercontent.com/mdneuzerling/logos/master/ptvapi/ptvapi.png' align="right" height="139" />
-
+# ptvapi <img src="man/figures/ptvapi.png" align="right" height="139" />
 <!-- badges: start -->
 
 [![CRAN status](https://www.r-pkg.org/badges/version/ptvapi)](https://cran.r-project.org/package=ptvapi)
-[![Last commit](https://img.shields.io/github/last-commit/mdneuzerling/ptvapi/master.svg)](https://github.com/mdneuzerling/ptvapi/tree/master)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/ptvapi)](https://cran.r-project.org/package=ptvapi)
+[![Last commit](https://img.shields.io/github/last-commit/mdneuzerling/ptvapi/main.svg)](https://github.com/mdneuzerling/ptvapi/tree/main)
 [![R build status](https://github.com/mdneuzerling/ptvapi/workflows/R-CMD-check/badge.svg)](https://github.com/mdneuzerling/ptvapi/actions)
+[![Lint](https://github.com/mdneuzerling/ptvapi/workflows/lint/badge.svg)](https://github.com/mdneuzerling/ptvapi/actions?query=workflow%3Alint)
+[![Codecov test coverage](https://codecov.io/gh/mdneuzerling/ptvapi/branch/main/graph/badge.svg)](https://codecov.io/gh/mdneuzerling/ptvapi?branch=main)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://choosealicense.com/licenses/mit/)
 
 <!-- badges: end -->
@@ -16,7 +18,17 @@ This package provides a friendly interface to the Public Transport Victoria (PTV
 
 ## Installing
 
-You can install this package with `remotes::install_github("mdneuzerling/ptvapi")`
+### CRAN version
+
+```
+install.packages("ptvapi")
+```
+
+### Development version
+
+```
+remotes::install_github("mdneuzerling/ptvapi")
+```
 
 ## Authentication
 
@@ -42,7 +54,7 @@ If a `user_id` or `api_key` value is not provided to the functions within this p
 
 The code examples below assume that you've set environment variables for authentication.
 
-```
+```r
 # tibble of all routes
 routes()
 # A tibble: 828 x 7
@@ -50,7 +62,7 @@ routes()
 #      <int> <chr>         <chr>           <int> <chr>        <chr>    
 ```
 
-```
+```r
 # Search for routes by name (case insensitive, partial matching supported)
 routes(route_name = "Frankston")
 # A tibble: 27 x 7
@@ -58,7 +70,7 @@ routes(route_name = "Frankston")
 #      <int> <chr>         <chr>           <int> <chr>        <chr>    
 ```
 
-```
+```r
 # All current disruptions
 disruptions(disruption_status = "current")
 # A tibble: 244 x 17
@@ -67,7 +79,7 @@ disruptions(disruption_status = "current")
 # … with 177 more rows, and 17 more variables …
 ```
 
-```
+```r
 # Train stops near Flinders Street Station
 stops_nearby(
     latitude = -37.8183,
@@ -79,20 +91,20 @@ stops_nearby(
 #     <int> <chr>     <chr>            <int>         <int>         <dbl>          <dbl>
 ```
 
-```
+```r
 # Upcoming train departures from Flinders Street Station
 > departures(stop_id = 1071, route_type = "Train")
-# A tibble: 75 x 11
-   direction_id stop_id route_id run_id platform_number at_platform
-          <int>   <int>    <int>  <int> <chr>           <lgl>    
-# … with 65 more rows, and 4 more variables: departure_sequence <int>, 
+# A tibble: 75 x 12
+   direction_id stop_id route_id run_id run_ref platform_number at_platform
+          <int>   <int>    <int>  <int> <chr>   <chr>           <lgl> 
+# … with 65 more rows, and 5 more variables: departure_sequence <int>,
 #   scheduled_departure <dttm>, estimated_departure <dttm>, flags <chr>,
 #   disruption_ids <list>
 ```
 
 ## A note about route types
 
-The API recognises five route types: "Train", "Tram", "Bus", "Vline", and "Night Bus". Many functions have arguments such as `route_type` and `route_types` that expect a non-negative integer code representing these route types. To simplify calling the API, these functions will also accept a character description like those above. Under the hood, the functions will translate these descriptions to the non-negative integer codes that the API expects.
+The API recognises five route types: "Train", "Tram", "Bus", "Vline", and "Night Bus". Many functions have arguments such as `route_type` and `route_types` that expect a non-negative integer code representing these route types. To simplify calling the API, these functions will also accept a character description like those above. Under the hood, the functions will translate these descriptions to the non-negative integer codes that the API expects. For example, `routes(route_type = "Train")` is automatically translated to `routes(route_type = 0)`.
 
 ## Available functions
 

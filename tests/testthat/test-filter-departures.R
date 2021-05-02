@@ -24,7 +24,7 @@ test_departures <- tibble::tribble(
 ) %>%
   mutate_at(
     vars(contains("departure")),
-    ~as.POSIXct(.x, tz = "Australia/Melbourne")
+    ~force_tz(as_datetime(.), tzone = "Australia/Melbourne")
   )
 
 test_that("Can filter departures with max_results", {
@@ -41,7 +41,7 @@ test_that("Can filter departures with max_results", {
     ) %>%
       mutate_at(
         vars(contains("departure")),
-        ~as.POSIXct(.x, tz = "Australia/Melbourne")
+        ~force_tz(as_datetime(.), tzone = "Australia/Melbourne")
       )
   )
 })
@@ -62,7 +62,7 @@ test_that("Can filter departures with datetime", {
     ) %>%
       mutate_at(
         vars(contains("departure")),
-        ~as.POSIXct(.x, tz = "Australia/Melbourne")
+        ~force_tz(as_datetime(.), tzone = "Australia/Melbourne")
       )
   )
 })
@@ -82,7 +82,7 @@ test_that("Can filter departures with route_id", {
     ) %>%
       mutate_at(
         vars(contains("departure")),
-        ~as.POSIXct(.x, tz = "Australia/Melbourne")
+        ~force_tz(as_datetime(.), tzone = "Australia/Melbourne")
       )
   )
 })
@@ -103,7 +103,7 @@ test_that("Can filter departures with datetime and max_results", {
     ) %>%
       mutate_at(
         vars(contains("departure")),
-        ~as.POSIXct(.x, tz = "Australia/Melbourne")
+        ~force_tz(as_datetime(.), tzone = "Australia/Melbourne")
       )
   )
 })

@@ -1,10 +1,10 @@
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 name: R-CMD-check
 
@@ -21,6 +21,7 @@ jobs:
         shell: Rscript {0}
       - name: Check
         env:
+          NOT_CRAN: true
           PTV_USER_ID: ${{ secrets.PTV_USER_ID }}
           PTV_API_KEY: ${{ secrets.PTV_API_KEY }}
         run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")

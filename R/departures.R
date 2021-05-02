@@ -118,7 +118,11 @@ departures <- function(stop_id,
   # time component. If max_results is NULL, raise a warning/
 
   stop_id <- to_integer(stop_id)
-  route_type <- translate_route_type(route_type)
+  route_type <- translate_route_type(
+    route_type,
+    user_id = user_id,
+    api_key = api_key
+  )
   if (!is.null(route_id)) route_id <- to_integer(route_id)
   if (!is.null(max_results)) max_results <- to_integer(max_results)
   if (!is.null(platform_numbers)) {
@@ -236,7 +240,8 @@ filter_departures <- function(parsed,
 #' @return A tibble consisting of the following columns: \itemize{
 #' \item `stop_id`
 #' \item `route_id`
-#' \item `run_id`
+#' \item `run_id` (deprecated, use `run_ref` instead)
+#' \item `run_ref`
 #' \item `direction_id`
 #' \item `disruption_ids`
 #' \item `scheduled_departure`
@@ -255,6 +260,7 @@ departure_to_tibble <- function(departure) {
     stop_id = departure$stop_id,
     route_id = departure$route_id,
     run_id = departure$run_id,
+    run_ref = departure$run_ref,
     platform_number = ifelse(
       is.null(departure$platform_number),
       NA_character_,

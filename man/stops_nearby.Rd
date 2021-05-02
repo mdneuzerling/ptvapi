@@ -26,8 +26,8 @@ given location, in metres.}
 \item{route_types}{Integer or character vector. Optionally filter by a vector
 of route types. A route type can be provided either as a non-negative
 integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
-Bus". Character inputs are not case-sensitive. Use the \code{route_types}
-function to extract a vector of all route types.}
+Bus". Character inputs are not case-sensitive. Use the
+\code{\link{route_types}} function to extract a vector of all route types.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. Refer to \code{?ptvapi} for more details.}
@@ -41,6 +41,7 @@ A tibble with the following columns: \itemize{
 \item{\code{stop_name}}
 \item{\code{stop_suburb}}
 \item{\code{route_type}}
+\item{\code{route_type_description}}
 \item{\code{stop_sequence}}
 \item{\code{stop_latitude}}
 \item{\code{stop_longitude}}

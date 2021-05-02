@@ -16,8 +16,8 @@ stop_information(
 
 \item{route_type}{A route type which can be provided either as a non-negative
 integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
-Bus". Character inputs are not case-sensitive. Use the \code{route_types}
-function to extract a vector of all route types.}
+Bus". Character inputs are not case-sensitive. Use the
+\code{\link{route_types}} function to extract a vector of all route types.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. Refer to \code{?ptvapi} for more details.}
@@ -30,6 +30,7 @@ A single-row tibble with the following columns: \itemize{
 \item{\code{stop_id}}
 \item{\code{stop_name}}
 \item{\code{route_type}}
+\item{\code{route_type_description}}
 \item{\code{station_details_id}}
 \item{\code{station_type}}
 \item{\code{station_description}}
@@ -48,5 +49,6 @@ A single-row tibble with the following columns: \itemize{
 }
 \description{
 This function can be used when integer stop ID is already known. This can be
-searched for with either the \code{stops_on_route} or \code{stops_nearby} functions.
+searched for with either the \code{\link{stops_on_route}} or
+\code{\link{stops_nearby}} functions.
 }

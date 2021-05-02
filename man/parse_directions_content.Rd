@@ -16,11 +16,12 @@ A tibble consisting of the following columns: \itemize{
 \item \code{direction_name},
 \item \code{route_id}
 \item \code{route_type}
+\item \code{route_type_description}
 \item \code{route_direction_description}
 }
 }
 \description{
 This function is designed to parse the content returned by the interior
-steps of the \code{directions} function.
+steps of the \code{\link{directions}} function.
 }
 \keyword{internal}

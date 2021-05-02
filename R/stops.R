@@ -1,7 +1,8 @@
 #' Information for a given stop (metropolitan and V/Line stations only)
 #'
 #' This function can be used when integer stop ID is already known. This can be
-#' searched for with either the `stops_on_route` or `stops_nearby` functions.
+#' searched for with either the \code{\link{stops_on_route}} or
+#' \code{\link{stops_nearby}} functions.
 #'
 #' @param stop_id Integer stop ID.
 #' @inheritParams translate_route_type
@@ -11,6 +12,7 @@
 #' \item{`stop_id`}
 #' \item{`stop_name`}
 #' \item{`route_type`}
+#' \item{`route_type_description`}
 #' \item{`station_details_id`}
 #' \item{`station_type`}
 #' \item{`station_description`}
@@ -33,7 +35,11 @@ stop_information <- function(stop_id,
                              user_id = determine_user_id(),
                              api_key = determine_api_key()) {
   stop_id <- to_integer(stop_id)
-  route_type <- translate_route_type(route_type)
+  route_type <- translate_route_type(
+    route_type,
+    user_id = user_id,
+    api_key = api_key
+  )
   request <- add_parameters(
     glue::glue("stops/{stop_id}/route_type/{route_type}"),
     stop_location = TRUE,
@@ -60,6 +66,12 @@ stop_information <- function(stop_id,
     stop_id = stop$stop_id,
     stop_name = trimws(stop$stop_name),
     route_type = stop$route_type,
+    route_type_description = purrr::map_chr(
+      stop$route_type,
+      describe_route_type,
+      user_id = user_id,
+      api_key = api_key
+    ),
     station_details_id = stop$station_details_id,
     station_type = stop$station_type,
     station_description = stop$station_description,
@@ -95,7 +107,7 @@ stop_information <- function(stop_id,
 #'
 #' @inheritParams directions_on_route
 #' @param direction_id Optionally filter by a direction ID. These can be
-#'   obtained with the `directions_on_route` function.
+#'   obtained with the \code{\link{directions_on_route}} function.
 #' @inheritParams translate_route_type
 #' @inheritParams PTVGET
 #'
@@ -114,7 +126,11 @@ stops_on_route <- function(route_id,
                            user_id = determine_user_id(),
                            api_key = determine_api_key()) {
   route_id <- to_integer(route_id)
-  route_type <- translate_route_type(route_type)
+  route_type <- translate_route_type(
+    route_type,
+    user_id = user_id,
+    api_key = api_key
+  )
   if (!is.null(direction_id)) direction_id <- to_integer(direction_id)
   request <- add_parameters(
     glue::glue("stops/route/{route_id}/route_type/{route_type}"),
@@ -125,6 +141,12 @@ stops_on_route <- function(route_id,
   content <- response$content
 
   parsed <- map_and_rbind(content$stops, stop_to_tibble)
+  parsed$route_type_description <- purrr::map_chr(
+    parsed$route_type,
+    describe_route_type,
+    user_id = user_id,
+    api_key = api_key
+  )
   new_ptvapi_tibble(response, parsed)
 }
 
@@ -139,8 +161,8 @@ stops_on_route <- function(route_id,
 #' @param route_types Integer or character vector. Optionally filter by a vector
 #'   of route types. A route type can be provided either as a non-negative
 #'   integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
-#'   Bus". Character inputs are not case-sensitive. Use the `route_types`
-#'   function to extract a vector of all route types.
+#'   Bus". Character inputs are not case-sensitive. Use the
+#'   \code{\link{route_types}} function to extract a vector of all route types.
 #' @inheritParams PTVGET
 #'
 #' @inherit stop_to_tibble return
@@ -188,21 +210,29 @@ stops_nearby <- function(latitude,
   content <- response$content
 
   parsed <- map_and_rbind(content$stops, stop_to_tibble)
+  parsed$route_type_description <- purrr::map_chr(
+    parsed$route_type,
+    describe_route_type,
+    user_id = user_id,
+    api_key = api_key
+  )
   new_ptvapi_tibble(response, parsed)
 }
 
 #' Convert a single stop to a tibble
 #'
 #' This function is designed to parse the content returned by the interior
-#' steps of the `stops_on_route` and `stop_nearby` functions.
+#' steps of the \code{\link{stops_on_route}} and \code{\link{stops_nearby}}
+#' functions.
 #'
-#' @param stop A stop, as a list, returned by the `stops` API call.
+#' @param stop A stop, as a list, returned by a stops API call.
 #'
 #' @return A tibble with the following columns: \itemize{
 #' \item{`stop_id`}
 #' \item{`stop_name`}
 #' \item{`stop_suburb`}
 #' \item{`route_type`}
+#' \item{`route_type_description`}
 #' \item{`stop_sequence`}
 #' \item{`stop_latitude`}
 #' \item{`stop_longitude`}
@@ -217,6 +247,7 @@ stop_to_tibble <- function(stop) {
     stop_name = trimws(stop$stop_name),
     stop_suburb = stop$stop_suburb,
     route_type = stop$route_type,
+    route_type_description = NA_character_,
     stop_sequence = ifelse(
       stop$stop_sequence == 0, NA_integer_, stop$stop_sequence
     ),

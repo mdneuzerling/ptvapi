@@ -11,8 +11,8 @@ directions_on_route(
 )
 }
 \arguments{
-\item{route_id}{Integer. These can be listed and described with the \code{routes}
-function.}
+\item{route_id}{Integer. These can be listed and described with the
+\code{\link{routes}} function.}
 
 \item{user_id}{Integer or character. A user ID or devid provided by Public
 Transport Victoria. Refer to \code{?ptvapi} for more details.}
@@ -26,6 +26,7 @@ A tibble consisting of the following columns: \itemize{
 \item \code{direction_name},
 \item \code{route_id}
 \item \code{route_type}
+\item \code{route_type_description}
 \item \code{route_direction_description}
 }
 }

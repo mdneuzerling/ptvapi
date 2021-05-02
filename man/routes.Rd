@@ -15,8 +15,8 @@ routes(
 \item{route_types}{Integer or character vector. Optionally filter by a vector
 of route types. A route type can be provided either as a non-negative
 integer code, or as a character: "Tram", "Train", "Bus", "Vline" or "Night
-Bus". Character inputs are not case-sensitive. Use the \code{route_types}
-function to extract a vector of all route types.}
+Bus". Character inputs are not case-sensitive. Use the
+\code{\link{route_types}} function to extract a vector of all route types.}
 
 \item{route_name}{Character. Optionally filter by route name. Partial matches
 are accepted, and the matches are not case sensitive.}
@@ -30,13 +30,15 @@ Transport Victoria. Refer to \code{?ptvapi} for more details.}
 \value{
 A tibble of routes, with the following columns:
 \itemize{
-\item route_id
-\item route_gtfs_id
-\item route_name
-\item route_type
-\item route_number
-\item service_status
-\item service_status_timestamp
+\item \code{route_id}
+\item \code{route_gtfs_id}
+\item \code{route_name}
+\item \code{route_type}
+\item \code{route_type_description}
+\item \code{route_number}
+\item \code{geopath}
+\item \code{service_status}
+\item \code{service_status_timestamp}
 }
 }
 \description{
