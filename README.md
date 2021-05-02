@@ -6,7 +6,7 @@
 [![CRAN downloads](https://cranlogs.r-pkg.org/badges/ptvapi)](https://cran.r-project.org/package=ptvapi)
 [![Last commit](https://img.shields.io/github/last-commit/mdneuzerling/ptvapi/main.svg)](https://github.com/mdneuzerling/ptvapi/tree/main)
 [![R build status](https://github.com/mdneuzerling/ptvapi/workflows/R-CMD-check/badge.svg)](https://github.com/mdneuzerling/ptvapi/actions)
-[![Linting](https://github.com/mdneuzerling/ptvapi/workflows/linting/badge.svg)(https://github.com/mdneuzerling/ptvapi/actions?query=workflow%3Alinting)]
+[![Linting](https://github.com/mdneuzerling/ptvapi/workflows/linting/badge.svg)](https://github.com/mdneuzerling/ptvapi/actions?query=workflow%3Alinting)
 [![Codecov test coverage](https://codecov.io/gh/mdneuzerling/ptvapi/branch/main/graph/badge.svg)](https://codecov.io/gh/mdneuzerling/ptvapi?branch=main)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://choosealicense.com/licenses/mit/)
 
