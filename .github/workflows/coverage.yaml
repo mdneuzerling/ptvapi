@@ -1,0 +1,24 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+name: coverage
+
+jobs:
+  codecov:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@master
+      - name: Install dependencies
+        run: |
+          install.packages(c("remotes", "rcmdcheck", "covr"))
+          remotes::install_deps(dependencies = TRUE)
+        shell: Rscript {0}
+      - name: Test coverage
+        run: covr::codecov()
+        shell: Rscript {0}
