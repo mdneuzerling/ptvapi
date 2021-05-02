@@ -1,6 +1,6 @@
 if (identical(Sys.getenv("NOT_CRAN"), "true")) {
 
-teardown(pkg.env$route_types <- NULL)
+teardown(pkg_env$route_types <- NULL)
 
 route_types_results <- route_types()
 
