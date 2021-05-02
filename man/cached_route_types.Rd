@@ -2,7 +2,7 @@
 % Please edit documentation in R/route-types.R
 \name{cached_route_types}
 \alias{cached_route_types}
-\title{Retrieve route types, using cached values if possible and caching values otherwise}
+\title{Retrieve route types, using cached values if possible}
 \usage{
 cached_route_types(
   user_id = determine_user_id(),
@@ -28,7 +28,7 @@ possible. This function effectively wraps \code{route_types}, returning cached
 results if possible or caching results otherwise. Note that if a user
 specifically calls \code{route_types} then we do \emph{not} return cached results.
 
-We use the \code{pkg.env} as a cache, which is an environment created on package
+We use the \code{pkg_env} as a cache, which is an environment created on package
 load. This is not truly private --- users could still access this as an
 internal value. But it's effectively "out of the way".
 }

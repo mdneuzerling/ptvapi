@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Retrieve route types, using cached values if possible and caching values otherwise — cached_route_types • ptvapi</title>
+<title>Retrieve route types, using cached values if possible — cached_route_types • ptvapi</title>
 
 
 <!-- jquery -->
@@ -39,14 +39,14 @@
 
 
 
-<meta property="og:title" content="Retrieve route types, using cached values if possible and caching values otherwise — cached_route_types" />
+<meta property="og:title" content="Retrieve route types, using cached values if possible — cached_route_types" />
 <meta property="og:description" content="Route types will change extraordinarily rarely --- this would require PTV to
 add a new route type akin to &quot;train&quot; or &quot;bus&quot;. To avoid querying the API too
 much, we prefer to use cached values for route type translation wherever
 possible. This function effectively wraps route_types, returning cached
 results if possible or caching results otherwise. Note that if a user
 specifically calls route_types then we do not return cached results.
-We use the pkg.env as a cache, which is an environment created on package
+We use the pkg_env as a cache, which is an environment created on package
 load. This is not truly private --- users could still access this as an
 internal value. But it's effectively &quot;out of the way&quot;." />
 
@@ -119,7 +119,7 @@ internal value. But it's effectively &quot;out of the way&quot;." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Retrieve route types, using cached values if possible and caching values otherwise</h1>
+    <h1>Retrieve route types, using cached values if possible</h1>
     <small class="dont-index">Source: <a href='https://github.com/mdneuzerling/ptvapi/blob/master/R/route-types.R'><code>R/route-types.R</code></a></small>
     <div class="hidden name"><code>cached_route_types.Rd</code></div>
     </div>
@@ -131,7 +131,7 @@ much, we prefer to use cached values for route type translation wherever
 possible. This function effectively wraps <code>route_types</code>, returning cached
 results if possible or caching results otherwise. Note that if a user
 specifically calls <code>route_types</code> then we do <em>not</em> return cached results.</p>
-<p>We use the <code>pkg.env</code> as a cache, which is an environment created on package
+<p>We use the <code>pkg_env</code> as a cache, which is an environment created on package
 load. This is not truly private --- users could still access this as an
 internal value. But it's effectively "out of the way".</p>
     </div>
