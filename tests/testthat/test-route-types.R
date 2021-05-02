@@ -37,7 +37,7 @@ test_that("Route type description is working", {
 
 test_that("route types are being cached", {
   cached_route_types()
-  pkg.env$route_types <- c("0" = "fish")
+  pkg_env$route_types <- c("0" = "fish")
   expect_equal(describe_route_type(0), "fish")
 })
 
