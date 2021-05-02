@@ -55,11 +55,11 @@ test_that("Run 1 exists, and is unique up to route type", {
 
 run_one_train <- run_information(run_ref = "1", route_type = 0)
 
-test_that("run_information() result has class \"ptvapi\" when route_type is specified", {
+test_that("run_information() with route type result has class \"ptvapi\"", {
   expect_s3_class(run_one_train, "ptvapi")
 })
 
-test_that("run_information returns exactly one rowwhen route_type is specified", {
+test_that("run_information() with route type returns exactly one row", {
   expect_equal(nrow(run_one_train), 1)
 })
 

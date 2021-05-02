@@ -37,7 +37,7 @@ route_types <- function(user_id = determine_user_id(),
   route_type_names
 }
 
-#' Retrieve route types, using cached values if possible and caching values otherwise
+#' Retrieve route types, using cached values if possible
 #'
 #' @inheritParams PTVGET
 #'
@@ -49,7 +49,7 @@ route_types <- function(user_id = determine_user_id(),
 #' results if possible or caching results otherwise. Note that if a user
 #' specifically calls `route_types` then we do _not_ return cached results.
 #'
-#' We use the `pkg.env` as a cache, which is an environment created on package
+#' We use the `pkg_env` as a cache, which is an environment created on package
 #' load. This is not truly private --- users could still access this as an
 #' internal value. But it's effectively "out of the way".
 #'
@@ -58,10 +58,10 @@ route_types <- function(user_id = determine_user_id(),
 #' @keywords internal
 cached_route_types <- function(user_id = determine_user_id(),
                                api_key = determine_api_key())  {
-  if (is.null(pkg.env$route_types)) {
-    pkg.env$route_types <- route_types(user_id = user_id, api_key = api_key)
+  if (is.null(pkg_env$route_types)) {
+    pkg_env$route_types <- route_types(user_id = user_id, api_key = api_key)
   }
-  pkg.env$route_types
+  pkg_env$route_types
 }
 
 #' Translate a route type input into a numerical route type
