@@ -11,6 +11,8 @@ name: coverage
 jobs:
   codecov:
     runs-on: macOS-latest
+    env:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@master
