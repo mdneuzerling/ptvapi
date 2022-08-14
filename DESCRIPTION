@@ -1,6 +1,6 @@
 Package: ptvapi
 Title: Access the 'Public Transport Victoria' Timetable API
-Version: 2.0.1
+Version: 2.0.2
 Authors@R: person(given = "David",
                   family = "Neuzerling",
                   role = c("aut", "cre", "cph"),
@@ -12,7 +12,7 @@ Description: Access the 'Public Transport Victoria' Timetable API
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.1.9000
 Imports: 
     httr,
     glue,

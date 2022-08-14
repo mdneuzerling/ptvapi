@@ -1,4 +1,4 @@
-#' Information for a all outlets
+#' Information for all outlets
 #'
 #' @details
 #' The `outlet_name` reported here is more accurately described as an outlet

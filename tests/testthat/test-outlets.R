@@ -5,10 +5,10 @@ test_that("outlets result has class \"ptvapi\"", {
   expect_s3_class(all_outlets, "ptvapi")
 })
 
-test_that("We can find the Southern Cross Station outlet", {
-  southern_cross_outlet <- all_outlets %>%
-    filter(outlet_business == "Southern Cross Station")
-  expect_equal(nrow(southern_cross_outlet), 1)
+test_that("We can find a 7-Eleven", {
+  expect_true(
+    any(grepl("7-Eleven", all_outlets$outlet_business))
+  )
 })
 
 outlets_near_flinders <- outlets_nearby(
@@ -46,7 +46,7 @@ test_that("outlets_nearby filtered by max_distance", {
     longitude = 144.9671,
     max_distance = 1000
   )
-  expect_true("Collins and Russell - Exhibition" %in% max_1000$outlet_name)
-  expect_false("Collins and Russell - Exhibition" %in% max_100$outlet_name)
+  expect_true("18 Elizabeth St" %in% max_1000$outlet_name)
+  expect_false("18 Elizabeth St" %in% max_100$outlet_name)
 })
 }

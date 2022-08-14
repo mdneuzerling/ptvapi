@@ -2,7 +2,7 @@
 % Please edit documentation in R/outlets.R
 \name{outlets}
 \alias{outlets}
-\title{Information for a all outlets}
+\title{Information for all outlets}
 \usage{
 outlets(user_id = determine_user_id(), api_key = determine_api_key())
 }
@@ -33,7 +33,7 @@ A tibble with the following columns: \itemize{
 }
 }
 \description{
-Information for a all outlets
+Information for all outlets
 }
 \details{
 The \code{outlet_name} reported here is more accurately described as an outlet
