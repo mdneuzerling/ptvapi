@@ -7,7 +7,7 @@
 [![Last commit](https://img.shields.io/github/last-commit/mdneuzerling/ptvapi/main.svg)](https://github.com/mdneuzerling/ptvapi/tree/main)
 [![R build status](https://github.com/mdneuzerling/ptvapi/workflows/R-CMD-check/badge.svg)](https://github.com/mdneuzerling/ptvapi/actions)
 [![Lint](https://github.com/mdneuzerling/ptvapi/workflows/lint/badge.svg)](https://github.com/mdneuzerling/ptvapi/actions?query=workflow%3Alint)
-[![Codecov test coverage](https://codecov.io/gh/mdneuzerling/ptvapi/branch/main/graph/badge.svg)](https://codecov.io/gh/mdneuzerling/ptvapi?branch=main)
+[![Codecov test coverage](https://codecov.io/gh/mdneuzerling/ptvapi/branch/main/graph/badge.svg)](https://app.codecov.io/gh/mdneuzerling/ptvapi?branch=main))
 [![license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://choosealicense.com/licenses/mit/)
 
 <!-- badges: end -->
