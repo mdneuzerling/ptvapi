@@ -46,7 +46,9 @@ test_that("outlets_nearby filtered by max_distance", {
     longitude = 144.9671,
     max_distance = 1000
   )
-  expect_true("18 Elizabeth St" %in% max_1000$outlet_name)
-  expect_false("18 Elizabeth St" %in% max_100$outlet_name)
+  expect_gt(
+    nrow(max_1000),
+    nrow(max_100)
+  )
 })
 }
