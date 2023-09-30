@@ -44,8 +44,5 @@
 #' # Upcoming train departures from Flinders Street Station
 #' departures(stop_id = 1071, route_type = "Train")
 #' }
-#'
-#' @docType package
-#' @name ptvapi
-NULL
+"_PACKAGE"
 # nolint end

@@ -1,3 +1,7 @@
+# ptvapi 2.0.4
+
+* Documented package with "_PACKAGE" sentinel to meet new CRAN requirements.
+
 # ptvapi 2.0.3
 
 * Fixed 301 link in README
