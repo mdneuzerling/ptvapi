@@ -5,7 +5,7 @@
 #' will contain a list of `geopaths` for each route. This function is designed
 #' to parse _one_ of those geopaths into a tibble.
 #'
-#' @param route A `geopaths` object, as a list
+#' @param geopath A `geopaths` object, as a list
 #'
 #' @return A tibble of routes, with the following columns:
 #' \itemize{

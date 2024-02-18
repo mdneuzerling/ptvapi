@@ -7,7 +7,7 @@
 run_to_tibble(run)
 }
 \arguments{
-\item{route}{A run, as a list, returned by the \code{runs} API call.}
+\item{run}{A run, as a list, returned by the \code{runs} API call.}
 }
 \value{
 A tibble with the following columns: \itemize{

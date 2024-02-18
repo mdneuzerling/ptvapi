@@ -1,6 +1,6 @@
 Package: ptvapi
 Title: Access the 'Public Transport Victoria' Timetable API
-Version: 2.0.4
+Version: 2.0.5
 Authors@R: person(given = "David",
                   family = "Neuzerling",
                   role = c("aut", "cre", "cph"),

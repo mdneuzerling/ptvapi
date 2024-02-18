@@ -7,7 +7,7 @@
 geopath_to_tibble(geopath)
 }
 \arguments{
-\item{route}{A \code{geopaths} object, as a list}
+\item{geopath}{A \code{geopaths} object, as a list}
 }
 \value{
 A tibble of routes, with the following columns:

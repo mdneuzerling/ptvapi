@@ -135,7 +135,7 @@ runs_on_route <- function(route_id,
 #' of the \code{\link{runs_on_route}} and \code{\link{run_information}}
 #' functions.
 #'
-#' @param route A run, as a list, returned by the `runs` API call.
+#' @param run A run, as a list, returned by the `runs` API call.
 #'
 #' @return A tibble with the following columns: \itemize{
 #' \item `run_id` (deprecated, use `run_ref` instead)
