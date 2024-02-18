@@ -93,7 +93,7 @@ map_and_rbind <- function(.x, .f, ...) {
 #' notified, so that they can align the functions against the API schema.
 #'
 #' @param received_attributes A character vector of attributes, in order.
-#' @param expected_colnames A character vector of expected attributes, in
+#' @param expected_attributes A character vector of expected attributes, in
 #'   order.
 #'
 #' @return An error if the column names are not as expected.

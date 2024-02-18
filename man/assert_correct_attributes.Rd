@@ -9,7 +9,7 @@ assert_correct_attributes(received_attributes, expected_attributes)
 \arguments{
 \item{received_attributes}{A character vector of attributes, in order.}
 
-\item{expected_colnames}{A character vector of expected attributes, in
+\item{expected_attributes}{A character vector of expected attributes, in
 order.}
 }
 \value{
