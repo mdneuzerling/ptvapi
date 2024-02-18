@@ -15,6 +15,9 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      NOT_CRAN: true
+      PTV_USER_ID: ${{ secrets.PTV_USER_ID }}
+      PTV_API_KEY: ${{ secrets.PTV_API_KEY }}
     steps:
       - uses: actions/checkout@v3
 
