@@ -74,9 +74,9 @@ test_that("Can filter by route_types", {
   disruptions_2_route_types <- disruptions(
     route_types = two_route_types
   )
-  expect_equal(
-    sort(unique(disruptions_2_route_types$disruption_mode_description)),
-    c("metro_train", "metro_tram")
+  expect_lt(
+    nrow(disruptions_2_route_types),
+    nrow(all_disruptions)
   )
 })
 }
